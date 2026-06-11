@@ -3,15 +3,18 @@ import type { Section, Site } from '../types'
 import { themePresets } from '../templates'
 import { renderSiteHtml } from '../renderHtml'
 import SectionForm from './SectionForm'
+import ChatPanel from './ChatPanel'
 
 interface Props {
   site: Site
+  initialAssistantMessage?: string | null
   onChange: (site: Site) => void
   onBack: () => void
 }
 
-export default function Editor({ site, onChange, onBack }: Props) {
+export default function Editor({ site, initialAssistantMessage, onChange, onBack }: Props) {
   const [device, setDevice] = useState<'pc' | 'sp'>('pc')
+  const [tab, setTab] = useState<'chat' | 'edit'>('chat')
   const html = useMemo(() => renderSiteHtml(site), [site])
 
   const updateSection = (index: number, section: Section) => {
@@ -26,6 +29,11 @@ export default function Editor({ site, onChange, onBack }: Props) {
     const sections = site.sections.slice()
     ;[sections[index], sections[target]] = [sections[target], sections[index]]
     onChange({ ...site, sections })
+  }
+
+  const removeSection = (index: number) => {
+    if (!confirm('このセクションを削除しますか？')) return
+    onChange({ ...site, sections: site.sections.filter((_, i) => i !== index) })
   }
 
   const downloadHtml = () => {
@@ -67,62 +75,102 @@ export default function Editor({ site, onChange, onBack }: Props) {
             </button>
           </div>
           <button className="btn primary" onClick={downloadHtml}>
-            HTMLをダウンロード
+            公開用HTMLをダウンロード
           </button>
         </div>
       </header>
 
       <div className="editor-body">
         <aside className="editor-panel">
-          <section className="panel-block">
-            <h2>カラーテーマ</h2>
-            <div className="theme-list">
-              {themePresets.map((preset) => {
-                const selected = preset.theme.primary === site.theme.primary
-                return (
-                  <button
-                    key={preset.name}
-                    className={`theme-chip ${selected ? 'selected' : ''}`}
-                    onClick={() => onChange({ ...site, theme: { ...preset.theme } })}
-                    title={preset.name}
-                  >
-                    <span className="swatch" style={{ background: preset.theme.primary }} />
-                    <span className="swatch" style={{ background: preset.theme.accent }} />
-                    {preset.name}
-                  </button>
-                )
-              })}
-            </div>
-          </section>
+          <div className="panel-tabs">
+            <button
+              className={`panel-tab ${tab === 'chat' ? 'active' : ''}`}
+              onClick={() => setTab('chat')}
+            >
+              🤖 AIチャット
+            </button>
+            <button
+              className={`panel-tab ${tab === 'edit' ? 'active' : ''}`}
+              onClick={() => setTab('edit')}
+            >
+              ✏️ 直接編集
+            </button>
+          </div>
 
-          {site.sections.map((section, i) => (
-            <section key={i} className="panel-block">
-              <div className="panel-block-header">
-                <h2>{sectionLabel(section)}</h2>
-                <div className="move-buttons">
-                  <button className="btn small" onClick={() => moveSection(i, -1)} disabled={i === 0}>
-                    ↑
-                  </button>
-                  <button
-                    className="btn small"
-                    onClick={() => moveSection(i, 1)}
-                    disabled={i === site.sections.length - 1}
-                  >
-                    ↓
-                  </button>
+          {tab === 'chat' ? (
+            <ChatPanel
+              site={site}
+              initialAssistantMessage={initialAssistantMessage}
+              onChange={onChange}
+            />
+          ) : (
+            <div className="edit-tab">
+              <section className="panel-block">
+                <h2>サイト設定</h2>
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    checked={site.showCallButton}
+                    onChange={(e) => onChange({ ...site, showCallButton: e.target.checked })}
+                  />
+                  「今すぐ電話する」ボタンを表示（スマホでワンタップ発信）
+                </label>
+              </section>
+
+              <section className="panel-block">
+                <h2>カラーテーマ</h2>
+                <div className="theme-list">
+                  {themePresets.map((preset) => {
+                    const selected = preset.theme.primary === site.theme.primary
+                    return (
+                      <button
+                        key={preset.name}
+                        className={`theme-chip ${selected ? 'selected' : ''}`}
+                        onClick={() => onChange({ ...site, theme: { ...preset.theme } })}
+                        title={preset.name}
+                      >
+                        <span className="swatch" style={{ background: preset.theme.primary }} />
+                        <span className="swatch" style={{ background: preset.theme.accent }} />
+                        {preset.name}
+                      </button>
+                    )
+                  })}
                 </div>
-              </div>
-              <SectionForm section={section} onChange={(s) => updateSection(i, s)} />
-            </section>
-          ))}
+              </section>
+
+              {site.sections.map((section, i) => (
+                <section key={i} className="panel-block">
+                  <div className="panel-block-header">
+                    <h2>{sectionLabel(section)}</h2>
+                    <div className="move-buttons">
+                      <button
+                        className="btn small"
+                        onClick={() => moveSection(i, -1)}
+                        disabled={i === 0}
+                      >
+                        ↑
+                      </button>
+                      <button
+                        className="btn small"
+                        onClick={() => moveSection(i, 1)}
+                        disabled={i === site.sections.length - 1}
+                      >
+                        ↓
+                      </button>
+                      <button className="btn small danger" onClick={() => removeSection(i)}>
+                        ✕
+                      </button>
+                    </div>
+                  </div>
+                  <SectionForm section={section} onChange={(s) => updateSection(i, s)} />
+                </section>
+              ))}
+            </div>
+          )}
         </aside>
 
         <main className="preview-area">
-          <iframe
-            title="プレビュー"
-            className={`preview-frame ${device}`}
-            srcDoc={html}
-          />
+          <iframe title="プレビュー" className={`preview-frame ${device}`} srcDoc={html} />
         </main>
       </div>
     </div>
@@ -136,7 +184,9 @@ function sectionLabel(section: Section): string {
     case 'about':
       return '紹介文'
     case 'services':
-      return 'サービス・メニュー'
+      return 'サービス・特徴'
+    case 'products':
+      return '商品・メニュー'
     case 'news':
       return 'お知らせ'
     case 'contact':

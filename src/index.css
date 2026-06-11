@@ -364,3 +364,155 @@ label textarea {
   flex-shrink: 0;
   margin: 0 auto;
 }
+
+/* ---------- editor tabs ---------- */
+
+.panel-tabs {
+  display: flex;
+  gap: 6px;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 5;
+  padding-bottom: 4px;
+}
+
+.panel-tab {
+  flex: 1;
+  border: 1px solid var(--ui-border);
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  color: #64748b;
+}
+
+.panel-tab.active {
+  background: var(--ui-primary);
+  border-color: var(--ui-primary);
+  color: #fff;
+}
+
+.edit-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---------- chat ---------- */
+
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: 10px;
+}
+
+.chat-log {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 2px;
+  min-height: 200px;
+}
+
+.chat-message {
+  max-width: 90%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.chat-message.user {
+  align-self: flex-end;
+  background: var(--ui-primary);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-message.assistant {
+  align-self: flex-start;
+  background: #f1f5f9;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.chat-input-row textarea {
+  flex: 1;
+  resize: none;
+}
+
+.chat-note {
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+/* ---------- misc ---------- */
+
+.mode-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.mode-toggle .btn {
+  flex: 1;
+}
+
+.hint {
+  font-size: 0.78rem;
+  color: #64748b;
+  line-height: 1.7;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  width: auto;
+}
+
+.image-input {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.image-input-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 120px;
+  border-radius: 8px;
+  border: 1px solid var(--ui-border);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.image-input-row {
+  display: flex;
+  gap: 8px;
+}

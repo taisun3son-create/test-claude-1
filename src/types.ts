@@ -22,6 +22,19 @@ export interface ServicesSection {
   items: ServiceItem[]
 }
 
+export interface ProductItem {
+  name: string
+  description: string
+  price: string
+  imageUrl: string
+}
+
+export interface ProductsSection {
+  type: 'products'
+  heading: string
+  items: ProductItem[]
+}
+
 export interface NewsItem {
   date: string
   title: string
@@ -40,12 +53,14 @@ export interface ContactSection {
   phone: string
   email: string
   hours: string
+  showMap: boolean
 }
 
 export type Section =
   | HeroSection
   | AboutSection
   | ServicesSection
+  | ProductsSection
   | NewsSection
   | ContactSection
 
@@ -64,5 +79,12 @@ export interface Site {
   templateId: string
   theme: Theme
   sections: Section[]
+  fontScale: number
+  showCallButton: boolean
   updatedAt: string
+}
+
+export interface ChatMessage {
+  role: 'user' | 'assistant'
+  text: string
 }
