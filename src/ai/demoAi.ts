@@ -26,6 +26,7 @@ interface Industry {
   label: string
   suggestedName: string
   theme: Theme
+  designNote: string
   catchcopies: string[]
   subtitle: string
   aboutHeading: string
@@ -43,7 +44,8 @@ const industries: Industry[] = [
     keywords: /工具|金物|ホームセンター|資材|建材/,
     label: '工具店',
     suggestedName: '〇〇工具店',
-    theme: { primary: '#1e3a5f', accent: '#e8a33d', background: '#f7f9fb', text: '#2b2b2b' },
+    theme: { primary: '#1e3a5f', accent: '#e8a33d', background: '#f7f9fb', text: '#2b2b2b', fontStyle: 'sans' },
+    designNote: '紺色を基調にした、信頼感のあるしっかりとしたデザイン',
     catchcopies: [
       '確かな道具を、確かな目利きで。',
       'プロの仕事を支える、頼れる工具がここに。',
@@ -72,7 +74,8 @@ const industries: Industry[] = [
     keywords: /飲食|レストラン|ラーメン|食堂|カフェ|喫茶|居酒屋|寿司|焼肉|パン|ベーカリー|弁当|うどん|そば/,
     label: '飲食店',
     suggestedName: '〇〇食堂',
-    theme: { primary: '#7b2d12', accent: '#e8a33d', background: '#fff8f0', text: '#3a3a3a' },
+    theme: { primary: '#7b2d12', accent: '#e8a33d', background: '#fff8f0', text: '#3a3a3a', fontStyle: 'sans' },
+    designNote: '料理写真が映える、あたたかみのある写真重視のデザイン',
     catchcopies: [
       '今日もまた食べたくなる、あの味を。',
       '素材と手間ひまが、おいしさの理由です。',
@@ -101,7 +104,8 @@ const industries: Industry[] = [
     keywords: /美容|サロン|ヘア|ネイル|エステ|まつげ|理容|床屋/,
     label: '美容室',
     suggestedName: 'ヘアサロン〇〇',
-    theme: { primary: '#7b2d3b', accent: '#c9a227', background: '#fff8f5', text: '#3a3a3a' },
+    theme: { primary: '#6b4a52', accent: '#c9a227', background: '#fbf7f6', text: '#3a3a3a', fontStyle: 'serif' },
+    designNote: '明朝体を使った、洗練された上品なデザイン',
     catchcopies: [
       'あなたらしさを、もっと素敵に。',
       '髪が変わると、毎日が変わる。',
@@ -130,7 +134,8 @@ const industries: Industry[] = [
     keywords: /整体|接骨|整骨|鍼灸|マッサージ|カイロ|リラクゼーション/,
     label: '整体院',
     suggestedName: '〇〇整体院',
-    theme: { primary: '#2d6a4f', accent: '#d4a373', background: '#f6faf7', text: '#333333' },
+    theme: { primary: '#2d6a4f', accent: '#d4a373', background: '#f6faf7', text: '#333333', fontStyle: 'sans' },
+    designNote: '緑を基調にした、清潔感と安心感のあるデザイン',
     catchcopies: [
       'つらい痛みに、根本からアプローチ。',
       '体が軽くなると、心も軽くなる。',
@@ -155,11 +160,42 @@ const industries: Industry[] = [
     hours: '9:00〜20:00（日曜定休・予約優先）',
   },
   {
+    id: 'wagashi',
+    keywords: /和菓子|和スイーツ|羊羹|ようかん|大福|団子|どら焼き|餅|もち|甘味|茶舗|茶屋|和食|割烹|料亭|旅館/,
+    label: '和菓子店',
+    suggestedName: '〇〇庵',
+    theme: { primary: '#3a2b22', accent: '#a8893f', background: '#f7f1e6', text: '#3a3128', fontStyle: 'serif' },
+    designNote: '明朝体と生成り色を使った、上品で落ち着いた和風デザイン',
+    catchcopies: [
+      '季節を映す、ひと口の和。',
+      '伝統の技と、四季の彩りを。',
+      '心を込めた、手づくりの味わい。',
+    ],
+    subtitle: '昔ながらの製法を守り、季節の素材で和菓子をお作りしています',
+    aboutHeading: '私たちのこだわり',
+    aboutBody:
+      '創業より受け継がれた製法と、厳選した素材を大切にしています。四季折々の自然をうつした和菓子で、日々のひとときに彩りを添えられれば幸いです。',
+    servicesHeading: '当店の特徴',
+    services: [
+      { title: '季節の生菓子', description: '四季の移ろいを表現した、職人手づくりの上生菓子。' },
+      { title: '進物・贈答', description: 'お祝いやご挨拶に。熨斗・包装も承ります。' },
+      { title: '茶席のご用意', description: '店内でお抹茶とともに和菓子をお楽しみいただけます。' },
+    ],
+    productsHeading: 'お品書き',
+    products: [
+      { name: '上生菓子（季節の意匠）', description: 'その季節ならではの彩りをお楽しみください。', price: '¥380' },
+      { name: '本煉羊羹', description: '丁寧に炊き上げた、深い味わいの定番。', price: '¥1,200' },
+      { name: '豆大福', description: '北海道産小豆と赤えんどう豆を使用。', price: '¥220' },
+    ],
+    hours: '9:00〜18:00（火曜定休）',
+  },
+  {
     id: 'company',
     keywords: /会社|企業|法人|事務所|士業|建設|工務店|不動産|コンサル/,
     label: '会社',
     suggestedName: '株式会社〇〇',
-    theme: { primary: '#1e3a5f', accent: '#e8a33d', background: '#ffffff', text: '#333333' },
+    theme: { primary: '#1e3a5f', accent: '#e8a33d', background: '#ffffff', text: '#333333', fontStyle: 'sans' },
+    designNote: '紺色を基調にした、誠実で信頼感のあるデザイン',
     catchcopies: [
       '信頼と実績で、お客様のビジネスを支えます。',
       '地域とともに、未来をつくる。',
@@ -226,14 +262,18 @@ export function generateSiteContent(prompt: string): GeneratedContent {
     },
   ]
 
-  // 色の指定があれば反映
+  // 色の指定があれば反映（指定がなければ業種に合ったデザインを自動提案）
   const color = matchColor(prompt)
   const theme = color ? color.theme : industry.theme
 
   const replyParts = [`${industry.label}向けのホームページを作成しました。`]
-  if (color) replyParts.push(color.note + 'にしました。')
+  if (color) {
+    replyParts.push(color.note + 'にしました。')
+  } else {
+    replyParts.push(`${industry.designNote}にしました。`)
+  }
   replyParts.push(
-    'チャットで「文字を大きくして」「赤色にして」「地図を表示して」のように話しかけると修正できます。住所や電話番号は「直接編集」タブから書き換えてください。',
+    'メインビジュアルに大きな写真を入れると、より魅力が伝わります（「直接編集」タブの背景画像から設定できます）。チャットで「文字を大きくして」「和風にして」「地図を表示して」のように話しかけると修正できます。',
   )
 
   return {
@@ -255,9 +295,14 @@ interface ColorRule {
 
 const colorRules: ColorRule[] = [
   {
+    pattern: /和風|和モダン|和テイスト|日本風|純和風|和の/,
+    note: '明朝体と生成り色を使った和風の配色',
+    theme: { primary: '#3a2b22', accent: '#a8893f', background: '#f7f1e6', text: '#3a3128', fontStyle: 'serif' },
+  },
+  {
     pattern: /高級|ラグジュアリー|上品|エレガント/,
     note: '黒と金を基調にした高級感のある配色',
-    theme: { primary: '#1a1a2e', accent: '#c9a227', background: '#faf7f0', text: '#2b2b2b' },
+    theme: { primary: '#1a1a2e', accent: '#c9a227', background: '#faf7f0', text: '#2b2b2b', fontStyle: 'serif' },
   },
   {
     pattern: /青|ブルー|ネイビー|紺|信頼/,
@@ -317,9 +362,8 @@ const rules: Rule[] = [
       note: '内容を作り直しました',
     }
   },
-  // 配色の変更
+  // 配色・デザインの変更（「和風にして」「高級感のある感じ」「青にして」など）
   (site, msg) => {
-    if (!/色|カラー|デザイン|感じ|雰囲気|高級|信頼|かわいい|可愛い|シック|ナチュラル/.test(msg)) return null
     const color = matchColor(msg)
     if (!color) return null
     return { site: { ...site, theme: { ...color.theme } }, note: color.note + 'に変更しました' }

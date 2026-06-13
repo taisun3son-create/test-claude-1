@@ -72,6 +72,8 @@ export interface Theme {
   accent: string
   background: string
   text: string
+  // 'serif' = 明朝体（和風・上品）、'sans' = ゴシック体（モダン・信頼感）。省略時は sans。
+  fontStyle?: 'serif' | 'sans'
 }
 
 export interface Site {

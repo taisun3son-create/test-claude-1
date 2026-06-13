@@ -9,11 +9,13 @@ export interface Template {
 }
 
 export const themePresets: { name: string; theme: Theme }[] = [
-  { name: 'ネイビー', theme: { primary: '#1e3a5f', accent: '#e8a33d', background: '#ffffff', text: '#333333' } },
-  { name: 'グリーン', theme: { primary: '#2d6a4f', accent: '#d4a373', background: '#fefae0', text: '#333333' } },
-  { name: 'ワイン', theme: { primary: '#7b2d3b', accent: '#c9a227', background: '#fff8f0', text: '#3a3a3a' } },
-  { name: 'モノクロ', theme: { primary: '#212529', accent: '#868e96', background: '#f8f9fa', text: '#212529' } },
-  { name: 'スカイ', theme: { primary: '#0077b6', accent: '#ffb703', background: '#ffffff', text: '#333333' } },
+  { name: 'ネイビー', theme: { primary: '#1e3a5f', accent: '#e8a33d', background: '#ffffff', text: '#333333', fontStyle: 'sans' } },
+  { name: 'グリーン', theme: { primary: '#2d6a4f', accent: '#d4a373', background: '#fefae0', text: '#333333', fontStyle: 'sans' } },
+  { name: 'ワイン', theme: { primary: '#7b2d3b', accent: '#c9a227', background: '#fff8f0', text: '#3a3a3a', fontStyle: 'sans' } },
+  { name: 'モノクロ', theme: { primary: '#212529', accent: '#868e96', background: '#f8f9fa', text: '#212529', fontStyle: 'sans' } },
+  { name: 'スカイ', theme: { primary: '#0077b6', accent: '#ffb703', background: '#ffffff', text: '#333333', fontStyle: 'sans' } },
+  { name: '和モダン', theme: { primary: '#3a2b22', accent: '#a8893f', background: '#f7f1e6', text: '#3a3128', fontStyle: 'serif' } },
+  { name: 'エレガント', theme: { primary: '#1a1a2e', accent: '#c9a227', background: '#faf7f0', text: '#2b2b2b', fontStyle: 'serif' } },
 ]
 
 export const templates: Template[] = [

@@ -115,6 +115,27 @@ export default function Editor({ site, initialAssistantMessage, onChange, onBack
                   />
                   「今すぐ電話する」ボタンを表示（スマホでワンタップ発信）
                 </label>
+                <p className="field-label" style={{ marginTop: 12 }}>
+                  書体
+                </p>
+                <div className="device-toggle">
+                  <button
+                    className={`btn ${site.theme.fontStyle === 'serif' ? 'primary' : ''}`}
+                    onClick={() =>
+                      onChange({ ...site, theme: { ...site.theme, fontStyle: 'serif' } })
+                    }
+                  >
+                    明朝体（和風・上品）
+                  </button>
+                  <button
+                    className={`btn ${site.theme.fontStyle !== 'serif' ? 'primary' : ''}`}
+                    onClick={() =>
+                      onChange({ ...site, theme: { ...site.theme, fontStyle: 'sans' } })
+                    }
+                  >
+                    ゴシック体（モダン）
+                  </button>
+                </div>
               </section>
 
               <section className="panel-block">
