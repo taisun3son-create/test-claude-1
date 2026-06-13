@@ -160,12 +160,24 @@ export default function SectionForm({ section, onChange }: Props) {
                   onChange({ ...section, items })
                 }}
               />
+              <ImageInput
+                label="写真"
+                value={item.imageUrl ?? ''}
+                onChange={(imageUrl) => {
+                  const items = section.items.slice()
+                  items[i] = { ...item, imageUrl }
+                  onChange({ ...section, items })
+                }}
+              />
             </div>
           ))}
           <button
             className="btn small"
             onClick={() =>
-              onChange({ ...section, items: [...section.items, { title: '', description: '' }] })
+              onChange({
+                ...section,
+                items: [...section.items, { title: '', description: '', imageUrl: '' }],
+              })
             }
           >
             ＋ 項目を追加

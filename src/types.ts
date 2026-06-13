@@ -14,6 +14,7 @@ export interface AboutSection {
 export interface ServiceItem {
   title: string
   description: string
+  imageUrl?: string
 }
 
 export interface ServicesSection {

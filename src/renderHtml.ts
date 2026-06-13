@@ -40,6 +40,7 @@ function renderSection(section: Section): string {
         .map(
           (item) => `
       <div class="card">
+        ${item.imageUrl ? `<img class="card-img" src="${esc(item.imageUrl)}" alt="${esc(item.title)}" loading="lazy">` : ''}
         <h3>${esc(item.title)}</h3>
         <p>${nl2br(item.description)}</p>
       </div>`,
@@ -187,6 +188,14 @@ export function renderSiteHtml(site: Site): string {
     box-shadow: 0 2px 8px rgba(0,0,0,.06);
   }
   .card h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.1rem; }
+  .card-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    display: block;
+  }
   .products {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
