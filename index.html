@@ -59,28 +59,28 @@
           "name": "おためし（初回限定）",
           "price": "5500",
           "priceCurrency": "JPY",
-          "description": "2時間・初回限定のお試しプラン。継続契約は不要です。"
+          "description": "初回限定・2時間のお試しプラン。2時間5,500円に交通費900円を加えた6,400円です。継続契約は不要です。"
         },
         {
           "@type": "Offer",
           "name": "定期プラン（週1回）",
           "price": "2750",
           "priceCurrency": "JPY",
-          "description": "1時間あたりの料金（2時間から）。曜日・時間・担当を固定してお伺いします。"
+          "description": "1時間あたりの料金。ご利用は2時間からで、別途1回900円の交通費がかかります。曜日・時間・担当を固定してお伺いします。"
         },
         {
           "@type": "Offer",
           "name": "定期プラン（隔週）",
           "price": "3080",
           "priceCurrency": "JPY",
-          "description": "1時間あたりの料金（2時間から）。"
+          "description": "1時間あたりの料金。ご利用は2時間からで、別途1回900円の交通費がかかります。"
         },
         {
           "@type": "Offer",
           "name": "単発でのご利用",
           "price": "3630",
           "priceCurrency": "JPY",
-          "description": "1時間あたりの料金（2時間から）。大掃除・衣替え・来客前などに。"
+          "description": "1時間あたりの料金。ご利用は2時間からで、別途1回900円の交通費がかかります。大掃除・衣替え・来客前などに。"
         }
       ]
     },
@@ -290,7 +290,7 @@ button{font:inherit}
 
 /* hamburger */
 .burger{
-  display:none;align-items:center;gap:.45rem;
+  display:none;align-items:center;gap:.45rem;white-space:nowrap;
   border:2px solid var(--line);background:var(--white);color:var(--sumi);
   border-radius:10px;padding:.5rem .7rem;cursor:pointer;font-weight:700;font-size:.78rem;
   min-height:46px;
@@ -337,16 +337,21 @@ button{font:inherit}
 /* ============ hero ============ */
 .hero{position:relative;overflow:hidden;padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(3rem,7vw,5rem)}
 .hero__grid{display:grid;grid-template-columns:1.14fr .86fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
+.hero__kicker{
+  display:inline-block;background:var(--ai);color:#fff;
+  font-size:clamp(.95rem,1.9vw,1.14rem);font-weight:700;letter-spacing:.02em;
+  padding:.6rem 1.2rem;border-radius:11px;margin-bottom:1.25rem;box-shadow:var(--shadow);
+}
 .hero__badge{
   display:inline-block;background:var(--take-l);color:var(--take-d);
-  font-size:.8rem;font-weight:700;padding:.4rem 1rem;border-radius:999px;margin-bottom:1.3rem;
+  font-size:.84rem;font-weight:700;padding:.5rem 1.1rem;border-radius:999px;margin-top:1.7rem;
 }
 .hero h1{font-size:clamp(1.95rem,5vw,3.05rem);line-height:1.34;letter-spacing:.005em}
 .hero h1 .accent{
   background:linear-gradient(transparent 62%,var(--hinoki) 62% 92%,transparent 92%);
 }
 .hero__lead{margin-top:1.4rem;font-size:1.06rem;color:var(--sumi-2);max-width:31rem}
-.hero__cta{display:flex;gap:.8rem;margin-top:2rem;flex-wrap:wrap}
+.hero__cta{display:flex;gap:.8rem;margin-top:1rem;flex-wrap:wrap}
 .hero__note{margin-top:1rem;font-size:.82rem;color:var(--sumi-2);font-weight:700}
 
 /* shoji signature */
@@ -409,25 +414,43 @@ button{font:inherit}
 }
 
 /* ============ サービス・料金 ============ */
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem}
 .plan{
   background:var(--white);border:2px solid var(--line);border-radius:var(--r);
-  padding:1.8rem 1.5rem 1.6rem;display:flex;flex-direction:column;position:relative;
+  padding:1.7rem 1.25rem 1.5rem;display:flex;flex-direction:column;position:relative;
 }
 .plan--pick{border-color:var(--take);box-shadow:var(--shadow)}
 .plan__tag{
-  position:absolute;top:-15px;left:1.5rem;background:var(--take);color:#fff;
+  position:absolute;top:-15px;left:1.25rem;background:var(--take);color:#fff;
   font-size:.74rem;font-weight:700;padding:.3rem .9rem;border-radius:999px;letter-spacing:.06em;
 }
 .plan h3{font-size:1.3rem;margin-bottom:.3rem}
 .plan__for{font-size:.82rem;color:var(--sumi-2);font-weight:700;margin-bottom:1.1rem}
 .plan__price{display:flex;align-items:baseline;gap:.25rem;padding-bottom:1rem;border-bottom:1px dashed var(--line);flex-wrap:wrap}
-.plan__price b{font-size:2.3rem;font-family:var(--mincho);line-height:1;color:var(--ai)}
+.plan__price b{font-size:2.15rem;font-family:var(--mincho);line-height:1;color:var(--ai)}
 .plan__price span{font-size:.82rem;font-weight:700;color:var(--sumi-2)}
-.plan__list{margin:1.1rem 0 1.6rem;font-size:.9rem;display:grid;gap:.55rem}
+.plan__total{
+  margin-top:1rem;background:var(--paper);border:1px solid var(--line);
+  border-radius:10px;padding:.75rem .85rem;
+}
+.plan__total>span{display:block;font-size:.74rem;font-weight:700;color:var(--sumi-2)}
+.plan__calc{
+  font-size:.79rem;color:var(--sumi-2);font-weight:700;margin:.25rem 0 .35rem;
+  padding-bottom:.35rem;border-bottom:1px dashed var(--line);line-height:1.6;
+}
+.plan__calc em{font-style:normal;color:var(--take);font-weight:900;margin:0 .2em}
+.plan__total>b{
+  display:block;font-family:var(--mincho);font-size:1.32rem;color:var(--ai);line-height:1.3;
+}
+.plans__note{
+  margin-top:1.6rem;background:var(--paper);border-radius:var(--r);
+  padding:1.1rem 1.3rem;font-size:.88rem;color:var(--sumi-2);line-height:1.9;
+}
+.plans__note b{color:var(--ai);font-size:1.02rem}
+.plan__list{margin:1.1rem 0 1.5rem;font-size:.88rem;display:grid;gap:.5rem}
 .plan__list li{display:flex;gap:.55rem;line-height:1.7}
 .plan__list li::before{content:"✓";color:var(--take);font-weight:900;flex:none}
-.plan .btn{margin-top:auto}
+.plan .btn{margin-top:auto;font-size:.94rem;padding-inline:.8rem}
 
 .opt{margin-top:2.6rem;background:var(--white);border:2px solid var(--line);border-radius:var(--r);padding:1.6rem}
 .opt h3{font-size:1.15rem;margin-bottom:1rem}
@@ -633,8 +656,9 @@ button{font:inherit}
 }
 @media (max-width:1000px){
   .hero__grid{grid-template-columns:1fr}
-  .shoji{aspect-ratio:1/.68;order:-1}
-  .plans,.voices{grid-template-columns:1fr}
+  .shoji{aspect-ratio:1/.68}
+  .plans{grid-template-columns:1fr 1fr}
+  .voices{grid-template-columns:1fr}
   .flow{grid-template-columns:1fr 1fr}
   .step__arrow{display:none}
   .reserve__grid{grid-template-columns:1fr}
@@ -648,6 +672,7 @@ button{font:inherit}
 }
 @media (max-width:780px){
   .headtel{display:none}
+  .plans{grid-template-columns:1fr}
   .mbar{display:flex}
   .foot{padding-bottom:8rem}
   .totop{bottom:calc(5.6rem + env(safe-area-inset-bottom))}
@@ -661,7 +686,24 @@ button{font:inherit}
   .foot__grid{grid-template-columns:1fr}
   .hero__cta .btn{width:100%}
   .logo__txt{font-size:1rem}
+  .logo__sub{letter-spacing:.12em;font-size:.58rem}
+  .logo__mark{width:36px;height:36px}
+  /* 社名が折り返さないよう、狭い画面ではヘッダーの余白を詰める */
+  .head__in{gap:.7rem}
+  .logo{gap:.45rem}
+  .burger{padding:.5rem .55rem;font-size:.74rem;gap:.35rem}
   .worry__after{flex-direction:column;align-items:flex-start;gap:.5rem}
+}
+@media (max-width:400px){
+  .logo__txt{font-size:.88rem}
+}
+/* さらに狭い画面では、メニューの文字を読み上げ用に残したまま見た目から外す */
+@media (max-width:365px){
+  .burger__label{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+  }
+  .burger{padding:.5rem .7rem}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
@@ -697,7 +739,7 @@ button{font:inherit}
     <a class="logo" href="#top">
       <span class="logo__mark" aria-hidden="true"></span>
       <span class="logo__txt">陽だまり家事サポート
-        <span class="logo__sub">HIDAMARI SETO SINCE 2026</span>
+        <span class="logo__sub">HIDAMARI SETO</span>
       </span>
     </a>
 
@@ -715,7 +757,7 @@ button{font:inherit}
 
     <button class="burger" type="button" id="burger" aria-expanded="false" aria-controls="drawer">
       <span class="burger__bars" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span>メニュー</span>
+      <span class="burger__label">メニュー</span>
     </button>
   </div>
 
@@ -771,13 +813,14 @@ button{font:inherit}
   <section class="hero" aria-labelledby="hero-h">
     <div class="wrap hero__grid">
       <div>
-        <span class="hero__badge">はじめての方は2時間5,500円でお試しいただけます</span>
+        <p class="hero__kicker">愛知県瀬戸市で、シニア世帯の家事代行をしています。</p>
         <h1 id="hero-h">掃除も、洗濯も、<br><span class="accent">すこしのおしゃべり</span>も。</h1>
         <p class="hero__lead">
           週に一度、いつも同じ担当がご自宅に伺います。
           重い買い物、高いところの掃除、季節の衣替え。
           「これくらい頼んでいいのかしら」ということこそ、お任せください。
         </p>
+        <p class="hero__badge">はじめての方は、2時間6,400円（交通費込み）でお試しいただけます</p>
         <div class="hero__cta">
           <span class="btn btn--todo">
             <span>☎ 電話番号を記入してください
@@ -865,16 +908,21 @@ button{font:inherit}
     <div class="wrap">
       <p class="eyebrow">SERVICE &amp; PRICE</p>
       <h2 class="h2 rv" id="service-h">サービス内容と料金</h2>
-      <p class="lead rv">表示はすべて税込・担当1名あたりの料金です。掃除道具と洗剤は当社が持参しますので、ご用意は不要です。入会金・年会費・解約金はいただきません。</p>
+      <p class="lead rv">表示はすべて税込・担当1名あたりの料金です。<b>ご利用は1回2時間から</b>で、どのプランも「時間あたりの料金 × 時間数 ＋ 交通費900円」でお支払い額が決まります。掃除道具と洗剤は当社が持参しますので、ご用意は不要です。入会金・年会費・解約金はいただきません。</p>
 
       <div class="plans">
         <div class="plan rv">
           <h3>おためし</h3>
           <p class="plan__for">まずは様子を見てみたい方へ</p>
-          <p class="plan__price"><b>5,500</b><span>円／2時間（初回限定・税込）</span></p>
+          <p class="plan__price"><b>2,750</b><span>円／1時間（税込）</span></p>
+          <div class="plan__total">
+            <span>2時間ご利用の場合</span>
+            <p class="plan__calc">5,500円<em>＋</em>交通費900円</p>
+            <b>1回 6,400円</b>
+          </div>
           <ul class="plan__list">
+            <li>初回限定・2時間のみ</li>
             <li>掃除・洗濯・買い物から自由に選択</li>
-            <li>担当との顔合わせを兼ねて</li>
             <li>継続のご契約は不要です</li>
           </ul>
           <a class="btn btn--ghost btn--full" href="#reserve">おためしを予約する</a>
@@ -884,7 +932,12 @@ button{font:inherit}
           <span class="plan__tag">おすすめのプラン</span>
           <h3>定期（週1回）</h3>
           <p class="plan__for">暮らしのリズムを整えたい方へ</p>
-          <p class="plan__price"><b>2,750</b><span>円／1時間（2時間〜・税込）</span></p>
+          <p class="plan__price"><b>2,750</b><span>円／1時間（税込）</span></p>
+          <div class="plan__total">
+            <span>2時間ご利用の場合</span>
+            <p class="plan__calc">5,500円<em>＋</em>交通費900円</p>
+            <b>1回 6,400円</b>
+          </div>
           <ul class="plan__list">
             <li>曜日・時間を固定してお伺いします</li>
             <li>鍵をお預かりすれば留守中も作業可能</li>
@@ -894,17 +947,44 @@ button{font:inherit}
         </div>
 
         <div class="plan rv">
-          <h3>定期（隔週）・単発</h3>
-          <p class="plan__for">必要なときだけ頼みたい方へ</p>
-          <p class="plan__price"><b>3,080</b><span>円／1時間（2時間〜・税込）</span></p>
+          <h3>定期（隔週）</h3>
+          <p class="plan__for">月に2回ほどで十分な方へ</p>
+          <p class="plan__price"><b>3,080</b><span>円／1時間（税込）</span></p>
+          <div class="plan__total">
+            <span>2時間ご利用の場合</span>
+            <p class="plan__calc">6,160円<em>＋</em>交通費900円</p>
+            <b>1回 7,060円</b>
+          </div>
           <ul class="plan__list">
-            <li>隔週3,080円／単発3,630円</li>
+            <li>2週間に1度、曜日・時間を固定</li>
+            <li>担当は週1回と同じく固定制</li>
+            <li>お休みの振替は前日まで無料</li>
+          </ul>
+          <a class="btn btn--ghost btn--full" href="#reserve">このプランで予約する</a>
+        </div>
+
+        <div class="plan rv">
+          <h3>単発</h3>
+          <p class="plan__for">必要なときだけ頼みたい方へ</p>
+          <p class="plan__price"><b>3,630</b><span>円／1時間（税込）</span></p>
+          <div class="plan__total">
+            <span>2時間ご利用の場合</span>
+            <p class="plan__calc">7,260円<em>＋</em>交通費900円</p>
+            <b>1回 8,160円</b>
+          </div>
+          <ul class="plan__list">
             <li>大掃除・衣替え・来客前にも</li>
             <li>ご家族の帰省に合わせたご利用も</li>
+            <li>ご契約の縛りはありません</li>
           </ul>
           <a class="btn btn--ghost btn--full" href="#reserve">日程を相談する</a>
         </div>
       </div>
+
+      <p class="plans__note rv">
+        3時間以上をご希望の場合は、1時間ごとに上記の「時間あたりの料金」が加わります。<br>
+        例：定期・週1回で3時間なら 2,750円 × 3時間 ＋ 交通費900円 ＝ <b>9,150円</b>。
+      </p>
 
       <div class="opt rv">
         <h3>お願いできること（一部）</h3>
@@ -927,7 +1007,7 @@ button{font:inherit}
       <!-- 料金試算 -->
       <div class="calc rv" id="calc">
         <h3>料金のかんたん試算</h3>
-        <p class="calc__sub">2つ選ぶだけで、おおよその金額をその場で確認できます。お申し込みにはなりません。</p>
+        <p class="calc__sub">2つ選ぶだけで、交通費まで含めたお支払い額をその場で確認できます。お申し込みにはなりません。</p>
 
         <div class="calc__grid">
           <div class="calc__field">
@@ -952,7 +1032,7 @@ button{font:inherit}
         <div class="calc__out">
           <div class="calc__figs">
             <p class="calc__fig">
-              <span>1回あたりの目安</span>
+              <span>1回あたり（交通費込み）</span>
               <b><output id="c-once" for="c-plan c-hours">6,400</output><em>円（税込）</em></b>
             </p>
             <p class="calc__fig">
@@ -964,7 +1044,7 @@ button{font:inherit}
         </div>
 
         <p class="calc__note">
-          ※ 交通費900円を含んだ金額です。月あたりの目安は、週1回を月4回、隔週を月2回、単発を月1回として計算しています。<br>
+          ※ いずれも「時間あたりの料金 × 時間数 ＋ 交通費900円」で計算しています。月あたりの目安は、週1回を月4回、隔週を月2回、単発を月1回としています。<br>
           ※ 実際の金額は、間取りや作業内容を拝見したうえで、無料のお打ち合わせのときに書面でお示しします。
         </p>
       </div>
@@ -1153,7 +1233,7 @@ button{font:inherit}
             <div class="field">
               <label for="f-plan">ご希望のプラン<span class="opt-tag">任意</span></label>
               <select id="f-plan" name="plan">
-                <option>おためし（2時間 5,500円）</option>
+                <option>おためし（2時間 6,400円・交通費込み）</option>
                 <option selected>定期プラン（週1回）</option>
                 <option>定期プラン（隔週）</option>
                 <option>単発でのご利用</option>
