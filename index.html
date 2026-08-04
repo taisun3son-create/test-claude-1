@@ -704,6 +704,19 @@ button{font:inherit}
 }
 .totop.is-on{opacity:1;visibility:visible;transform:none}
 
+/* ============ 「もっと見る」ボタン ============ */
+/* スマホでページが長くなりすぎるため、補助的な部分だけ畳む。
+   畳むのはスクリプトの役目で、動かない環境では最初から全部見えている。 */
+.more{
+  display:none;width:100%;min-height:58px;align-items:center;justify-content:center;gap:.5em;
+  margin-top:1rem;padding:.6rem 1rem;border:2px dashed var(--take);border-radius:12px;
+  background:var(--white);color:var(--take-d);font-family:var(--gothic);
+  font-weight:700;font-size:.98rem;cursor:pointer;line-height:1.5;
+}
+.more::after{content:"＋";font-weight:900;font-size:1.1em}
+.more:hover{background:var(--take-l)}
+.more[hidden]{display:none}
+
 /* ============ reveal ============ */
 /* スクロール表示演出。head のスクリプトが付ける js クラスが前提で、
    スクリプトが動かない環境では最初から見えたままになる。 */
@@ -783,6 +796,98 @@ button{font:inherit}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .js .rv{opacity:1;transform:none}
+}
+
+/* ============ スマホ向けの詰め ============ */
+/* スマホでは縦に積み上がるため、そのままだと25画面ぶんの長さになる。
+   情報は減らさず、余白・装飾・重複を削って読み進めやすくする。
+   パソコン表示には影響させない。 */
+@media (max-width:780px){
+  .section{padding:2.6rem 0}
+  body{line-height:1.8}
+
+  /* 表紙に実写を入れたので、ヒーローの障子イラストは役割が重複する。
+     500px以上を占めるため、スマホでは省く。 */
+  .shoji{display:none}
+  .hero{padding:2.2rem 0 2.6rem}
+  .hero__lead{margin-top:1rem}
+  .hero__cta{margin-top:.9rem;gap:.6rem}
+  .hero__badge{margin-top:1.2rem}
+
+  .h2{margin-bottom:.4rem}
+  .eyebrow{margin-bottom:.7rem}
+
+  .trust{padding:2rem 0}
+  .trust__grid{gap:1rem}
+  .trust__no{width:44px;height:44px;font-size:1.25rem}
+
+  .worry{gap:.5rem;margin-top:1.5rem}
+  .worry li{padding:.75rem .9rem;line-height:1.65}
+  .worry__after{margin-top:1.4rem;padding:1.1rem 1.2rem}
+
+  .plans{gap:.8rem;margin-top:1.8rem}
+  .plan{padding:1.3rem 1.1rem 1.2rem}
+  .plan h3{font-size:1.2rem}
+  .plan__for{margin-bottom:.7rem}
+  .plan__price{padding-bottom:.7rem}
+  .plan__price b{font-size:1.95rem}
+  .plan__total{margin-top:.7rem;padding:.6rem .75rem}
+  .plan__list{margin:.85rem 0 1.1rem;gap:.4rem}
+  .plans__note{margin-top:1.2rem;padding:.9rem 1.1rem}
+
+  .opt{margin-top:1.8rem;padding:1.2rem}
+  /* 短い項目ばかりなので2列にする */
+  .opt__grid{grid-template-columns:1fr 1fr;gap:.45rem}
+  .opt__row{padding:.55rem .6rem;font-size:.84rem;line-height:1.55}
+
+  /* 内訳を「金額＋交通費」と「合計」の2行に詰める */
+  .plan__total{display:flex;flex-wrap:wrap;align-items:baseline;gap:.1rem .55rem}
+  .plan__total>span{flex:1 0 100%}
+  .plan__calc{margin:.15rem 0 0;padding:0;border:0;font-size:.78rem}
+  .plan__total>b{font-size:1.18rem}
+  .note{margin-top:.9rem}
+
+  .calc{margin-top:1.8rem}
+  .calc__grid{gap:.8rem}
+  .calc__out{margin-top:1.1rem;padding:1.1rem 1.2rem;gap:1rem}
+  .calc__note{margin-top:.8rem}
+
+  .flow{gap:.6rem;margin-top:1.6rem}
+  .step{padding:.95rem 1rem}
+  .step__n{font-size:1.9rem;margin-bottom:.15rem}
+  .step p{line-height:1.75}
+  .flow__after{margin-top:1.1rem;padding:.9rem 1.1rem}
+
+  .voices{gap:.8rem;margin-top:1.8rem}
+  .voice{padding:1.2rem 1.1rem}
+  .voice p{line-height:1.8}
+  .voice__who{margin-top:.9rem;padding-top:.7rem}
+
+  .faq{margin-top:1.6rem;gap:.5rem}
+  .faq summary{padding:.95rem 2.8rem .95rem 1rem}
+  .faq summary::after{right:1.1rem;top:1.35rem}
+  .faq details[open] summary::after{top:1.6rem}
+  .faq__a{margin:0 1rem;padding:.8rem 0 1rem;line-height:1.85}
+
+  .reserve{padding:2.6rem 0}
+  .telcard{margin-top:1.2rem;padding:1.2rem}
+  .reserve__list{margin-top:1.1rem}
+  .field{margin-bottom:.8rem}
+  .form__sub{margin-bottom:1.1rem}
+
+  .foot{padding-top:2.2rem;font-size:.82rem}
+  .foot h4{margin-bottom:.5rem}
+  .foot ul{gap:.35rem}
+  .plan .btn{min-height:54px;line-height:1.6}
+  .plan__list li{line-height:1.6}
+  .plan__price b{font-size:1.85rem}
+  .foot__grid{gap:1.4rem;margin-bottom:1.4rem}
+
+  /* 折りたたみはスマホだけ */
+  .more:not([hidden]){display:flex}
+  .voices.is-folded .voice:nth-of-type(n+2){display:none}
+  .plans.is-folded .plan:nth-of-type(n+3){display:none}
+  .calc__body.is-folded,.form__opt.is-folded{display:none}
 }
 
 /* ============ print ============ */
@@ -1028,7 +1133,7 @@ button{font:inherit}
       <h2 class="h2 rv" id="service-h">サービス内容と料金</h2>
       <p class="lead rv">表示はすべて税込・担当1名あたりの料金です。<b>ご利用は1回2時間から</b>で、どのプランも「時間あたりの料金 × 時間数 ＋ 交通費900円」でお支払い額が決まります。掃除道具と洗剤は当社が持参しますので、ご用意は不要です。入会金・年会費・解約金はいただきません。</p>
 
-      <div class="plans">
+      <div class="plans" id="fold-plans">
         <div class="plan rv">
           <h3>おためし</h3>
           <p class="plan__for">まずは様子を見てみたい方へ</p>
@@ -1099,6 +1204,8 @@ button{font:inherit}
         </div>
       </div>
 
+      <button class="more" type="button" aria-controls="fold-plans" aria-expanded="false" hidden>隔週・単発のプランを見る</button>
+
       <p class="plans__note rv">
         3時間以上をご希望の場合は、1時間ごとに上記の「時間あたりの料金」が加わります。<br>
         例：定期・週1回で3時間なら 2,750円 × 3時間 ＋ 交通費900円 ＝ <b>9,150円</b>。
@@ -1127,6 +1234,7 @@ button{font:inherit}
         <h3>料金のかんたん試算</h3>
         <p class="calc__sub">2つ選ぶだけで、交通費まで含めたお支払い額をその場で確認できます。お申し込みにはなりません。</p>
 
+        <div class="calc__body" id="fold-calc">
         <div class="calc__grid">
           <div class="calc__field">
             <label for="c-plan">ご利用の頻度</label>
@@ -1165,6 +1273,8 @@ button{font:inherit}
           ※ いずれも「時間あたりの料金 × 時間数 ＋ 交通費900円」で計算しています。月あたりの目安は、週1回を月4回、隔週を月2回、単発を月1回としています。<br>
           ※ 実際の金額は、間取りや作業内容を拝見したうえで、無料のお打ち合わせのときに書面でお示しします。
         </p>
+        </div>
+        <button class="more" type="button" aria-controls="fold-calc" aria-expanded="false" hidden>料金を試算してみる</button>
       </div>
     </div>
   </section>
@@ -1215,7 +1325,7 @@ button{font:inherit}
       <h2 class="h2 rv" id="voice-h">お客様の声</h2>
       <p class="lead rv">はじめて間もないサービスですが、ご利用いただいている方からお寄せいただいた声です。</p>
 
-      <div class="voices">
+      <div class="voices" id="fold-voices">
         <figure class="voice rv">
           <blockquote>
             <p class="voice__q">「水曜日が待ち遠しくなりました」</p>
@@ -1238,6 +1348,7 @@ button{font:inherit}
           <figcaption class="voice__who">81歳・男性<span>／尾張旭市・ご利用2か月</span></figcaption>
         </figure>
       </div>
+      <button class="more" type="button" aria-controls="fold-voices" aria-expanded="false" hidden>ほかの声を読む（2件）</button>
     </div>
   </section>
 
@@ -1348,6 +1459,7 @@ button{font:inherit}
               </div>
             </div>
 
+            <div class="form__opt" id="fold-formopt">
             <div class="field">
               <label for="f-plan">ご希望のプラン<span class="opt-tag">任意</span></label>
               <select id="f-plan" name="plan">
@@ -1373,6 +1485,8 @@ button{font:inherit}
               <label for="f-msg">お困りごと・ご質問<span class="opt-tag">任意</span></label>
               <textarea id="f-msg" name="message" placeholder="例：風呂場と窓の掃除をお願いしたい。母（85歳）が瀬戸市で一人暮らしです。"></textarea>
             </div>
+            </div>
+            <button class="more" type="button" aria-controls="fold-formopt" aria-expanded="false" hidden>くわしく伝える（任意）</button>
 
             <div class="field field--v">
               <label class="check" for="f-agree">
@@ -1598,6 +1712,52 @@ button{font:inherit}
       }
     }, {rootMargin:'-45% 0px -50% 0px', threshold:0});
     for(var k = 0; k < sections.length; k++){ spy.observe(sections[k]); }
+  });
+
+  /* ---------- スマホでの折りたたみ ---------- */
+  run('fold', function(){
+    if(!window.matchMedia) return;
+    var mq = window.matchMedia('(max-width: 780px)');
+    var btns = document.querySelectorAll('.more[aria-controls]');
+    if(!btns.length) return;
+
+    function targetOf(btn){ return document.getElementById(btn.getAttribute('aria-controls')); }
+
+    function apply(){
+      for(var i = 0; i < btns.length; i++){
+        var btn = btns[i], t = targetOf(btn);
+        if(!t) continue;
+        if(mq.matches && btn.getAttribute('data-opened') !== '1'){
+          t.classList.add('is-folded');
+          btn.hidden = false;
+          btn.setAttribute('aria-expanded', 'false');
+        }else{
+          t.classList.remove('is-folded');
+          btn.hidden = true;
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      }
+    }
+
+    for(var i = 0; i < btns.length; i++){
+      (function(btn){
+        btn.addEventListener('click', function(){
+          var t = targetOf(btn);
+          if(t) t.classList.remove('is-folded');
+          btn.setAttribute('data-opened', '1');
+          btn.setAttribute('aria-expanded', 'true');
+          btn.hidden = true;
+          if(t){
+            t.setAttribute('tabindex', '-1');
+            if(t.focus) t.focus({preventScroll:true});
+          }
+        });
+      })(btns[i]);
+    }
+
+    apply();
+    if(mq.addEventListener) mq.addEventListener('change', apply);
+    else if(mq.addListener) mq.addListener(apply);
   });
 
   /* ---------- ページ先頭へ ---------- */
