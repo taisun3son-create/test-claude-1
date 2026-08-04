@@ -173,6 +173,7 @@ body{
   line-height:1.9;
   font-weight:500;
   -webkit-font-smoothing:antialiased;
+  -webkit-text-size-adjust:100%;
   text-size-adjust:100%;
   overflow-wrap:break-word;
   line-break:strict;
@@ -239,7 +240,7 @@ button{font:inherit}
 /* ============ header ============ */
 .head{
   position:sticky;top:0;z-index:60;background:rgba(244,247,242,.94);
-  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
 }
 .head__in{display:flex;align-items:center;gap:1.2rem;padding:.6rem 0}
 .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;margin-right:auto}
@@ -248,7 +249,7 @@ button{font:inherit}
   background:var(--ai);position:relative;overflow:hidden;
 }
 .logo__mark::before{
-  content:"";position:absolute;inset:6px;
+  content:"";position:absolute;top:6px;right:6px;bottom:6px;left:6px;
   background:
     repeating-linear-gradient(to right,transparent 0 8px,rgba(255,255,255,.55) 8px 9px),
     repeating-linear-gradient(to bottom,transparent 0 8px,rgba(255,255,255,.55) 8px 9px),
@@ -302,10 +303,10 @@ button{font:inherit}
 .burger[aria-expanded="true"] .burger__bars i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
 .drawer{
-  position:fixed;inset:0;z-index:90;display:none;
+  position:fixed;top:0;right:0;bottom:0;left:0;z-index:90;display:none;
 }
 .drawer[data-open="true"]{display:block}
-.drawer__scrim{position:absolute;inset:0;background:rgba(15,52,58,.5);border:0;width:100%;cursor:pointer}
+.drawer__scrim{position:absolute;top:0;right:0;bottom:0;left:0;background:rgba(15,52,58,.5);border:0;width:100%;height:100%;cursor:pointer}
 .drawer__panel{
   position:absolute;right:0;top:0;bottom:0;width:min(420px,88vw);
   background:var(--paper);padding:1.1rem 1.2rem calc(1.6rem + env(safe-area-inset-bottom));
@@ -356,7 +357,7 @@ button{font:inherit}
 
 /* shoji signature */
 .shoji{
-  position:relative;aspect-ratio:1/1.06;border-radius:var(--r);overflow:hidden;
+  position:relative;aspect-ratio:1/1.06;min-height:340px;border-radius:var(--r);overflow:hidden;
   background:linear-gradient(170deg,#FDFDF8,#EFF3EA);
   border:10px solid var(--hinoki);
   box-shadow:0 30px 60px -34px rgba(20,70,79,.55);
@@ -368,7 +369,7 @@ button{font:inherit}
 }
 @keyframes drift{from{transform:translate(0,0)}to{transform:translate(38%,10%)}}
 .shoji__grid{
-  position:absolute;inset:0;
+  position:absolute;top:0;right:0;bottom:0;left:0;
   background:
     repeating-linear-gradient(to right,transparent 0 calc(100%/6 - 3px),var(--hinoki) calc(100%/6 - 3px) calc(100%/6)),
     repeating-linear-gradient(to bottom,transparent 0 calc(100%/7 - 3px),var(--hinoki) calc(100%/7 - 3px) calc(100%/7));
@@ -647,14 +648,23 @@ button{font:inherit}
 .totop.is-on{opacity:1;visibility:visible;transform:none}
 
 /* ============ reveal ============ */
-.rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
-.rv.is-in{opacity:1;transform:none}
+/* スクロール表示演出。head のスクリプトが付ける js クラスが前提で、
+   スクリプトが動かない環境では最初から見えたままになる。 */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.js .rv.is-in{opacity:1;transform:none}
 
 /* ============ responsive ============ */
 @media (max-width:1100px){
   .nav a{font-size:.84rem;padding:.5rem .6rem}
 }
 @media (max-width:1000px){
+  /* 文字サイズを「大」「特大」にしてもヘッダーが崩れないよう、
+     社名まわりだけは rem ではなく画面幅基準の大きさに固定する。 */
+  .logo__txt{font-size:clamp(15px,4.3vw,20px)}
+  .logo__sub{font-size:10px;letter-spacing:.14em}
+  .logo__mark{width:38px;height:38px;border-radius:10px}
+  .burger{font-size:clamp(12px,3.2vw,15px)}
+  .burger__bars{width:18px}
   .hero__grid{grid-template-columns:1fr}
   .shoji{aspect-ratio:1/.68}
   .plans{grid-template-columns:1fr 1fr}
@@ -685,18 +695,14 @@ button{font:inherit}
   .row2{grid-template-columns:1fr}
   .foot__grid{grid-template-columns:1fr}
   .hero__cta .btn{width:100%}
-  .logo__txt{font-size:1rem}
-  .logo__sub{letter-spacing:.12em;font-size:.58rem}
   .logo__mark{width:36px;height:36px}
   /* 社名が折り返さないよう、狭い画面ではヘッダーの余白を詰める */
   .head__in{gap:.7rem}
   .logo{gap:.45rem}
-  .burger{padding:.5rem .55rem;font-size:.74rem;gap:.35rem}
+  .burger{padding:.5rem .55rem;gap:.35rem}
   .worry__after{flex-direction:column;align-items:flex-start;gap:.5rem}
 }
-@media (max-width:400px){
-  .logo__txt{font-size:.88rem}
-}
+
 /* さらに狭い画面では、メニューの文字を読み上げ用に残したまま見た目から外す */
 @media (max-width:365px){
   .burger__label{
@@ -707,7 +713,7 @@ button{font:inherit}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-  .rv{opacity:1;transform:none}
+  .js .rv{opacity:1;transform:none}
 }
 
 /* ============ print ============ */
@@ -725,10 +731,33 @@ button{font:inherit}
   .faq details{border:1pt solid #999}
   .faq details:not([open]) .faq__a{display:block}
   .shoji{display:none}
-  .rv{opacity:1!important;transform:none!important}
+  .js .rv{opacity:1!important;transform:none!important}
   a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt}
 }
 </style>
+
+<script>
+/* 本文を隠すスクロール演出は、この js クラスが付いているときだけ有効にする。
+   スクリプトが動かない端末では class が付かず、本文は最初から見えたままになる。 */
+(function(){
+  try{
+    if('IntersectionObserver' in window && document.documentElement.classList){
+      document.documentElement.className += ' js';
+    }
+  }catch(e){}
+})();
+</script>
+
+<noscript>
+  <style>
+    /* スクリプトが使えないとドロワーが開けないので、ナビをそのまま出す */
+    @media (max-width:1000px){
+      .head__navbar{display:block}
+      .nav{flex-wrap:wrap;justify-content:center;gap:.3rem}
+      .burger{display:none}
+    }
+  </style>
+</noscript>
 </head>
 <body>
 
@@ -1326,31 +1355,45 @@ button{font:inherit}
 (function(){
   'use strict';
 
-  /* ---------- 文字サイズ（設定を保存） ---------- */
-  var SIZES = {m:'', l:'fs-l', xl:'fs-xl'};
   var root = document.documentElement;
+  var reduce = false;
+  try{
+    reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }catch(e){}
 
-  function applySize(size, persist){
-    if(!SIZES.hasOwnProperty(size)) size = 'm';
-    root.classList.remove('fs-l','fs-xl');
-    if(SIZES[size]) root.classList.add(SIZES[size]);
-    Array.prototype.forEach.call(document.querySelectorAll('.js-fs'), function(btn){
-      btn.setAttribute('aria-pressed', String(btn.dataset.size === size));
-    });
-    if(persist){
-      try{ localStorage.setItem('hidamari-fontsize', size); }catch(e){}
+  /* 機能ごとに切り分ける。1か所で例外が出ても、残りの機能は動き続ける。
+     以前はここが1本のつながった処理だったため、途中で失敗すると
+     メニューも表示演出も丸ごと止まっていた。 */
+  function run(name, fn){
+    try{ fn(); }
+    catch(err){
+      if(window.console && window.console.error){ window.console.error('[' + name + ']', err); }
     }
-    measureHeader();
   }
 
-  Array.prototype.forEach.call(document.querySelectorAll('.js-fs'), function(btn){
-    btn.addEventListener('click', function(){ applySize(btn.dataset.size, true); });
-  });
+  function showAllReveal(){
+    var els = document.querySelectorAll('.rv');
+    for(var i = 0; i < els.length; i++){ els[i].classList.add('is-in'); }
+  }
 
+  /* ---------- スクロールで表示（最優先。失敗したら全部見せる） ---------- */
   try{
-    var saved = localStorage.getItem('hidamari-fontsize');
-    if(saved) applySize(saved, false);
-  }catch(e){}
+    if(reduce || !('IntersectionObserver' in window)){
+      showAllReveal();
+    }else{
+      var io = new IntersectionObserver(function(entries, obs){
+        for(var i = 0; i < entries.length; i++){
+          if(!entries[i].isIntersecting) continue;
+          entries[i].target.classList.add('is-in');
+          obs.unobserve(entries[i].target);
+        }
+      }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
+      var rv = document.querySelectorAll('.rv');
+      for(var i = 0; i < rv.length; i++){ io.observe(rv[i]); }
+    }
+  }catch(e){
+    showAllReveal();
+  }
 
   /* ---------- ヘッダー高さをアンカー位置に反映 ---------- */
   var head = document.querySelector('.head');
@@ -1358,182 +1401,232 @@ button{font:inherit}
     if(!head) return;
     root.style.setProperty('--head-h', head.offsetHeight + 'px');
   }
-  measureHeader();
-  window.addEventListener('resize', measureHeader);
-  window.addEventListener('load', measureHeader);
+
+  run('header', function(){
+    measureHeader();
+    window.addEventListener('resize', measureHeader);
+    window.addEventListener('load', measureHeader);
+  });
+
+  /* ---------- 文字サイズ（設定を保存） ---------- */
+  run('fontsize', function(){
+    var SIZES = {m:'', l:'fs-l', xl:'fs-xl'};
+
+    function applySize(size, persist){
+      if(!SIZES.hasOwnProperty(size)) size = 'm';
+      root.classList.remove('fs-l','fs-xl');
+      if(SIZES[size]) root.classList.add(SIZES[size]);
+      var btns = document.querySelectorAll('.js-fs');
+      for(var i = 0; i < btns.length; i++){
+        btns[i].setAttribute('aria-pressed', String(btns[i].getAttribute('data-size') === size));
+      }
+      if(persist){
+        try{ localStorage.setItem('hidamari-fontsize', size); }catch(e){}
+      }
+      measureHeader();
+    }
+
+    var btns = document.querySelectorAll('.js-fs');
+    for(var i = 0; i < btns.length; i++){
+      (function(btn){
+        btn.addEventListener('click', function(){ applySize(btn.getAttribute('data-size'), true); });
+      })(btns[i]);
+    }
+
+    var saved = null;
+    try{ saved = localStorage.getItem('hidamari-fontsize'); }catch(e){}
+    if(saved) applySize(saved, false);
+  });
 
   /* ---------- モバイルメニュー ---------- */
-  var burger = document.getElementById('burger');
-  var drawer = document.getElementById('drawer');
-  var drawerClose = document.getElementById('drawerClose');
-  var scrim = drawer ? drawer.querySelector('.drawer__scrim') : null;
-  var lastFocus = null;
+  run('drawer', function(){
+    var burger = document.getElementById('burger');
+    var drawer = document.getElementById('drawer');
+    if(!burger || !drawer) return;
 
-  function openDrawer(){
-    lastFocus = document.activeElement;
-    drawer.dataset.open = 'true';
-    burger.setAttribute('aria-expanded','true');
-    document.body.classList.add('is-locked');
-    drawerClose.focus();
-    document.addEventListener('keydown', onDrawerKey);
-  }
-  function closeDrawer(){
-    drawer.dataset.open = 'false';
-    burger.setAttribute('aria-expanded','false');
-    document.body.classList.remove('is-locked');
-    document.removeEventListener('keydown', onDrawerKey);
-    if(lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-  function onDrawerKey(e){
-    if(e.key === 'Escape'){ closeDrawer(); return; }
-    if(e.key !== 'Tab') return;
-    var f = drawer.querySelectorAll('a[href], button:not([tabindex="-1"])');
-    if(!f.length) return;
-    var first = f[0], last = f[f.length - 1];
-    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
-    else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
-  }
+    var drawerClose = document.getElementById('drawerClose');
+    var scrim = drawer.querySelector('.drawer__scrim');
+    var lastFocus = null;
 
-  if(burger && drawer){
-    burger.addEventListener('click', function(){
-      drawer.dataset.open === 'true' ? closeDrawer() : openDrawer();
+    function onDrawerKey(e){
+      var k = e.key || e.keyCode;
+      if(k === 'Escape' || k === 'Esc' || k === 27){ closeDrawer(); return; }
+      if(k !== 'Tab' && k !== 9) return;
+      var f = drawer.querySelectorAll('a[href], button:not([tabindex="-1"])');
+      if(!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+
+    function openDrawer(){
+      lastFocus = document.activeElement;
+      drawer.setAttribute('data-open', 'true');
+      burger.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('is-locked');
+      if(drawerClose && drawerClose.focus) drawerClose.focus();
+      document.addEventListener('keydown', onDrawerKey);
+    }
+    function closeDrawer(){
+      drawer.setAttribute('data-open', 'false');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('is-locked');
+      document.removeEventListener('keydown', onDrawerKey);
+      if(lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    burger.addEventListener('click', function(e){
+      e.preventDefault();
+      if(drawer.getAttribute('data-open') === 'true'){ closeDrawer(); } else { openDrawer(); }
     });
-    drawerClose.addEventListener('click', closeDrawer);
+    if(drawerClose) drawerClose.addEventListener('click', closeDrawer);
     if(scrim) scrim.addEventListener('click', closeDrawer);
-    Array.prototype.forEach.call(drawer.querySelectorAll('.drawer__nav a'), function(a){
-      a.addEventListener('click', closeDrawer);
-    });
-  }
+
+    var links = drawer.querySelectorAll('.drawer__nav a');
+    for(var i = 0; i < links.length; i++){
+      links[i].addEventListener('click', closeDrawer);
+    }
+  });
 
   /* ---------- 現在地のナビ強調 ---------- */
-  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
-  var sections = navLinks.map(function(a){
-    return document.querySelector(a.getAttribute('href'));
-  }).filter(Boolean);
+  run('navspy', function(){
+    if(!('IntersectionObserver' in window)) return;
+    var navLinks = document.querySelectorAll('.nav a');
+    var sections = [];
+    for(var i = 0; i < navLinks.length; i++){
+      var sec = document.querySelector(navLinks[i].getAttribute('href'));
+      if(sec) sections.push(sec);
+    }
+    if(!sections.length) return;
 
-  if('IntersectionObserver' in window && sections.length){
     var spy = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if(!en.isIntersecting) return;
-        navLinks.forEach(function(a){
-          a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + en.target.id));
-        });
-      });
+      for(var i = 0; i < entries.length; i++){
+        if(!entries[i].isIntersecting) continue;
+        var id = '#' + entries[i].target.id;
+        for(var j = 0; j < navLinks.length; j++){
+          navLinks[j].setAttribute('aria-current', String(navLinks[j].getAttribute('href') === id));
+        }
+      }
     }, {rootMargin:'-45% 0px -50% 0px', threshold:0});
-    sections.forEach(function(s){ spy.observe(s); });
-  }
-
-  /* ---------- スクロールで表示 ---------- */
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var revealables = document.querySelectorAll('.rv');
-  if(reduce || !('IntersectionObserver' in window)){
-    Array.prototype.forEach.call(revealables, function(el){ el.classList.add('is-in'); });
-  }else{
-    var io = new IntersectionObserver(function(entries, obs){
-      entries.forEach(function(en){
-        if(!en.isIntersecting) return;
-        en.target.classList.add('is-in');
-        obs.unobserve(en.target);
-      });
-    }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
-    Array.prototype.forEach.call(revealables, function(el){ io.observe(el); });
-  }
+    for(var k = 0; k < sections.length; k++){ spy.observe(sections[k]); }
+  });
 
   /* ---------- ページ先頭へ ---------- */
-  var totop = document.getElementById('totop');
-  if(totop){
+  run('totop', function(){
+    var totop = document.getElementById('totop');
+    if(!totop) return;
     var ticking = false;
     window.addEventListener('scroll', function(){
       if(ticking) return;
       ticking = true;
-      window.requestAnimationFrame(function(){
-        totop.classList.toggle('is-on', window.scrollY > 700);
+      var raf = window.requestAnimationFrame || function(f){ return setTimeout(f, 16); };
+      raf(function(){
+        var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+        totop.classList.toggle('is-on', y > 700);
         ticking = false;
       });
-    }, {passive:true});
+    }, false);
     totop.addEventListener('click', function(){
-      window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+      try{ window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'}); }
+      catch(e){ window.scrollTo(0, 0); }
       var logo = document.querySelector('.logo');
-      if(logo) logo.focus({preventScroll:true});
+      if(logo && logo.focus) logo.focus();
     });
-  }
+  });
 
   /* ---------- 料金のかんたん試算 ---------- */
-  var RATES = {week:2750, biweek:3080, spot:3630};
-  var VISITS = {week:4, biweek:2, spot:1};
-  var LABELS = {week:'1か月あたりの目安（月4回）', biweek:'1か月あたりの目安（月2回）', spot:'1か月あたりの目安（月1回）'};
-  var TRAVEL = 900;
+  run('calc', function(){
+    var RATES = {week:2750, biweek:3080, spot:3630};
+    var VISITS = {week:4, biweek:2, spot:1};
+    var LABELS = {week:'1か月あたりの目安（月4回）', biweek:'1か月あたりの目安（月2回）', spot:'1か月あたりの目安（月1回）'};
+    var TRAVEL = 900;
 
-  var cPlan = document.getElementById('c-plan');
-  var cHours = document.getElementById('c-hours');
-  var cOnce = document.getElementById('c-once');
-  var cMonth = document.getElementById('c-month');
-  var cMonthLabel = document.getElementById('c-monthlabel');
+    var cPlan = document.getElementById('c-plan');
+    var cHours = document.getElementById('c-hours');
+    var cOnce = document.getElementById('c-once');
+    var cMonth = document.getElementById('c-month');
+    var cMonthLabel = document.getElementById('c-monthlabel');
+    if(!cPlan || !cHours || !cOnce || !cMonth || !cMonthLabel) return;
 
-  function yen(n){ return n.toLocaleString('ja-JP'); }
+    function yen(n){
+      try{ return n.toLocaleString('ja-JP'); }
+      catch(e){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+    }
 
-  function calc(){
-    if(!cPlan) return;
-    var plan = cPlan.value;
-    var once = RATES[plan] * Number(cHours.value) + TRAVEL;
-    cOnce.textContent = yen(once);
-    cMonth.textContent = yen(once * VISITS[plan]);
-    cMonthLabel.textContent = LABELS[plan];
-  }
+    function calc(){
+      var plan = cPlan.value;
+      var once = RATES[plan] * Number(cHours.value) + TRAVEL;
+      cOnce.textContent = yen(once);
+      cMonth.textContent = yen(once * VISITS[plan]);
+      cMonthLabel.textContent = LABELS[plan];
+    }
 
-  if(cPlan){
-    [cPlan, cHours].forEach(function(el){ el.addEventListener('change', calc); });
+    cPlan.addEventListener('change', calc);
+    cHours.addEventListener('change', calc);
     calc();
-  }
+  });
 
   /* ---------- 予約フォーム（デモ動作） ---------- */
-  var form = document.getElementById('resform');
-  var wrapEl = document.getElementById('form');
-  var summary = document.getElementById('formerr');
-  var summaryList = document.getElementById('formerr-list');
+  run('form', function(){
+    var form = document.getElementById('resform');
+    var wrapEl = document.getElementById('form');
+    var summary = document.getElementById('formerr');
+    var summaryList = document.getElementById('formerr-list');
+    if(!form || !wrapEl || !summary || !summaryList) return;
 
-  var RULES = [
-    {id:'f-name',  label:'お名前',                 test:function(v){ return v.trim().length > 0; }},
-    {id:'f-tel',   label:'お電話番号',             test:function(v){
-      var digits = v.replace(/[^0-9]/g,'');
-      return digits.length >= 10 && digits.length <= 11;
-    }, message:'数字10〜11桁でご記入ください。'},
-    {id:'f-area',  label:'お住まいの地域',         test:function(v){ return v !== ''; }},
-    {id:'f-agree', label:'プライバシーポリシーへの同意', test:null}
-  ];
+    var RULES = [
+      {id:'f-name',  label:'お名前', test:function(v){ return v.replace(/^\s+|\s+$/g, '').length > 0; }},
+      {id:'f-tel',   label:'お電話番号', test:function(v){
+        var digits = v.replace(/[^0-9]/g, '');
+        return digits.length >= 10 && digits.length <= 11;
+      }, message:'数字10〜11桁でご記入ください。'},
+      {id:'f-area',  label:'お住まいの地域', test:function(v){ return v !== ''; }},
+      {id:'f-agree', label:'プライバシーポリシーへの同意', test:null}
+    ];
 
-  function fieldError(rule, show, message){
-    var el = document.getElementById(rule.id);
-    var msg = document.getElementById(rule.id + '-err');
-    el.setAttribute('aria-invalid', String(show));
-    if(msg){
-      msg.classList.toggle('is-on', show);
-      if(show && message) msg.textContent = message;
+    function isOk(rule, el){
+      return rule.id === 'f-agree' ? el.checked : rule.test(el.value);
     }
-  }
-
-  function validate(){
-    var bad = [];
-    RULES.forEach(function(rule){
+    function fieldError(rule, show, message){
       var el = document.getElementById(rule.id);
-      var ok = rule.id === 'f-agree' ? el.checked : rule.test(el.value);
-      var message = (!ok && rule.message && el.value.trim()) ? rule.message : null;
-      fieldError(rule, !ok, message);
-      if(!ok) bad.push({rule:rule, message:message});
-    });
-    return bad;
-  }
+      var msg = document.getElementById(rule.id + '-err');
+      if(el) el.setAttribute('aria-invalid', String(show));
+      if(msg){
+        msg.classList.toggle('is-on', show);
+        if(show && message) msg.textContent = message;
+      }
+    }
+    function validate(){
+      var bad = [];
+      for(var i = 0; i < RULES.length; i++){
+        var rule = RULES[i];
+        var el = document.getElementById(rule.id);
+        if(!el) continue;
+        var ok = isOk(rule, el);
+        var message = (!ok && rule.message && el.value.replace(/^\s+|\s+$/g, '')) ? rule.message : null;
+        fieldError(rule, !ok, message);
+        if(!ok) bad.push({rule:rule, message:message});
+      }
+      return bad;
+    }
 
-  if(form){
-    RULES.forEach(function(rule){
-      var el = document.getElementById(rule.id);
-      var ev = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'blur';
-      el.addEventListener(ev, function(){
-        if(el.getAttribute('aria-invalid') !== 'true' && ev === 'blur') return;
-        var ok = rule.id === 'f-agree' ? el.checked : rule.test(el.value);
-        fieldError(rule, !ok, (!ok && rule.message && el.value.trim()) ? rule.message : null);
-      });
-    });
+    for(var i = 0; i < RULES.length; i++){
+      (function(rule){
+        var el = document.getElementById(rule.id);
+        if(!el) return;
+        var ev = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'blur';
+        el.addEventListener(ev, function(){
+          if(ev === 'blur' && el.getAttribute('aria-invalid') !== 'true') return;
+          var ok = isOk(rule, el);
+          fieldError(rule, !ok, (!ok && rule.message && el.value.replace(/^\s+|\s+$/g, '')) ? rule.message : null);
+        });
+      })(RULES[i]);
+    }
+
+    function scrollTo(el){
+      try{ el.scrollIntoView({block:'center', behavior: reduce ? 'auto' : 'smooth'}); }
+      catch(e){ el.scrollIntoView(); }
+    }
 
     form.addEventListener('submit', function(e){
       e.preventDefault();
@@ -1541,33 +1634,38 @@ button{font:inherit}
 
       if(bad.length){
         summaryList.innerHTML = '';
-        bad.forEach(function(item){
-          var li = document.createElement('li');
-          var a = document.createElement('a');
-          a.href = '#' + item.rule.id;
-          a.textContent = item.message || (item.rule.label + 'をご確認ください');
-          a.addEventListener('click', function(ev){
-            ev.preventDefault();
-            document.getElementById(item.rule.id).focus();
-          });
-          li.appendChild(a);
-          summaryList.appendChild(li);
-        });
+        for(var i = 0; i < bad.length; i++){
+          (function(item){
+            var li = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = '#' + item.rule.id;
+            a.textContent = item.message || (item.rule.label + 'をご確認ください');
+            a.addEventListener('click', function(ev){
+              ev.preventDefault();
+              var t = document.getElementById(item.rule.id);
+              if(t) t.focus();
+            });
+            li.appendChild(a);
+            summaryList.appendChild(li);
+          })(bad[i]);
+        }
         summary.hidden = false;
-        summary.scrollIntoView({block:'center', behavior: reduce ? 'auto' : 'smooth'});
-        summary.focus && summary.setAttribute('tabindex','-1');
-        summary.focus && summary.focus();
+        summary.setAttribute('tabindex', '-1');
+        scrollTo(summary);
+        if(summary.focus) summary.focus();
         return;
       }
 
       summary.hidden = true;
       wrapEl.classList.add('is-done');
-      wrapEl.scrollIntoView({block:'center', behavior: reduce ? 'auto' : 'smooth'});
+      scrollTo(wrapEl);
       var done = document.getElementById('done');
-      done.setAttribute('tabindex','-1');
-      done.focus({preventScroll:true});
+      if(done){
+        done.setAttribute('tabindex', '-1');
+        if(done.focus) done.focus();
+      }
     });
-  }
+  });
 })();
 </script>
 </body>
