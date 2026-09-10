@@ -124,6 +124,38 @@
     }
   });
 
+  /* ---------- 料金カードの「くわしく見る」 ---------- */
+  run('planmore', function(){
+    // 開閉ボタンはJSで作る。スクリプトが動かない環境では、
+    // 中身がそのまま開いた状態で残る（隠しっぱなしにはしない）。
+    var mores = document.querySelectorAll('.plan__more');
+    for(var i = 0; i < mores.length; i++){
+      (function(more){
+        var price = more.parentNode.querySelector('.plan__price');
+        if(!price || !more.id) return;
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'plan__toggle';
+        btn.setAttribute('aria-controls', more.id);
+        btn.setAttribute('aria-expanded', 'false');
+        btn.innerHTML = '<span class="plan__toggle__t">料金とできること</span>' +
+                        '<span class="plan__toggle__i" aria-hidden="true"></span>';
+
+        price.parentNode.insertBefore(btn, more);
+        more.hidden = true;
+
+        btn.addEventListener('click', function(){
+          var open = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!open));
+          more.hidden = open;
+          btn.querySelector('.plan__toggle__t').textContent =
+            open ? '料金とできること' : 'とじる';
+        });
+      })(mores[i]);
+    }
+  });
+
   /* ---------- ページ先頭へ ---------- */
   run('totop', function(){
     var totop = document.getElementById('totop');
