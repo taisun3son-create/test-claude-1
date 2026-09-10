@@ -1,0 +1,116 @@
+<!-- ===== 表紙 ===== -->
+  <section class="cover" aria-labelledby="cover-h">
+    <picture>
+      <source type="image/avif" sizes="100vw"
+              srcset="assets/cover-800.avif 800w, assets/cover-1200.avif 1200w, assets/cover-1600.avif 1600w">
+      <source type="image/webp" sizes="100vw"
+              srcset="assets/cover-800.webp 800w, assets/cover-1200.webp 1200w, assets/cover-1600.webp 1600w">
+      <img class="cover__photo" src="assets/cover-1200.jpg" sizes="100vw"
+           srcset="assets/cover-800.jpg 800w, assets/cover-1200.jpg 1200w, assets/cover-1600.jpg 1600w"
+           width="1600" height="1067" fetchpriority="high" decoding="async"
+           alt="台所に立つご夫婦と、そばで手伝う担当者">
+    </picture>
+    <div class="cover__veil" aria-hidden="true"></div>
+    <div class="wrap cover__in">
+      <h1 class="cover__title" id="cover-h">ひだまり</h1>
+      <p class="cover__sub">瀬戸市の家事サポートサービス</p>
+    </div>
+    <a class="cover__cue" href="#hero-h">
+      <span>サービスを見る</span>
+      <span class="cover__chev" aria-hidden="true"></span>
+    </a>
+  </section>
+
+<!-- ===== hero ===== -->
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap hero__grid">
+      <div>
+        <p class="hero__kicker">シニア世帯の暮らしを、週に一度お手伝いします。</p>
+        <h2 class="hero__title" id="hero-h">掃除も、洗濯も、<br><span class="accent">すこしのおしゃべり</span>も。</h2>
+        <p class="hero__lead">
+          週に一度、いつも同じ担当がご自宅に伺います。
+          重い買い物、高いところの掃除、季節の衣替え。
+          「これくらい頼んでいいのかしら」ということこそ、お任せください。
+        </p>
+        <p class="hero__badge">はじめての方は、2時間6,400円（交通費込み）でお試しいただけます</p>
+        <div class="hero__cta">
+          <span class="btn btn--todo">
+            <span>☎ 電話番号を記入してください
+              <span class="btn__sub">9:00〜18:00／土日祝も受付</span>
+            </span>
+          </span>
+          <a class="btn btn--ghost" href="#reserve">
+            <span>Webで予約する
+              <span class="btn__sub">24時間受付・1分で入力</span>
+            </span>
+          </a>
+        </div>
+        <p class="hero__note">愛知県瀬戸市とその周辺／ご家族の代理でのお申し込みも承ります</p>
+      </div>
+
+      <div class="shoji" role="img" aria-label="障子越しにやわらかな日が差し込む室内のイラスト">
+        <div class="shoji__glow" aria-hidden="true"></div>
+        <div class="shoji__grid" aria-hidden="true"></div>
+        <svg class="shoji__leaf" viewBox="0 0 200 220" aria-hidden="true" focusable="false">
+          <g fill="#2A7154">
+            <path d="M100 220C100 150 70 110 40 80c40 8 62 40 62 40S110 70 150 50c-20 40-30 60-30 60s25-25 55-30c-30 25-55 55-55 90z"/>
+          </g>
+        </svg>
+        <p class="shoji__cap">
+          <b>瀬戸市で、はじめました</b>
+          まだ小さな所帯ですが、一軒ずつていねいに伺います
+        </p>
+      </div>
+    </div>
+  </section>
+
+<!-- ===== 安心 ===== -->
+  <section class="trust" aria-labelledby="trust-h">
+    <h2 class="vh" id="trust-h">安心してお任せいただける3つの理由</h2>
+    <div class="wrap trust__grid">
+      <div class="trust__item">
+        <span class="trust__no" aria-hidden="true">一</span>
+        <div>
+          <h3>いつも同じ担当が伺います</h3>
+          <p>担当は固定制。毎回一から説明する必要はありません。相性が合わないときは、遠慮なく交代をお申し付けください。</p>
+        </div>
+      </div>
+      <div class="trust__item">
+        <span class="trust__no" aria-hidden="true">二</span>
+        <div>
+          <h3>少人数だから、顔が見えます</h3>
+          <p>代表を含むごく少人数で運営しています。身分証の確認と面談を済ませた者だけが伺い、はじめてのお宅には代表が同行します。</p>
+        </div>
+      </div>
+      <div class="trust__item">
+        <span class="trust__no" aria-hidden="true">三</span>
+        <div>
+          <h3>万一の破損は保険で対応</h3>
+          <p>損害賠償保険に加入済み（1事故あたり最大1億円）。作業中の破損や事故は当社が責任を持って対応します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ===== お悩み ===== -->
+  <section class="section" id="worry" aria-labelledby="worry-h">
+    <div class="wrap">
+      <p class="eyebrow">CONCERNS</p>
+      <h2 class="h2" id="worry-h">こんなことで、お困りではありませんか</h2>
+      <p class="lead">どれかひとつでも当てはまれば、お役に立てます。「こんなこと頼んでいいのかしら」と迷われたことこそ、お聞かせください。</p>
+
+      <ul class="worry">
+        <li>浴室や窓の掃除が、膝や腰にこたえるようになってきた</li>
+        <li>米や飲み物など、重い買い物を運ぶのがつらい</li>
+        <li>離れて暮らす親の生活ぶりが、電話だけではわからない</li>
+        <li>季節の衣替えや布団の入れ替えが、一人では進まない</li>
+        <li>庭の草取りや水やりまで、なかなか手が回らない</li>
+        <li>知らない人を家に上げるのは、やはり不安がある</li>
+      </ul>
+
+      <p class="worry__after">
+        <span aria-hidden="true">↓</span>
+        週に一度、いつも同じ担当が伺います。作業のたびに報告書をお渡しし、ご家族へもメールでお送りします。
+      </p>
+    </div>
+  </section>

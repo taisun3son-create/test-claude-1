@@ -1,0 +1,119 @@
+<!-- ===== 予約 ===== -->
+  <section class="reserve" id="reserve" aria-labelledby="reserve-h">
+    <div class="wrap reserve__grid">
+      <div>
+        <p class="eyebrow">RESERVATION</p>
+        <h2 class="h2" id="reserve-h">ご予約・ご相談</h2>
+        <p class="reserve__lead">
+          「どこまで頼めるのか聞くだけ」でも構いません。
+          お電話なら、そのまま日程までお決めいただけます。
+        </p>
+        <div class="telcard is-todo">
+          <span>お電話でのご予約・ご相談</span>
+          <b>電話番号を記入してください</b>
+          <small>受付 9:00〜18:00（土日祝も受付）</small>
+        </div>
+        <ul class="reserve__list">
+          <li>ご相談・お見積り・訪問での打ち合わせは無料です</li>
+          <li>その場でのお申し込みは不要です</li>
+          <li>後日、しつこい勧誘のお電話はいたしません</li>
+        </ul>
+      </div>
+
+      <div class="form" id="form">
+        <div class="form__body">
+          <h3>Webでのご予約・ご相談</h3>
+          <p class="form__sub">1営業日以内に、担当者からお電話でご連絡します。</p>
+
+          <div class="formerr" id="formerr" role="alert" hidden>
+            <span id="formerr-head">ご入力に不足があります。</span>
+            <ul id="formerr-list"></ul>
+          </div>
+
+          <!-- 納品時: data-endpoint に送信先URL（Formspree等）を入れると実送信になる。
+                 空のままなら画面上の動作のみ。 -->
+          <form id="resform" novalidate data-endpoint="">
+            <div class="field field--v">
+              <label for="f-name">お名前<span class="req">必須</span></label>
+              <input type="text" id="f-name" name="name" autocomplete="name" placeholder="山田 花子" aria-describedby="f-name-err">
+              <p class="err" id="f-name-err">お名前をご記入ください。</p>
+            </div>
+
+            <div class="row2">
+              <div class="field field--v">
+                <label for="f-tel">お電話番号<span class="req">必須</span></label>
+                <input type="tel" id="f-tel" name="tel" autocomplete="tel" inputmode="tel" placeholder="03-1234-5678" aria-describedby="f-tel-hint f-tel-err">
+                <p class="hint" id="f-tel-hint">日中つながる番号をご記入ください。</p>
+                <p class="err" id="f-tel-err">お電話番号をご記入ください。</p>
+              </div>
+              <div class="field field--v">
+                <label for="f-area">お住まいの地域<span class="req">必須</span></label>
+                <select id="f-area" name="area" aria-describedby="f-area-err">
+                  <option value="">選んでください</option>
+                  <option>瀬戸市</option>
+                  <option>尾張旭市</option>
+                  <option>長久手市</option>
+                  <option>春日井市</option>
+                  <option>上記以外（相談したい）</option>
+                </select>
+                <p class="err" id="f-area-err">地域をお選びください。</p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-plan">ご希望のプラン<span class="opt-tag">任意</span></label>
+              <select id="f-plan" name="plan">
+                <option>おためし（2時間 6,400円・交通費込み）</option>
+                <option selected>定期プラン（週1回）</option>
+                <option>定期プラン（隔週）</option>
+                <option>単発でのご利用</option>
+                <option>まだ決めていない・相談したい</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="f-when">ご連絡しやすい時間帯<span class="opt-tag">任意</span></label>
+              <select id="f-when" name="when">
+                <option>午前（9:00〜12:00）</option>
+                <option selected>午後（12:00〜15:00）</option>
+                <option>夕方（15:00〜18:00）</option>
+                <option>いつでも可</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="f-msg">お困りごと・ご質問<span class="opt-tag">任意</span></label>
+              <textarea id="f-msg" name="message" placeholder="例：風呂場と窓の掃除をお願いしたい。母（85歳）が瀬戸市で一人暮らしです。"></textarea>
+            </div>
+
+            <div class="field field--v">
+              <label class="check" for="f-agree">
+                <input type="checkbox" id="f-agree" name="agree" aria-describedby="f-agree-err">
+                <span><a href="#privacy">プライバシーポリシー</a>を読み、内容に同意します。<span class="req">必須</span></span>
+              </label>
+              <p class="err" id="f-agree-err">ご同意にチェックをお願いします。</p>
+            </div>
+
+            <!-- 自動投稿よけ。人には見えないが、プログラムは入力してしまう欄 -->
+            <div class="vh" aria-hidden="true">
+              <label for="f-company">この欄は入力しないでください</label>
+              <input type="text" id="f-company" name="_gotcha" tabindex="-1" autocomplete="off">
+            </div>
+
+            <p class="formerr" id="formsenderr" role="alert" hidden>
+              送信できませんでした。通信の状態をご確認のうえ、もう一度お試しください。<br>
+              お急ぎの場合はお電話でも承ります。
+            </p>
+
+            <button class="btn btn--main btn--full" type="submit">この内容で予約を申し込む</button>
+            <p class="form__note">お預かりした情報は、ご連絡と当社サービスのご案内のみに使用します。</p>
+          </form>
+        </div>
+
+        <div class="done" id="done" role="status" aria-live="polite">
+          <b>お申し込みを受け付けました</b>
+          <p>1営業日以内に、担当者からお電話でご連絡します。<br>お急ぎの場合は、お電話でもお受けしています。</p>
+        </div>
+      </div>
+    </div>
+  </section>
