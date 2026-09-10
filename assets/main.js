@@ -276,6 +276,9 @@
       e.preventDefault();
       if(sending) return;                      // 二重送信を防ぐ
 
+      // 以後はエラー行の場所を確保する（直したときに下の要素が動かないように）
+      form.classList.add('is-validated');
+
       var bad = validate();
       if(bad.length){
         summaryList.innerHTML = '';

@@ -505,15 +505,19 @@ button{font:inherit}
 .field textarea{min-height:110px;resize:vertical;line-height:1.8}
 .field .hint{font-size:.78rem;color:var(--sumi-2);margin-top:.35rem;line-height:1.7}
 .field [aria-invalid="true"]{border-color:var(--err);background:var(--err-bg)}
-/* エラー行は常に場所を確保しておく。表示・非表示でレイアウトがずれると、
-   入力を直している最中に下のボタンや同意欄が動いて押し間違えるため。 */
+/* エラー行は、一度でも送信を試したあとだけ場所を確保する。
+   表示・非表示でレイアウトがずれると入力を直している最中にボタンが動いて
+   押し間違えるが、まだ何も起きていないうちから空行を空けておくと
+   フォームが間延びするため、送信を試した時点から確保に切り替える。 */
 .err{
-  display:flex;gap:.4rem;align-items:flex-start;min-height:1.45em;
-  color:var(--err);font-size:.85rem;font-weight:700;margin-top:.4rem;line-height:1.6;
+  display:flex;gap:.4rem;align-items:flex-start;
+  color:var(--err);font-size:.85rem;font-weight:700;line-height:1.6;
+  height:0;margin-top:0;overflow:hidden;visibility:hidden;
 }
 .err::before{content:"⚠";flex:none}
-.err:not(.is-on){visibility:hidden}
-.field--v{margin-bottom:.4rem}
+.is-validated .err{height:auto;min-height:1.45em;margin-top:.4rem}
+.err.is-on{visibility:visible;height:auto;min-height:1.45em;margin-top:.4rem}
+.is-validated .field--v{margin-bottom:.4rem}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
 
 /* 行全体を押せるようにして、指先での取りこぼしを防ぐ */
@@ -759,6 +763,9 @@ button{font:inherit}
 /* ============ ページ見出し ============ */
 /* 大きさと太さは本文の見出しと同じまま、色と下線で「今どのページか」を強く示す */
 .page-title{color:var(--ai)}
+/* 濃い背景の節では白抜きにする。同系色だと文字が完全に消えてしまう */
+.reserve .page-title{color:#fff}
+.reserve .page-title::after{background:#F5C46B}
 .page-title::after{
   content:"";display:block;width:3.2rem;height:5px;border-radius:3px;
   background:var(--yamabuki);margin-top:.7rem;
@@ -823,8 +830,9 @@ button{font:inherit}
 /* 幅の狭い端末では、開閉ボタンの分だけ項目名の幅が足りず2行に折り返してしまう。
    ボタンを細くし、行の中の「›」を省いて1行に収める。 */
 @media (max-width:390px){
-  .drawer__toggle{width:46px}
-  .drawer__row > a{padding-left:.5rem;padding-right:.5rem}
+  .drawer__panel{padding-left:.8rem;padding-right:.8rem}
+  .drawer__toggle{width:56px}
+  .drawer__row > a{padding-left:.55rem;padding-right:.55rem}
   .drawer__row > a::after{display:none}
   .drawer__sub{padding-left:1rem}
   .drawer__tel{padding:.7rem .9rem}
