@@ -331,6 +331,33 @@ def promote_h1(body, page):
     return re.sub(r"</h2>", "</h1>", body, count=1)
 
 
+def check_links(files):
+    """リンク切れを検出する。
+
+    1ページを複数ページに分けたとき、ページ内リンク（#reserve など）が
+    そのまま残るとどこにも飛ばなくなる。実際にそれで壊れたので、
+    ビルドのたびに機械的に確かめる。
+    """
+    problems = []
+    for f in files:
+        html = open(f, encoding="utf-8").read()
+        ids = set(re.findall(r'\sid="([^"]+)"', html))
+        for href in re.findall(r'href="([^"]+)"', html):
+            if href.startswith(("http://", "https://", "mailto:", "tel:", "data:")):
+                continue
+            path, _, frag = href.partition("#")
+            if path and not os.path.exists(path):
+                problems.append(f"{f}: {href} → {path} が存在しない")
+            elif not path and frag and frag not in ids:
+                problems.append(f"{f}: {href} → このページに #{frag} がない")
+    if problems:
+        print("\n★ リンク切れが見つかりました:")
+        for p_ in problems:
+            print("   " + p_)
+        raise SystemExit(1)
+    print("  リンク切れなし")
+
+
 def build():
     written = []
     for page in PAGES:
@@ -379,6 +406,8 @@ def build():
 
     open("robots.txt", "w", encoding="utf-8").write(
         f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
+
+    check_links([f for f, _ in written])
 
     for f, size in written:
         print(f"  {f:<16} {size/1024:6.1f} KB")
