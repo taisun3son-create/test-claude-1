@@ -128,8 +128,16 @@
     totop.addEventListener('click', function(){
       try{ window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'}); }
       catch(e){ window.scrollTo(0, 0); }
+      // フォーカス移動でスクロールが起きるとスムーススクロールが中断され、
+      // 途中で止まってしまう。preventScroll を付けて、対応していなければ移動しない。
       var logo = document.querySelector('.logo');
-      if(logo && logo.focus) logo.focus();
+      if(logo && logo.focus){
+        var moved = false;
+        try{
+          logo.focus({ get preventScroll(){ moved = true; return true; } });
+        }catch(e){}
+        if(!moved){ /* preventScroll 非対応。位置がずれるのでフォーカスは移動しない */ }
+      }
     });
   });
 

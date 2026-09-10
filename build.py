@@ -19,6 +19,9 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700"
          "&amp;family=Zen+Kaku+Gothic+New:wght@500;700&amp;display=swap")
 SITE = "https://example.com"          # 納品時に実ドメインへ差し替える
 NAME = "陽だまり家事サポート"
+# 架空の番号。0561 は瀬戸市の市外局番、局番 00 は未割当なので実在の相手にはつながらない
+TEL_DISP = "0561-00-0000"
+TEL_HREF = "tel:0561000000"
 BRAND = "ひだまり"
 
 # ---------------------------------------------------------------- ページ定義
@@ -98,6 +101,7 @@ BUSINESS = {
     "alternateName": BRAND,
     "description": "愛知県瀬戸市を中心とした、シニア世帯のための家事代行サービス。掃除・洗濯・買い物代行などを、少人数の体制でお伺いします。",
     "url": f"{SITE}/",
+    "telephone": "+81-561-00-0000",
     "image": f"{SITE}/assets/og.jpg",
     "foundingDate": "2026",
     "priceRange": "￥￥",
@@ -198,7 +202,7 @@ def header(page):
     </div>
 
     <div class="headtel">
-      <span class="headtel__num is-todo">☎ 電話番号を記入</span>
+      <a class="headtel__num" href="{TEL_HREF}">☎ {TEL_DISP}</a>
       <span class="headtel__note">9:00〜18:00／土日祝も受付</span>
     </div>
 
@@ -234,11 +238,11 @@ def drawer(page):
 {nav}
     </nav>
 
-    <div class="drawer__tel is-todo">
+    <a class="drawer__tel" href="{TEL_HREF}">
       <span>お電話でのご相談</span>
-      <b>電話番号を記入してください</b>
+      <b>{TEL_DISP}</b>
       <small>受付 9:00〜18:00／土日祝も受付</small>
-    </div>
+    </a>
 
     <div class="fsize">
       <span id="fsLabel2">文字サイズ</span>
@@ -287,7 +291,7 @@ def footer():
         <address style="font-style:normal">
           〒000-0000（記入してください）<br>
           愛知県瀬戸市（住所を記入してください）<br>
-          電話 （電話番号を記入してください）／9:00〜18:00
+          電話 <a href="{TEL_HREF}">{TEL_DISP}</a>／9:00〜18:00
         </address>
       </div>
       <nav aria-label="フッターメニュー">
@@ -311,7 +315,7 @@ def footer():
 </footer>
 
 <div class="mbar">
-  <span class="btn btn--todo">☎ 電話番号を記入</span>
+  <a class="btn btn--tel" href="{TEL_HREF}">☎ 電話する</a>
   <a class="btn btn--main" href="reserve.html">Web予約</a>
 </div>
 
