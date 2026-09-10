@@ -218,7 +218,18 @@ button{font:inherit}
   line-height:1.2;margin:.1rem 0;
 }
 .drawer__tel small{display:block;font-size:.72rem;color:rgba(255,255,255,.82)}
-.drawer .fsize{justify-content:center;flex-wrap:wrap;padding-top:.4rem;border-top:1px solid var(--line)}
+/* ドロワーの文字サイズは、いちばん必要とする人が押すボタン。
+   ヘッダー版（.7rem＝11.2px）のままだと小さすぎたので、本文の下限13pxに合わせ、
+   タップ領域も44pxまで広げている */
+.drawer .fsize{
+  justify-content:center;flex-wrap:wrap;gap:.45rem;
+  padding-top:.7rem;border-top:1px solid var(--line);font-size:.82rem;
+}
+.drawer .fsize button{
+  min-height:44px;min-width:3.5em;padding:.5rem .9rem;
+  font-size:.95rem;border-radius:9px;border-width:2px;
+}
+.drawer .fsize button:nth-of-type(2){font-size:1.12rem}
 
 /* ============ 表紙 ============ */
 .cover{
@@ -581,16 +592,31 @@ button{font:inherit}
 .reserve__grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(1.8rem,4vw,3.5rem);align-items:start}
 .reserve__lead{color:rgba(255,255,255,.9);font-size:.95rem;margin-top:1rem;line-height:1.95}
 .telcard{
-  background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.24);
-  border-radius:var(--r);padding:1.5rem;margin-top:1.8rem;
+  position:relative;display:flex;align-items:center;gap:1.1rem;
+  background:linear-gradient(135deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,.06) 100%);
+  border:2px solid rgba(255,255,255,.3);
+  border-radius:var(--r);padding:1.35rem 1.4rem;margin-top:1.8rem;
+  box-shadow:0 20px 40px -28px rgba(0,0,0,.95);
 }
-.telcard span{font-size:.8rem;font-weight:700;color:rgba(255,255,255,.85)}
+.telcard__icon{
+  flex:none;width:56px;height:56px;border-radius:50%;
+  /* 濃い藍の上では --yamabuki(#E2A02F) は沈む。この節の差し色（見出し・✓）に合わせる */
+  background:#F5C46B;color:#2B1B00;
+  display:grid;place-items:center;font-size:1.7rem;line-height:1;
+}
+.telcard__body{display:block;min-width:0}
+.telcard__label{
+  display:block;font-size:.8rem;font-weight:700;color:rgba(255,255,255,.85);
+}
 .telcard a,.telcard b{
-  display:block;font-family:var(--mincho);font-size:2.15rem;font-weight:700;
-  color:#fff;text-decoration:none;letter-spacing:.02em;margin:.2rem 0;
+  display:block;font-family:var(--mincho);font-weight:700;
+  font-size:clamp(1.65rem,5.4vw,2.1rem);
+  color:#fff;text-decoration:none;letter-spacing:.02em;margin:.15rem 0;
+  white-space:nowrap;
 }
+.telcard a:hover{text-decoration:underline}
 .telcard.is-todo{border-style:dashed}
-.telcard.is-todo b{font-family:var(--gothic);font-size:1.05rem;color:rgba(255,255,255,.9)}
+.telcard.is-todo b{font-family:var(--gothic);font-size:1.05rem;color:rgba(255,255,255,.9);white-space:normal}
 .telcard small{font-size:.78rem;color:rgba(255,255,255,.82);display:block}
 .reserve__list{margin-top:1.6rem;display:grid;gap:.6rem;font-size:.88rem;color:rgba(255,255,255,.9)}
 .reserve__list li{display:flex;gap:.6rem;line-height:1.75}
@@ -859,7 +885,11 @@ button{font:inherit}
   .faq__a{margin:0 1rem;padding:.8rem 0 1rem;line-height:1.85}
 
   .reserve{padding:2.6rem 0}
-  .telcard{margin-top:1.2rem;padding:1.2rem}
+  .telcard{margin-top:1.2rem;padding:1.1rem 1.2rem;gap:.9rem}
+  .telcard__icon{width:48px;height:48px;font-size:1.45rem}
+  /* スマホでは番号だけでなくカード全体を押せるようにする。
+     指で狙う的が 24px の行から 90px 近いカードに変わる */
+  .telcard a::after{content:"";position:absolute;inset:0;border-radius:var(--r)}
   .reserve__list{margin-top:1.1rem}
   .field{margin-bottom:.8rem}
   .form__sub{margin-bottom:1.1rem}
@@ -962,6 +992,12 @@ button{font:inherit}
   .drawer__nav a{padding:.5rem .9rem;min-height:52px}
   .drawer__toggle{width:54px}
   .drawer__sub a{padding:.4rem .9rem;min-height:44px}
+  .drawer__tel{padding:.6rem .8rem;gap:.7rem}
+  .drawer__tel__icon{width:40px;height:40px;font-size:1.15rem}
+  .drawer__tel b{font-size:1.25rem}
+  /* タップ領域の44pxは守り、まわりの余白だけを詰める */
+  .drawer .fsize{padding-top:.45rem;gap:.4rem}
+  .drawer .fsize button{padding:.45rem .8rem}
 }
 
 /* 幅の狭い端末では、開閉ボタンの分だけ項目名の幅が足りず2行に折り返してしまう。
