@@ -198,13 +198,26 @@ button{font:inherit}
 }
 .drawer__nav a::after{content:"›";color:var(--take);font-size:1.3rem;line-height:1}
 .drawer__tel{
-  background:var(--ai);color:#fff;border-radius:var(--r);padding:1rem 1.1rem;text-decoration:none;display:block;
+  display:flex;align-items:center;gap:.85rem;
+  background:linear-gradient(135deg,var(--ai) 0%,var(--ai-d) 100%);
+  color:#fff;border-radius:var(--r);padding:.9rem 1rem;text-decoration:none;
+  box-shadow:0 10px 24px -16px rgba(11,40,45,.9);
 }
-.drawer__tel span{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.8)}
-.drawer__tel b{display:block;font-family:var(--mincho);font-size:1.6rem;letter-spacing:.02em}
-.drawer__tel.is-todo{border:2px dashed rgba(255,255,255,.45)}
-.drawer__tel.is-todo b{font-family:var(--gothic);font-size:1rem;color:rgba(255,255,255,.92)}
-.drawer__tel small{font-size:.72rem;color:rgba(255,255,255,.8)}
+.drawer__tel:hover{background:linear-gradient(135deg,#1A5560 0%,var(--ai) 100%)}
+.drawer__tel__icon{
+  flex:none;width:46px;height:46px;border-radius:50%;
+  background:var(--yamabuki);color:#2B1B00;
+  display:grid;place-items:center;font-size:1.35rem;line-height:1;
+}
+.drawer__tel__body{display:block;min-width:0}
+.drawer__tel__label{
+  display:block;font-size:.74rem;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.85);
+}
+.drawer__tel b{
+  display:block;font-family:var(--mincho);font-size:1.55rem;letter-spacing:.02em;
+  line-height:1.2;margin:.1rem 0;
+}
+.drawer__tel small{display:block;font-size:.72rem;color:rgba(255,255,255,.82)}
 .drawer .fsize{justify-content:center;flex-wrap:wrap;padding-top:.4rem;border-top:1px solid var(--line)}
 
 /* ============ 表紙 ============ */
@@ -537,6 +550,15 @@ button{font:inherit}
   padding:1rem 1.1rem;margin-bottom:1.2rem;color:var(--err);font-size:.9rem;font-weight:700;line-height:1.8;
 }
 .formerr[hidden]{display:none}
+
+/* 料金ページから引き継いだ内容のお知らせ */
+.prefill{
+  background:var(--take-l);border:2px solid var(--take);border-radius:11px;
+  padding:.8rem 1rem;margin-bottom:1.1rem;
+  color:var(--take-d);font-size:.86rem;font-weight:700;line-height:1.7;
+}
+.prefill::before{content:"✓ ";font-weight:700}
+.prefill[hidden]{display:none}
 .formerr ul{margin:.4rem 0 0;display:grid;gap:.2rem}
 .formerr a{color:var(--err)}
 
@@ -792,12 +814,12 @@ button{font:inherit}
 .drawer__sub a{
   display:flex;justify-content:space-between;align-items:center;
   text-decoration:none;font-weight:700;font-size:.92rem;
-  padding:.7rem .9rem;border-radius:10px;
-  background:var(--take-l);border:2px solid var(--take-l);color:var(--take-d);
+  padding:.7rem .9rem;border-radius:11px;
+  background:var(--white);border:2px solid var(--line);color:var(--take-d);
   min-height:48px;
 }
 .drawer__sub a::after{content:"›";color:var(--take);font-size:1.2rem;line-height:1}
-.drawer__sub a:hover{border-color:var(--take)}
+.drawer__sub a:hover{background:var(--take-l);border-color:var(--take)}
 
 /* ============ パンくず ============ */
 .crumb{background:var(--white);border-bottom:1px solid var(--line);font-size:.82rem}
@@ -835,7 +857,8 @@ button{font:inherit}
   .drawer__row > a{padding-left:.55rem;padding-right:.55rem}
   .drawer__row > a::after{display:none}
   .drawer__sub{padding-left:1rem}
-  .drawer__tel{padding:.7rem .9rem}
+  .drawer__tel{padding:.65rem .8rem;gap:.7rem}
+  .drawer__tel__icon{width:40px;height:40px;font-size:1.15rem}
   .drawer__tel b{font-size:1.25rem}
   .drawer .fsize{padding-top:.2rem}
 }

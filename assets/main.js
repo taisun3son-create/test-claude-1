@@ -182,9 +182,18 @@
       cMonthLabel.textContent = LABELS[plan];
     }
 
-    cPlan.addEventListener('change', calc);
-    cHours.addEventListener('change', calc);
+    // 「この内容で相談する」に、選んだプランと時間を持たせる
+    var cta = document.getElementById('calc-cta');
+    function syncCta(){
+      if(!cta) return;
+      cta.href = 'reserve.html?plan=' + encodeURIComponent(cPlan.value) +
+                 '&hours=' + encodeURIComponent(cHours.value);
+    }
+
+    cPlan.addEventListener('change', function(){ calc(); syncCta(); });
+    cHours.addEventListener('change', function(){ calc(); syncCta(); });
     calc();
+    syncCta();
   });
 
   /* ---------- 予約フォーム（デモ動作） ---------- */
@@ -248,6 +257,45 @@
       try{ el.scrollIntoView({block:'center', behavior: reduce ? 'auto' : 'smooth'}); }
       catch(e){ el.scrollIntoView(); }
     }
+
+    // 料金ページから渡されたプラン・時間を選択済みにしておく。
+    // 静的なサイトなので、URL の ?plan=...&hours=... で受け渡している。
+    (function prefill(){
+      var q = {};
+      var qs = window.location.search.replace(/^\?/, '');
+      if(!qs) return;
+      var parts = qs.split('&');
+      for(var i = 0; i < parts.length; i++){
+        var kv = parts[i].split('=');
+        if(kv.length === 2) q[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
+      }
+
+      function pick(sel, key){
+        if(!key) return null;
+        var el = document.getElementById(sel);
+        if(!el) return null;
+        for(var i = 0; i < el.options.length; i++){
+          if(el.options[i].getAttribute('data-key') === key){
+            el.selectedIndex = i;
+            return el.options[i].text;
+          }
+        }
+        return null;
+      }
+
+      var planTxt = pick('f-plan', q.plan);
+      var hoursTxt = pick('f-hours', q.hours);
+      if(!planTxt && !hoursTxt) return;
+
+      var note = document.getElementById('prefill');
+      if(note){
+        var bits = [];
+        if(planTxt) bits.push('プラン：' + planTxt);
+        if(hoursTxt) bits.push('ご利用時間：' + hoursTxt);
+        note.textContent = '料金ページで選ばれた内容を反映しました（' + bits.join(' ／ ') + '）。変更もできます。';
+        note.hidden = false;
+      }
+    })();
 
     var sending = false;
     var submitBtn = form.querySelector('button[type="submit"]');

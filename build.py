@@ -256,9 +256,12 @@ def drawer(page):
     </nav>
 
     <a class="drawer__tel" href="{TEL_HREF}">
-      <span>お電話でのご相談</span>
-      <b>{TEL_DISP}</b>
-      <small>受付 9:00〜18:00／土日祝も受付</small>
+      <span class="drawer__tel__icon" aria-hidden="true">☎</span>
+      <span class="drawer__tel__body">
+        <span class="drawer__tel__label">お電話でのご相談</span>
+        <b>{TEL_DISP}</b>
+        <small>受付 9:00〜18:00／土日祝も受付</small>
+      </span>
     </a>
 
     <div class="fsize">
@@ -368,6 +371,7 @@ def check_links(files):
             if href.startswith(("http://", "https://", "mailto:", "tel:", "data:")):
                 continue
             path, _, frag = href.partition("#")
+            path = path.split("?")[0]          # ?plan=... のような受け渡しは除いて確かめる
             if path and not os.path.exists(path):
                 problems.append(f"{f}: {href} → {path} が存在しない")
             elif not path and frag and frag not in ids:

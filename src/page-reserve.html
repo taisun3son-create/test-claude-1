@@ -25,6 +25,8 @@
           <h3>Webでのご予約・ご相談</h3>
           <p class="form__sub">1営業日以内に、担当者からお電話でご連絡します。</p>
 
+          <p class="prefill" id="prefill" role="status" hidden></p>
+
           <div class="formerr" id="formerr" role="alert" hidden>
             <span id="formerr-head">ご入力に不足があります。</span>
             <ul id="formerr-list"></ul>
@@ -64,22 +66,33 @@
               <div class="field">
                 <label for="f-plan">ご希望のプラン<span class="opt-tag">任意</span></label>
                 <select id="f-plan" name="plan">
-                  <option>おためし（2時間 6,400円・交通費込み）</option>
-                  <option selected>定期プラン（週1回）</option>
-                  <option>定期プラン（隔週）</option>
-                  <option>単発でのご利用</option>
-                  <option>まだ決めていない・相談したい</option>
+                  <option data-key="trial">おためし（2時間 6,400円・交通費込み）</option>
+                  <option data-key="week" selected>定期プラン（週1回）</option>
+                  <option data-key="biweek">定期プラン（隔週）</option>
+                  <option data-key="spot">単発でのご利用</option>
+                  <option data-key="undecided">まだ決めていない・相談したい</option>
                 </select>
               </div>
               <div class="field">
-                <label for="f-when">ご連絡しやすい時間帯<span class="opt-tag">任意</span></label>
-                <select id="f-when" name="when">
-                  <option>午前（9:00〜12:00）</option>
-                  <option selected>午後（12:00〜15:00）</option>
-                  <option>夕方（15:00〜18:00）</option>
-                  <option>いつでも可</option>
+                <label for="f-hours">1回あたりのご利用時間<span class="opt-tag">任意</span></label>
+                <select id="f-hours" name="hours">
+                  <option data-key="2" selected>2時間（最短）</option>
+                  <option data-key="3">3時間</option>
+                  <option data-key="4">4時間</option>
+                  <option data-key="5">5時間</option>
+                  <option data-key="ask">相談して決めたい</option>
                 </select>
               </div>
+            </div>
+
+            <div class="field">
+              <label for="f-when">ご連絡しやすい時間帯<span class="opt-tag">任意</span></label>
+              <select id="f-when" name="when">
+                <option>午前（9:00〜12:00）</option>
+                <option selected>午後（12:00〜15:00）</option>
+                <option>夕方（15:00〜18:00）</option>
+                <option>いつでも可</option>
+              </select>
             </div>
 
             <div class="field">
