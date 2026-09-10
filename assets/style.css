@@ -732,19 +732,6 @@ button{font:inherit}
   .foot__grid{gap:1.4rem;margin-bottom:1.4rem}
 }
 
-/* 画面が低いとき（横向き、文字サイズ「大」など）はドロワーの項目を詰めて、
-   6項目すべてが一度に収まるようにする。後ろの指定に負けないよう末尾に置く。 */
-@media (max-height:760px){
-  .drawer__panel{gap:.55rem;padding-top:.6rem}
-  .drawer__title{font-size:1rem}
-  .drawer__close{padding:.35rem .7rem;min-height:44px;font-size:.88rem}
-  .drawer__nav{gap:.25rem}
-  .drawer__nav a{padding:.5rem .9rem;min-height:52px}
-  .drawer__tel{padding:.7rem .9rem}
-  .drawer__tel b{font-size:1.25rem}
-  .drawer .fsize{padding-top:.2rem}
-}
-
 /* ============ print ============ */
 @media print{
   .head,.mbar,.totop,.drawer,.skip,.form,.calc,.hero__cta,.cover__cue{display:none!important}
@@ -769,6 +756,42 @@ button{font:inherit}
   a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt}
 }
 
+/* ============ ページ見出し ============ */
+/* 大きさと太さは本文の見出しと同じまま、色と下線で「今どのページか」を強く示す */
+.page-title{color:var(--ai)}
+.page-title::after{
+  content:"";display:block;width:3.2rem;height:5px;border-radius:3px;
+  background:var(--yamabuki);margin-top:.7rem;
+}
+.crumb + .section .page-title,
+.crumb + .reserve .page-title{margin-bottom:.9rem}
+
+/* ============ ドロワーの小項目（ミニタブ） ============ */
+.drawer__row{display:flex;gap:.3rem}
+.drawer__row > a{flex:1;min-width:0}
+.drawer__toggle{
+  flex:none;width:60px;border:2px solid var(--line);border-radius:11px;
+  background:var(--white);cursor:pointer;display:grid;place-items:center;
+}
+.drawer__toggle::before{
+  content:"";width:11px;height:11px;
+  border-right:2.5px solid var(--take);border-bottom:2.5px solid var(--take);
+  transform:translateY(-3px) rotate(45deg);transition:transform .2s ease;
+}
+.drawer__toggle[aria-expanded="true"]{background:var(--take-l);border-color:var(--take)}
+.drawer__toggle[aria-expanded="true"]::before{transform:translateY(2px) rotate(-135deg)}
+.drawer__sub{display:grid;gap:.25rem;padding-left:1.4rem;margin-top:-.1rem}
+.drawer__sub[hidden]{display:none}
+.drawer__sub a{
+  display:flex;justify-content:space-between;align-items:center;
+  text-decoration:none;font-weight:700;font-size:.92rem;
+  padding:.7rem .9rem;border-radius:10px;
+  background:var(--take-l);border:2px solid var(--take-l);color:var(--take-d);
+  min-height:48px;
+}
+.drawer__sub a::after{content:"›";color:var(--take);font-size:1.2rem;line-height:1}
+.drawer__sub a:hover{border-color:var(--take)}
+
 /* ============ パンくず ============ */
 .crumb{background:var(--white);border-bottom:1px solid var(--line);font-size:.82rem}
 .crumb ol{display:flex;flex-wrap:wrap;gap:.2rem .55rem;padding:.7rem 0;margin-block:0;list-style:none}
@@ -783,4 +806,28 @@ button{font:inherit}
 .nextstep .btn{min-width:min(20rem,100%)}
 @media (max-width:560px){
   .nextstep .btn{width:100%;min-width:0}
+}
+
+/* 画面が低いとき（横向き、文字サイズ「大」など）はドロワーの項目を詰めて、
+   6項目すべてが一度に収まるようにする。後ろの指定に負けないよう末尾に置く。 */
+@media (max-height:760px){
+  .drawer__panel{gap:.55rem;padding-top:.6rem}
+  .drawer__title{font-size:1rem}
+  .drawer__close{padding:.35rem .7rem;min-height:44px;font-size:.88rem}
+  .drawer__nav{gap:.25rem}
+  .drawer__nav a{padding:.5rem .9rem;min-height:52px}
+  .drawer__toggle{width:54px}
+  .drawer__sub a{padding:.4rem .9rem;min-height:44px}
+}
+
+/* 幅の狭い端末では、開閉ボタンの分だけ項目名の幅が足りず2行に折り返してしまう。
+   ボタンを細くし、行の中の「›」を省いて1行に収める。 */
+@media (max-width:390px){
+  .drawer__toggle{width:46px}
+  .drawer__row > a{padding-left:.5rem;padding-right:.5rem}
+  .drawer__row > a::after{display:none}
+  .drawer__sub{padding-left:1rem}
+  .drawer__tel{padding:.7rem .9rem}
+  .drawer__tel b{font-size:1.25rem}
+  .drawer .fsize{padding-top:.2rem}
 }

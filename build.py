@@ -220,10 +220,27 @@ def header(page):
 </header>'''
 
 
+# ドロワーの中の小項目。右側のボタンを押すと1つ下に出る
+DRAWER_SUB = {
+    "service": [("料金試算", "service.html#calc")],
+}
+
+
 def drawer(page):
     def link(p):
         cur = ' aria-current="page"' if p["slug"] == page["slug"] else ""
-        return f'      <a href="{p["file"]}"{cur}>{p["nav"]}</a>'
+        sub = DRAWER_SUB.get(p["slug"])
+        if not sub:
+            return f'      <a href="{p["file"]}"{cur}>{p["nav"]}</a>'
+        sid = f'drawer-sub-{p["slug"]}'
+        items = "\n".join(f'        <a href="{href}">{label}</a>' for label, href in sub)
+        return (f'      <div class="drawer__row">\n'
+                f'        <a href="{p["file"]}"{cur}>{p["nav"]}</a>\n'
+                f'        <button class="drawer__toggle" type="button" aria-expanded="false" '
+                f'aria-controls="{sid}"><span class="vh">{p["nav"]}の中の項目を開く</span></button>\n'
+                f'      </div>\n'
+                f'      <div class="drawer__sub" id="{sid}" hidden>\n{items}\n      </div>')
+
     home_cur = ' aria-current="page"' if page["slug"] == "index" else ""
     nav = "\n".join([f'      <a href="index.html"{home_cur}>ホーム</a>'] + [link(p) for p in NAV])
     return f'''<div class="drawer" id="drawer" data-open="false">
@@ -331,7 +348,8 @@ def promote_h1(body, page):
     """サブページでは、そのページの主題が h1 になるように格上げする。"""
     if page["slug"] == "index":
         return body
-    body = re.sub(r'<h2 class="h2"((?: id="[\w-]+")?)>', r'<h1 class="h2"\1>', body, count=1)
+    body = re.sub(r'<h2 class="h2"((?: id="[\w-]+")?)>',
+                  r'<h1 class="h2 page-title"\1>', body, count=1)
     return re.sub(r"</h2>", "</h1>", body, count=1)
 
 

@@ -171,7 +171,13 @@
 
     <nav class="drawer__nav" aria-label="メインメニュー（モバイル）">
       <a href="index.html" aria-current="page">ホーム</a>
-      <a href="service.html">サービス・料金</a>
+      <div class="drawer__row">
+        <a href="service.html">サービス・料金</a>
+        <button class="drawer__toggle" type="button" aria-expanded="false" aria-controls="drawer-sub-service"><span class="vh">サービス・料金の中の項目を開く</span></button>
+      </div>
+      <div class="drawer__sub" id="drawer-sub-service" hidden>
+        <a href="service.html#calc">料金試算</a>
+      </div>
       <a href="flow.html">ご利用の流れ</a>
       <a href="voice.html">お客様の声</a>
       <a href="faq.html">よくある質問</a>

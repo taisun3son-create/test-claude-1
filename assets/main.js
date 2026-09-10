@@ -108,6 +108,20 @@
     for(var i = 0; i < links.length; i++){
       links[i].addEventListener('click', closeDrawer);
     }
+
+    // 「サービス・料金」の右のボタンで、小項目（料金試算）を出し入れする
+    var toggles = drawer.querySelectorAll('.drawer__toggle');
+    for(var t = 0; t < toggles.length; t++){
+      (function(btn){
+        var sub = document.getElementById(btn.getAttribute('aria-controls'));
+        if(!sub) return;
+        btn.addEventListener('click', function(){
+          var open = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!open));
+          sub.hidden = open;
+        });
+      })(toggles[t]);
+    }
   });
 
   /* ---------- ページ先頭へ ---------- */
