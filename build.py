@@ -17,7 +17,10 @@ import re
 
 FONTS = ("https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700"
          "&amp;family=Zen+Kaku+Gothic+New:wght@500;700&amp;display=swap")
-SITE = "https://example.com"          # 納品時に実ドメインへ差し替える
+# いま実際に公開されている場所。末尾に / は付けない。
+# 独自ドメインを取ったら、ここを "https://example.co.jp" のように書き換えて
+# python3 build.py を実行し直す。canonical・OGP・sitemap.xml すべてに反映される。
+SITE = "https://taisun3son-create.github.io/test-claude-1"
 NAME = "陽だまり家事サポート"
 # 架空の番号。0561 は瀬戸市の市外局番、局番 00 は未割当なので実在の相手にはつながらない
 TEL_DISP = "0561-00-0000"
