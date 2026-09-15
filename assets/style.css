@@ -697,7 +697,9 @@ button{font:inherit}
 .foot ul{display:grid;gap:.5rem}
 .foot a{text-decoration:none}
 .foot a:hover{color:#fff;text-decoration:underline}
-.foot__copy{border-top:1px solid rgba(255,255,255,.16);padding-top:1.4rem;font-size:.76rem;display:flex;gap:.4rem 1.2rem;flex-wrap:wrap}
+/* small の既定の縮小（0.8em）に任せると12.75pxになり、本文の下限13pxを割る */
+.foot address small{display:inline-block;font-size:.86rem;line-height:1.75}
+.foot__copy{border-top:1px solid rgba(255,255,255,.16);padding-top:1.4rem;font-size:.82rem;display:flex;gap:.4rem 1.2rem;flex-wrap:wrap}
 
 /* ============ mobile bar / to top ============ */
 .mbar{
