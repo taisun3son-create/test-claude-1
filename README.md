@@ -19,6 +19,8 @@ tokushoho.html  特定商取引法に基づく表記
 build.py        6+3ページを書き出す。ヘッダー・フッター・<head> はここ1か所
 src/            各ページの本文だけを置く
 assets/         style.css / main.js / 画像
+tests/          検証。run.js が全スイートをまとめて流す
+HANDOVER.md     別環境へ引き継ぐときのメモ（未解決の宿題つき）
 _headers        Netlify・Cloudflare Pages 用のセキュリティヘッダとキャッシュ設定
 robots.txt / sitemap.xml
 ```
@@ -203,7 +205,28 @@ Netlify Forms、自前のWorkerなど）を入れてビルドし直すだけで�
 
 ## 検証
 
-`python3 -m http.server` で配信し、Playwright で確認しています。
+```bash
+npm install && npx playwright install chromium   # 最初の1回だけ
+npm test                                          # 235項目
+```
+
+`tests/run.js` が、ビルド → 検証用サーバ起動 → 全スイート実行 → 片づけ、まで行います。
+**先にビルドしてから測る**ので、ソースと生成物がずれた状態で「通った」と
+誤解することはありません。1つだけ流すときは `node tests/run.js tel` のように書きます。
+
+| スイート | 見ているもの |
+|---|---|
+| `site` | 全9ページの構造・メタ情報・構造化データ |
+| `func` | 料金計算・フォーム検証・文字サイズ・スマホでの長さ |
+| `links` | 全リンクの総当たりと、プラン引き継ぎのクエリ |
+| `verify` | 先頭へ戻る・ドロワーの到達性・電話番号の統一 |
+| `mini` | 見出しのコントラスト・ドロワーの小項目 |
+| `carry` | 選んだプランと時間の引き継ぎ |
+| `flow2` | 流れの番号・声の見た目・料金カードの開閉 |
+| `tel` | 予約ページの電話カード・文字サイズボタン |
+| `addr` | 公開URL・住所・構造化データの住所 |
+
+中身は以下を確認しています。
 
 - 全9ページ: ヘッダーが常時表示（sticky）、ナビ5項目、h1が1つ、
   title/description/canonical/og:image、構造化データが壊れていないこと
