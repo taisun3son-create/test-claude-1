@@ -3,7 +3,7 @@
   "private": true,
   "description": "陽だまり家事サポート（架空案件）のサイトと、その検証",
   "scripts": {
-    "build": "python3 build.py",
+    "build": "node tests/python.js build.py",
     "test": "node tests/run.js"
   },
   "devDependencies": {

@@ -86,6 +86,26 @@ const ratio = (a,b) => { const [x,y] = [lum(a),lum(b)].sort((p,q)=>q-p); return 
     await sp.close();
   }
 
+  // 文字「大」でも崩れないこと。いちばん大きい文字を選ぶ人ほど、この番号に電話をかける。
+  // 以前は 375px でも8pxはみ出していたのに、標準の文字サイズしか測っていなかった
+  for (const [w, h, name] of [[390, 844, 'iPhone 13'], [375, 667, 'iPhone SE(第3世代)'], [320, 568, 'iPhone SE(第1世代)']]) {
+    const sp = await b.newPage({ viewport: { width: w, height: h } });
+    await sp.addInitScript(() => { try { localStorage.setItem('hidamari-fontsize', 'l'); } catch (e) {} });
+    await sp.goto(B + 'reserve.html', { waitUntil: 'networkidle' });
+    const r = await sp.evaluate(() => {
+      const a = document.querySelector('.telcard a'), c = document.querySelector('.telcard');
+      return { large: document.documentElement.classList.contains('fs-l'),
+               fs: parseFloat(getComputedStyle(a).fontSize),
+               inside: a.getBoundingClientRect().right <= c.getBoundingClientRect().right,
+               x: document.documentElement.scrollWidth - document.documentElement.clientWidth };
+    });
+    ck(`電話 ${name} 文字大: 文字大が効いている`, r.large);
+    ck(`電話 ${name} 文字大: 番号がカードに収まる`, r.inside);
+    ck(`電話 ${name} 文字大: 横スクロールなし`, r.x <= 0, `${r.x}px`);
+    ck(`電話 ${name} 文字大: 番号が小さくなりすぎない`, r.fs >= 20, `${r.fs.toFixed(1)}px`);
+    await sp.close();
+  }
+
   /* ---------- メニューの文字サイズボタン ---------- */
   for (const [w, h, name] of [[390, 844, 'iPhone 13'], [320, 568, 'iPhone SE(第1世代)']]) {
     const sp = await b.newPage({ viewport: { width: w, height: h } });

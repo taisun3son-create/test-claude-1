@@ -4,6 +4,7 @@
 const { spawn, spawnSync } = require('child_process');
 const http = require('http');
 const path = require('path');
+const PY = require('./python');
 
 const ROOT = path.join(__dirname, '..');
 const PORT = process.env.PORT || 8770;
@@ -25,7 +26,7 @@ const ping = () => new Promise(res => {
 
 (async () => {
   // 先にビルドして、生成物とソースがずれた状態で測らないようにする
-  const built = spawnSync('python3', ['build.py'], { cwd: ROOT, encoding: 'utf-8' });
+  const built = spawnSync(PY, ['build.py'], { cwd: ROOT, encoding: 'utf-8' });
   if (built.status !== 0) {
     console.error('build.py が失敗しました\n' + (built.stderr || built.stdout));
     process.exit(1);
@@ -34,7 +35,7 @@ const ping = () => new Promise(res => {
 
   let server = null;
   if (!(await ping())) {
-    server = spawn('python3', ['-m', 'http.server', String(PORT), '--bind', '127.0.0.1'],
+    server = spawn(PY, ['-m', 'http.server', String(PORT), '--bind', '127.0.0.1'],
                    { cwd: ROOT, stdio: 'ignore' });
     for (let i = 0; i < 40 && !(await ping()); i++) await new Promise(r => setTimeout(r, 250));
     if (!(await ping())) { console.error('検証用サーバが立ちませんでした'); process.exit(1); }

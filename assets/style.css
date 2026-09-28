@@ -610,7 +610,10 @@ button{font:inherit}
 }
 .telcard a,.telcard b{
   display:block;font-family:var(--mincho);font-weight:700;
-  font-size:clamp(1.65rem,5.4vw,2.1rem);
+  /* 番号は折り返さないので、狭い画面では幅から逆算して縮める。
+     番号の幅は字の約7倍、残り（余白・アイコン・枠）が約160px。
+     これがないと 320px で15px、文字「大」なら375pxでもはみ出す */
+  font-size:min(clamp(1.65rem,5.4vw,2.1rem),calc((100vw - 160px) / 7.2));
   color:#fff;text-decoration:none;letter-spacing:.02em;margin:.15rem 0;
   white-space:nowrap;
 }
