@@ -34,6 +34,17 @@ const PAGES = ['index','service','flow','voice','faq','reserve','thanks','privac
   ck('URL: sitemap に noindex のページを載せていない',
      !locs.some(u => u.endsWith('thanks.html')));
   ck('URL: robots.txt の Sitemap 行が公開URL', rb.includes(SITE + '/sitemap.xml'));
+  // build.py の INDEXABLE に従って、検索結果に出す／出さないが全ページで揃っていること
+  const indexable = /^INDEXABLE\s*=\s*True/m.test(require('fs').readFileSync(require('path').join(__dirname, '..', 'build.py'), 'utf-8'));
+  const leaked = [];
+  for (const s of PAGES) {
+    await p.goto(B + s + '.html', { waitUntil: 'domcontentloaded' });
+    const noindex = await p.evaluate(() => /noindex/.test((document.querySelector('meta[name=robots]') || {}).content || ''));
+    if (s === 'thanks' ? !noindex : noindex === indexable) leaked.push(s);
+  }
+  ck(`検索: ${indexable ? '完了ページ以外は検索結果に出せる' : '全ページが検索結果に出ない（noindex）'}`,
+     leaked.length === 0, leaked.join(' '));
+  ck('検索: robots.txt でクロールを止めていない（止めると noindex が読まれない）', !/Disallow:\s*\/\s*$/m.test(rb));
   ck('URL: 末尾が二重スラッシュになっていない', !sm.includes('//index.html') && !sm.includes(SITE + '//'));
 
   /* ---- 2. 住所 ---- */

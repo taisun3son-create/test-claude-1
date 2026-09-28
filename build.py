@@ -21,6 +21,11 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700"
 # 独自ドメインを取ったら、ここを "https://example.co.jp" のように書き換えて
 # python3 build.py を実行し直す。canonical・OGP・sitemap.xml すべてに反映される。
 SITE = "https://taisun3son-create.github.io/test-claude-1"
+# 検索結果に出すかどうか。False なら全ページに noindex を付ける。
+# 架空の事業者が「瀬戸市 家事代行」で出てこないよう、ポートフォリオでは False にしている。
+# 実案件では公開の日に True にする（制作中の確認用URLは False のまま）。
+# robots.txt の Disallow で隠さないこと。クロールを止めると noindex 自体が読まれない
+INDEXABLE = False
 NAME = "陽だまり家事サポート"
 # 架空の番号。0561 は瀬戸市の市外局番、局番 00 は未割当なので実在の相手にはつながらない
 TEL_DISP = "0561-00-0000"
@@ -157,8 +162,9 @@ def breadcrumb(page):
 def head(page, graph):
     ld = json.dumps({"@context": "https://schema.org", "@graph": graph},
                     ensure_ascii=False, indent=2)
-    # 送信完了ページは検索結果に出す意味がないので除外する
-    robots = '\n<meta name="robots" content="noindex, follow">' if page.get("noindex") else ""
+    # 送信完了ページは検索結果に出す意味がないので除外する。INDEXABLE が False なら全ページ
+    hide = page.get("noindex") or not INDEXABLE
+    robots = '\n<meta name="robots" content="noindex, follow">' if hide else ""
     return f'''<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{page["title"]}</title>
