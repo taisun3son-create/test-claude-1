@@ -1,0 +1,4 @@
+_photos/
+__pycache__/
+node_modules/
+tests/shots/

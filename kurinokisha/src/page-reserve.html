@@ -1,0 +1,123 @@
+<div class="page-head">
+  <div class="wrap">
+    <ol class="crumb"><li><a href="index.html">トップ</a></li><li aria-current="page">ご予約・お問い合わせ</li></ol>
+    <span class="eyebrow">Reservation</span>
+    <h1>ご予約・お問い合わせ</h1>
+    <p>お席のご予約、焼き菓子のお取り置き、贈りもののご注文を承ります。お店から確認のご連絡をして、ご予約が決まります。</p>
+  </div>
+</div>
+
+<section class="sec">
+  <div class="wrap form-wrap">
+    <div>
+      <form class="form" id="rsv-form" action="#" method="post" novalidate data-endpoint="">
+        <p class="form-summary" role="alert" tabindex="-1"></p>
+
+        <fieldset class="field">
+          <legend>ご用件<span class="req">必須</span></legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="kind" value="seat" checked><span>お席の予約</span></label>
+            <label class="choice"><input type="radio" name="kind" value="goods"><span>焼き菓子のお取り置き</span></label>
+            <label class="choice"><input type="radio" name="kind" value="gift"><span>贈りもの（のし付き）の注文</span></label>
+            <label class="choice"><input type="radio" name="kind" value="other"><span>そのほかのお問い合わせ</span></label>
+          </div>
+          <p class="err"></p>
+        </fieldset>
+
+        <div class="row2">
+          <div class="field">
+            <label for="f-name">お名前<span class="req">必須</span></label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required>
+            <p class="err"></p>
+          </div>
+          <div class="field">
+            <label for="f-tel">お電話番号<span class="req">必須</span></label>
+            <input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required placeholder="090-1234-5678">
+            <p class="err"></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-mail">メールアドレス<span class="opt">任意</span></label>
+          <input id="f-mail" name="email" type="email" autocomplete="email" inputmode="email">
+          <p class="hint">書いていただくと、確認のご連絡をメールでお送りします。</p>
+          <p class="err"></p>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="f-date">ご来店日・受け取り日<span class="req">必須</span></label>
+            <input id="f-date" name="date" type="date" required>
+            <p class="hint">あした以降の日付。火曜・水曜は定休日です。</p>
+            <p class="err"></p>
+          </div>
+          <div class="field">
+            <label for="f-time">時間<span class="req">必須</span></label>
+            <select id="f-time" name="time" required>
+              <option value="">えらんでください</option>
+              <option>10:00</option><option>11:00</option><option>12:00</option><option>13:00</option>
+              <option>14:00</option><option>15:00</option><option>16:00</option>
+            </select>
+            <p class="err"></p>
+          </div>
+        </div>
+
+        <div class="field only-seat">
+          <label for="f-people">人数<span class="req">必須</span></label>
+          <select id="f-people" name="people" required>
+            <option value="">えらんでください</option>
+            <option>1名</option><option>2名</option><option>3名</option><option>4名</option><option>5〜6名（座敷）</option>
+          </select>
+          <p class="hint">7名以上のときは、お電話でご相談ください。</p>
+          <p class="err"></p>
+        </div>
+
+        <div class="field only-seat">
+          <span class="field-label" id="seat-label">お席のご希望<span class="opt">任意</span></span>
+          <div class="choices" role="group" aria-labelledby="seat-label">
+            <label class="choice"><input type="radio" name="seat" value="none" checked><span>どこでもよい</span></label>
+            <label class="choice"><input type="radio" name="seat" value="zashiki"><span>座敷（靴をぬいで上がる席）</span></label>
+          </div>
+        </div>
+
+        <div class="field only-goods" hidden>
+          <label for="f-goods">お取り置き・ご注文の内容<span class="req">必須</span></label>
+          <textarea id="f-goods" name="goods" required placeholder="例）栗のパウンドケーキ 2つ、焼き菓子の詰め合わせ（大）1つ・のし「御礼」"></textarea>
+          <p class="err"></p>
+        </div>
+
+        <div class="field">
+          <label for="f-note">ご要望・ご質問<span class="opt">任意</span></label>
+          <textarea id="f-note" name="note" placeholder="ベビーカーで行きます、アレルギーがあります、など"></textarea>
+        </div>
+
+        <div class="hp" aria-hidden="true"><label>空けておいてください<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+        <div class="field">
+          <label class="agree"><input type="checkbox" name="agree" required><span><a href="privacy.html">プライバシーポリシー</a>に同意して送信します</span></label>
+          <p class="err"></p>
+        </div>
+
+        <button class="btn btn-accent" type="submit">この内容で送る</button>
+      </form>
+
+      <div class="form-done" id="done" hidden tabindex="-1">
+        <h2>送信しました。ありがとうございます。</h2>
+        <p>内容を確認して、営業日の2日以内にお電話かメールでご連絡します。ご連絡をもってご予約が決まります。</p>
+        <p>お急ぎの方は、お電話（{{TEL_DISP}}）でもどうぞ。</p>
+        <a class="more" href="index.html">トップへ戻る{{icon:arrow-right}}</a>
+      </div>
+    </div>
+
+    <aside class="aside-card" aria-labelledby="tel-h">
+      <h2 id="tel-h">お電話でのご予約</h2>
+      <a class="aside-tel" href="{{TEL_HREF}}">{{icon:phone}}{{TEL_DISP}}</a>
+      <p class="hint">{{HOURS_DISP}}<br>定休 {{CLOSED_DISP}}</p>
+      <ul>
+        <li>当日のご予約はお電話でお願いします。</li>
+        <li>お席は90分を目安にお願いしています。</li>
+        <li>お取り置きの焼き菓子は、15時までに取りにいらしてください。</li>
+      </ul>
+    </aside>
+  </div>
+</section>

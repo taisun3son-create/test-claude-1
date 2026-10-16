@@ -1,0 +1,22 @@
+<div class="page-head">
+  <div class="wrap">
+    <ol class="crumb"><li><a href="index.html">トップ</a></li><li aria-current="page">お知らせ</li></ol>
+    <span class="eyebrow">News</span>
+    <h1>お知らせ</h1>
+    <p>季節のメニュー、臨時のお休み、催しのご案内です。</p>
+  </div>
+</div>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="filter" role="group" aria-label="お知らせの種類で絞りこむ">
+      <button class="chip" type="button" data-filter="all" aria-pressed="true">すべて</button>
+      <button class="chip" type="button" data-filter="season" aria-pressed="false">季節のメニュー</button>
+      <button class="chip" type="button" data-filter="closed" aria-pressed="false">お休み</button>
+      <button class="chip" type="button" data-filter="event" aria-pressed="false">催し</button>
+      <button class="chip" type="button" data-filter="info" aria-pressed="false">お知らせ</button>
+    </div>
+    {{news:all}}
+    <p class="news-empty" hidden>この種類のお知らせは、いまはありません。</p>
+  </div>
+</section>

@@ -1,0 +1,111 @@
+<div class="page-head">
+  <div class="wrap">
+    <ol class="crumb"><li><a href="index.html">トップ</a></li><li aria-current="page">メニュー</li></ol>
+    <span class="eyebrow">Menu</span>
+    <h1>メニュー</h1>
+    <p>価格はすべて税込です。焼き菓子は毎朝焼いて、なくなりしだい終わります。</p>
+  </div>
+</div>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="tabs" role="tablist" aria-label="メニューの種類">
+      <button class="tab" type="button" role="tab" id="t-coffee" aria-controls="coffee">珈琲</button>
+      <button class="tab" type="button" role="tab" id="t-sweets" aria-controls="sweets">栗の焼き菓子</button>
+      <button class="tab" type="button" role="tab" id="t-season" aria-controls="season">季節のもの</button>
+      <button class="tab" type="button" role="tab" id="t-beans" aria-controls="beans">豆と贈りもの</button>
+    </div>
+
+    <div class="menu-panel" id="coffee" role="tabpanel" aria-labelledby="t-coffee">
+      <div class="menu-panel-inner">
+        <figure>{{img:menu-coffee|木のコースターにのせた、陶器のカップの珈琲}}<figcaption>カップは、須坂の窯元に焼いてもらっています。</figcaption></figure>
+        <div>
+          <h2>珈琲</h2>
+          <p class="menu-lead">ハンドドリップで一杯ずつ。おかわりは半額です。</p>
+          <dl class="price-list">
+            <div><dt>蔵ブレンド<small>苦みやわらか・中深煎り。はじめての方に</small></dt><dd>550円</dd></div>
+            <div><dt>深まりブレンド<small>秋だけ・深煎り。栗のお菓子に合わせて</small></dt><dd>600円</dd></div>
+            <div><dt>本日のシングルオリジン<small>エチオピア、コロンビアなど日替わり</small></dt><dd>650円〜</dd></div>
+            <div><dt>カフェオレ<small>信州の牛乳で</small></dt><dd>650円</dd></div>
+            <div><dt>水出し珈琲<small>4〜9月</small></dt><dd>600円</dd></div>
+          </dl>
+          <h2 class="h-gap">お茶とそのほか</h2>
+          <dl class="price-list">
+            <div><dt>ほうじ茶</dt><dd>500円</dd></div>
+            <div><dt>和紅茶<small>静岡の農園から</small></dt><dd>550円</dd></div>
+            <div><dt>りんごジュース<small>小布施のふじ・ストレート</small></dt><dd>500円</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="sweets" role="tabpanel" aria-labelledby="t-sweets">
+      <div class="menu-panel-inner">
+        <figure>{{img:menu-sweets|半分に割ったスコーンに、ジャムをのせたところ}}<figcaption>スコーンは、栗あんと自家製ジャムを添えて。</figcaption></figure>
+        <div>
+          <h2>栗の焼き菓子</h2>
+          <p class="menu-lead">小布施の栗を、蒸したり、煮たり、刻んだり。</p>
+          <dl class="price-list">
+            <div><dt>栗のパウンドケーキ<small>栗の甘露煮を刻んで焼き込みます</small></dt><dd>480円</dd></div>
+            <div><dt>栗あんのスコーン<small>栗あんとジャムつき</small></dt><dd>420円</dd></div>
+            <div><dt>栗のバスクチーズケーキ</dt><dd>550円</dd></div>
+            <div><dt>くるみと栗のクッキー<small>3枚・お持ち帰りもできます</small></dt><dd>380円</dd></div>
+            <div><dt>焼き菓子と珈琲のセット<small>お好きな焼き菓子＋蔵ブレンドかほうじ茶</small></dt><dd>950円</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="season" role="tabpanel" aria-labelledby="t-season">
+      <div class="menu-panel-inner">
+        <figure>{{img:menu-chestnut|ざるに広げた、とれたての栗}}<figcaption>九月の終わりから、町の農家さんの栗が届きます。</figcaption></figure>
+        <div>
+          <h2>季節のもの</h2>
+          <p class="menu-lead">その季節にしか作らないものです。</p>
+          <dl class="price-list">
+            <div><dt>栗のモンブラン<small>10〜11月・店内のみ</small></dt><dd>780円</dd></div>
+            <div><dt>焼き栗とほうじ茶のパフェ<small>11〜12月</small></dt><dd>980円</dd></div>
+            <div><dt>栗ぜんざい<small>1〜2月</small></dt><dd>750円</dd></div>
+            <div><dt>栗あずきの氷<small>7月〜9月なかば</small></dt><dd>850円</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="beans" role="tabpanel" aria-labelledby="t-beans">
+      <div class="menu-panel-inner">
+        <figure>{{img:menu-beans|ドリッパーに入った、挽きたての珈琲豆}}<figcaption>豆は、ご注文をいただいてから挽きます。</figcaption></figure>
+        <div>
+          <h2>豆と贈りもの</h2>
+          <p class="menu-lead">お店の豆と焼き菓子は、お持ち帰り・お取り置きができます。</p>
+          <dl class="price-list">
+            <div><dt>蔵ブレンド（100g）</dt><dd>800円</dd></div>
+            <div><dt>深まりブレンド（100g）<small>秋だけ</small></dt><dd>900円</dd></div>
+            <div><dt>ドリップバッグ 5袋</dt><dd>900円</dd></div>
+            <div><dt>焼き菓子の詰め合わせ（小）<small>パウンドケーキ2・クッキー2</small></dt><dd>1,800円</dd></div>
+            <div><dt>焼き菓子と豆の詰め合わせ（大）<small>のし・手さげ袋つき</small></dt><dd>3,500円</dd></div>
+          </dl>
+          <a class="btn btn-accent btn-gap" href="reserve.html?kind=gift">{{icon:calendar-days}}<span>贈りものを注文する</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-foot">
+      <ul>
+        <li>アレルギーのある方は、ご注文のときにお知らせください。焼き菓子には小麦・卵・乳・くるみを使っています。</li>
+        <li>お取り置きは前日の17時まで、フォームかお電話で承ります。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="cta" aria-labelledby="cta-h">
+  <div class="cta-inner">
+    <h2 id="cta-h" class="cta-title">焼き菓子の、<br class="sp">お取り置き。</h2>
+    <p>前日までのご予約で、売り切れの心配がありません。</p>
+    <div class="cta-btns">
+      <a class="btn btn-accent" href="reserve.html?kind=goods">{{icon:calendar-days}}<span>お取り置きを頼む</span></a>
+      <a class="btn btn-light" href="{{TEL_HREF}}">{{icon:phone}}<span>{{TEL_DISP}}</span></a>
+    </div>
+  </div>
+</section>
