@@ -9,8 +9,10 @@
      ブラウザや埋めこみ表示が前のページのスクロール位置を引き継ぐことがあるため */
   run("scrolltop", function () {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    // 開いたときの # を覚えておく（メニューのタブがあとから # を書きかえても、先頭へ戻せるように）
+    var hash = location.hash;
     var toTop = function () {
-      if (location.hash && location.hash.length > 1 && document.getElementById(location.hash.slice(1))) return;
+      if (hash && hash.length > 1 && document.getElementById(hash.slice(1))) return;
       window.scrollTo(0, 0);
       // 枠の中で表示されているとき、外側の枠も先頭へ戻す
       if (window.self !== window.top && document.body.scrollIntoView) document.body.scrollIntoView({ block: "start" });
@@ -122,7 +124,7 @@
   run("tabs", function () {
     var tabs = $$(".tab");
     if (!tabs.length) return;
-    function show(tab, focus) {
+    function show(tab, focus, init) {
       tabs.forEach(function (t) {
         var on = t === tab;
         t.setAttribute("aria-selected", on ? "true" : "false");
@@ -130,7 +132,8 @@
         document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
       });
       if (focus) tab.focus();
-      if (history.replaceState) history.replaceState(null, "", "#" + tab.getAttribute("aria-controls"));
+      // 開いたときは # を付けない（付けると、ページの途中から開いてしまう）
+      if (!init && history.replaceState) history.replaceState(null, "", "#" + tab.getAttribute("aria-controls"));
     }
     tabs.forEach(function (t, i) {
       t.addEventListener("click", function () { show(t); });
@@ -140,7 +143,7 @@
       });
     });
     var hash = location.hash.slice(1);
-    show(tabs.filter(function (t) { return t.getAttribute("aria-controls") === hash; })[0] || tabs[0]);
+    show(tabs.filter(function (t) { return t.getAttribute("aria-controls") === hash; })[0] || tabs[0], false, true);
   });
 
   /* お知らせの絞り込みと、#で来たときに開く */
