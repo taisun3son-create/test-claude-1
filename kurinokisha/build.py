@@ -47,8 +47,6 @@ PAGES = {
                       desc=f"{SHOP}からのお知らせ。季節のメニュー、臨時のお休み、イベントのご案内。", body="sub"),
     "reserve.html": dict(src="page-reserve.html", title=f"ご予約・お問い合わせ｜{SHOP}（{AREA_SHORT}の古民家喫茶）",
                          desc=f"{SHOP}の席のご予約、焼き菓子のお取り置き、ギフトのご注文はこちらから。", body="sub"),
-    "en.html": dict(src="page-en.html", title=f"{SHOP_EN} | Old storehouse café in Obuse, Nagano",
-                    desc="A small café in a 90-year-old storehouse in Obuse, Nagano. House-roasted coffee and chestnut sweets.", body="sub", lang="en"),
     "privacy.html": dict(src="page-privacy.html", title=f"プライバシーポリシー｜{SHOP}（{AREA_SHORT}の古民家喫茶）",
                          desc=f"{SHOP}の個人情報の取り扱いについて。", body="sub"),
 }
@@ -135,7 +133,6 @@ def header(cur, lang):
     <a class="logo" href="index.html" aria-label="{SHOP} トップへ">{LOGO}<span class="logo-txt"><span class="logo-ja">{SHOP}</span><span class="logo-en">{SHOP_EN} &mdash; coffee &amp; sweets</span></span></a>
     <nav class="gnav" aria-label="メインメニュー">{nav_html(cur, 'gnav-list')}</nav>
     <div class="hd-actions">
-      <a class="lang" href="{'index.html' if lang == 'en' else 'en.html'}" lang="{'ja' if lang == 'en' else 'en'}">{'日本語' if lang == 'en' else 'English'}</a>
       <a class="btn btn-accent btn-sm" href="reserve.html">{icon('calendar-days')}<span>{reserve_label}</span></a>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="drawer">{icon('menu')}<span>メニュー</span></button>
     </div>
@@ -147,7 +144,6 @@ def header(cur, lang):
     <nav aria-label="メニュー（スマホ）">{nav_html(cur, 'drawer-list')}</nav>
     <a class="btn btn-accent btn-block" href="reserve.html">{icon('calendar-days')}<span>席のご予約・お取り置き</span></a>
     <a class="drawer-tel" href="{TEL_HREF}">{icon('phone')}<span><small>お電話でのご予約</small><b>{TEL_DISP}</b><small>{HOURS_DISP}／定休 {CLOSED_DISP}</small></span></a>
-    <a class="lang drawer-lang" href="en.html" lang="en">English page</a>
   </div>
 </div>"""
 
@@ -169,7 +165,6 @@ def footer():
         <li><a href="news.html">お知らせ</a></li>
         <li><a href="reserve.html">ご予約・お問い合わせ</a></li>
         <li><a href="privacy.html">プライバシーポリシー</a></li>
-        <li><a href="en.html" lang="en">English</a></li>
       </ul>
     </nav>
     <div class="ft-cta">
