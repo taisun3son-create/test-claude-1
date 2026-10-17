@@ -5,6 +5,20 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
+  /* ページを移ったら、いつも一番上から見せる（#つきのリンクだけはその場所へ）。
+     ブラウザや埋めこみ表示が前のページのスクロール位置を引き継ぐことがあるため */
+  run("scrolltop", function () {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    var toTop = function () {
+      if (location.hash && location.hash.length > 1 && document.getElementById(location.hash.slice(1))) return;
+      window.scrollTo(0, 0);
+      // 枠の中で表示されているとき、外側の枠も先頭へ戻す
+      if (window.self !== window.top && document.body.scrollIntoView) document.body.scrollIntoView({ block: "start" });
+    };
+    toTop();
+    window.addEventListener("pageshow", function (e) { if (!e.persisted) toTop(); });
+  });
+
   /* ドロワー（Escape・背景で閉じる、フォーカスを中に閉じこめる） */
   run("drawer", function () {
     var btn = $(".menu-btn"), drawer = $("#drawer");

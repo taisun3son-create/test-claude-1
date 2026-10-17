@@ -148,21 +148,25 @@ small { font-size: .8125rem; }
 .hero { position: relative; color: #FFF; background: var(--sumi); overflow: hidden; }
 .hero-photo { height: min(82svh, 720px); min-height: 460px; }
 .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
-.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(25, 19, 15, .55) 0%, rgba(25, 19, 15, .05) 45%, rgba(25, 19, 15, .1) 70%, rgba(25, 19, 15, .55) 100%); pointer-events: none; }
-.hero-copy { position: absolute; inset: 0; z-index: 2; padding: 32px var(--gut); display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; }
+/* 写真の主役（花瓶）が中央より右にあるので、文字は左にまとめて左右の重さをつり合わせる */
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(25, 19, 15, .62) 0%, rgba(25, 19, 15, .38) 32%, rgba(25, 19, 15, .06) 58%, rgba(25, 19, 15, .12) 100%); pointer-events: none; }
+.hero-copy {
+  position: absolute; inset: 0; z-index: 2; padding: 40px var(--gut) 36px;
+  display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start;
+}
 .hero-title {
   writing-mode: vertical-rl; text-orientation: upright; font-family: var(--f-mincho); font-weight: 500;
-  font-size: clamp(2rem, 1.4rem + 2.6vw, 3.4rem); letter-spacing: .24em; line-height: 1.7;
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3.2rem); letter-spacing: .22em; line-height: 1.9;
   text-shadow: 0 1px 18px rgba(0, 0, 0, .35);
 }
+/* 2行は頭をそろえる（縦書きの見出しは上の位置をそろえるのが基本） */
 .hero-title span { display: block; }
-.hero-title span + span { margin-top: 2.2em; }
-.hero-sub { align-self: flex-start; font-size: .95rem; line-height: 1.9; letter-spacing: .08em; text-shadow: 0 1px 12px rgba(0, 0, 0, .5); max-width: 22em; }
-.hero-en { display: none; position: absolute; z-index: 2; left: var(--gut); top: 28px; margin: 0; font-family: var(--f-en); font-style: italic; font-size: 1.05rem; letter-spacing: .06em; opacity: .9; }
+.hero-sub { font-size: .95rem; line-height: 1.9; letter-spacing: .08em; text-shadow: 0 1px 12px rgba(0, 0, 0, .5); max-width: 22em; margin: 0; }
+.hero-en { display: none; margin: 0 0 10px; font-family: var(--f-en); font-style: italic; font-size: 1.05rem; letter-spacing: .06em; opacity: .9; }
 @media (min-width: 1024px) {
   .hero-photo { height: min(86vh, 820px); }
-  .hero-copy { padding: 64px 72px; }
-  .hero-en { display: block; left: 72px; top: auto; bottom: 124px; font-size: 1.3rem; }
+  .hero-copy { padding: 72px 88px 64px; }
+  .hero-en { display: block; font-size: 1.25rem; }
   .hero-sub { font-size: 1.05rem; }
 }
 
