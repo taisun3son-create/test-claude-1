@@ -10,6 +10,11 @@
 <section class="sec">
   <div class="wrap form-wrap">
     <div>
+      <ol class="steps" aria-label="ご予約が決まるまで">
+        <li><b>1</b><span>このフォームで送る</span></li>
+        <li><b>2</b><span>お店からお電話かメール（営業日の2日以内）</span></li>
+        <li><b>3</b><span>ご予約が決まる</span></li>
+      </ol>
       <form class="form" id="rsv-form" action="#" method="post" novalidate data-endpoint="">
         <p class="form-summary" role="alert" tabindex="-1"></p>
 
@@ -27,19 +32,20 @@
         <div class="row2">
           <div class="field">
             <label for="f-name">お名前<span class="req">必須</span></label>
-            <input id="f-name" name="name" type="text" autocomplete="name" required>
+            <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="例）小布施 花子">
             <p class="err"></p>
           </div>
           <div class="field">
             <label for="f-tel">お電話番号<span class="req">必須</span></label>
-            <input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required placeholder="090-1234-5678">
+            <input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required placeholder="例）090-1234-5678">
+            <p class="hint">ハイフン（-）はあってもなくても大丈夫です。</p>
             <p class="err"></p>
           </div>
         </div>
 
         <div class="field">
           <label for="f-mail">メールアドレス<span class="opt">任意</span></label>
-          <input id="f-mail" name="email" type="email" autocomplete="email" inputmode="email">
+          <input id="f-mail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="例）hanako@example.com">
           <p class="hint">書いていただくと、確認のご連絡をメールでお送りします。</p>
           <p class="err"></p>
         </div>
@@ -88,7 +94,7 @@
 
         <div class="field">
           <label for="f-note">ご要望・ご質問<span class="opt">任意</span></label>
-          <textarea id="f-note" name="note" placeholder="ベビーカーで行きます、アレルギーがあります、など"></textarea>
+          <textarea id="f-note" name="note" placeholder="例）ベビーカーで行きます。卵のアレルギーがあります。"></textarea>
         </div>
 
         <div class="hp" aria-hidden="true"><label>空けておいてください<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
@@ -98,14 +104,21 @@
           <p class="err"></p>
         </div>
 
-        <button class="btn btn-accent" type="submit">この内容で送る</button>
+        <div class="submit-row">
+          <button class="btn btn-accent" type="submit">予約の内容を送る</button>
+          <p class="hint">送っただけでは、まだご予約は決まりません。お店からのご連絡で決まります。</p>
+        </div>
       </form>
 
       <div class="form-done" id="done" hidden tabindex="-1">
-        <h2>送信しました。ありがとうございます。</h2>
+        <h2>{{icon:circle-check}}<span><span class="phrase">送信しました。</span><span class="phrase">ありがとうございます。</span></span></h2>
         <p>内容を確認して、営業日の2日以内にお電話かメールでご連絡します。ご連絡をもってご予約が決まります。</p>
-        <p>お急ぎの方は、お電話（{{TEL_DISP}}）でもどうぞ。</p>
-        <a class="more" href="index.html">トップへ戻る{{icon:arrow-right}}</a>
+        <p>お急ぎの方は、お電話<span class="phrase">（{{TEL_DISP}}）</span>でもどうぞ。</p>
+        <div class="done-links">
+          <a class="more" href="menu.html">メニューを見る{{icon:arrow-right}}</a>
+          <a class="more" href="index.html#access">営業時間・アクセスを見る{{icon:arrow-right}}</a>
+          <a class="more" href="index.html">トップへ戻る{{icon:arrow-right}}</a>
+        </div>
       </div>
     </div>
 

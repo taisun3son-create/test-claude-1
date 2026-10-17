@@ -4,7 +4,7 @@ const { chromium } = require(process.env.PW || 'playwright');
 const http = require('http'), fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.webp': 'image/webp' };
-const pages = ['index', 'about', 'menu', 'news', 'reserve', 'en', 'privacy'];
+const pages = ['index', 'about', 'menu', 'news', 'reserve', 'en', 'privacy', '404'];
 const srv = http.createServer((q, r) => {
   const f = path.join(ROOT, decodeURIComponent(q.url.split('?')[0].split('#')[0]));
   if (!f.startsWith(ROOT) || !fs.existsSync(f)) { r.writeHead(404); return r.end(); }

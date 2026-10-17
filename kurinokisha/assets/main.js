@@ -236,7 +236,7 @@
       fetch(endpoint, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
         .then(function (r) { if (!r.ok) throw new Error(r.status); done(); })
         .catch(function () {
-          btn.disabled = false; btn.textContent = "この内容で送る";
+          btn.disabled = false; btn.textContent = "予約の内容を送る";
           summary.textContent = "送信できませんでした。時間をおいてもう一度お試しいただくか、お電話ください。";
           summary.classList.add("is-show"); summary.focus();
         });

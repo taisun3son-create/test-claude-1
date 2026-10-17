@@ -49,6 +49,8 @@ PAGES = {
                          desc=f"{SHOP}の席のご予約、焼き菓子のお取り置き、ギフトのご注文はこちらから。", body="sub"),
     "en.html": dict(src="page-en.html", title=f"{SHOP_EN} | Old storehouse café in Obuse, Nagano",
                     desc="A small café in a 90-year-old storehouse in Obuse, Nagano. House-roasted coffee and chestnut sweets.", body="sub", lang="en"),
+    "404.html": dict(src="page-404.html", title=f"ページが見つかりません｜{SHOP}",
+                     desc=f"お探しのページは見つかりませんでした。{SHOP}のトップページからお探しください。", body="sub", noindex=True),
     "privacy.html": dict(src="page-privacy.html", title=f"プライバシーポリシー｜{SHOP}（{AREA_SHORT}の古民家喫茶）",
                          desc=f"{SHOP}の個人情報の取り扱いについて。", body="sub"),
 }
@@ -86,7 +88,7 @@ def nav_html(cur, cls):
 def head(name, p):
     lang = p.get("lang", "ja")
     url = f"{SITE}/" + ("" if name == "index.html" else name)
-    robots = "" if INDEXABLE else '<meta name="robots" content="noindex,nofollow">'
+    robots = "" if INDEXABLE and not p.get("noindex") else '<meta name="robots" content="noindex,nofollow">'
     ld = ""
     if name == "index.html":
         ld = json.dumps({
@@ -128,7 +130,7 @@ def head(name, p):
 
 
 def header(cur, lang):
-    reserve_label = "Reserve" if lang == "en" else "席のご予約"
+    reserve_label = "Reserve" if lang == "en" else "席を予約する"
     return f"""<a class="skip" href="#main">本文へ移動</a>
 <header class="site-header">
   <div class="hd-inner">
@@ -145,7 +147,7 @@ def header(cur, lang):
   <div class="drawer-panel" role="dialog" aria-modal="true" aria-label="メニュー">
     <button class="drawer-close" type="button">{icon('x')}<span>閉じる</span></button>
     <nav aria-label="メニュー（スマホ）">{nav_html(cur, 'drawer-list')}</nav>
-    <a class="btn btn-accent btn-block" href="reserve.html">{icon('calendar-days')}<span>席のご予約・お取り置き</span></a>
+    <a class="btn btn-accent btn-block" href="reserve.html">{icon('calendar-days')}<span>席の予約・お取り置きをする</span></a>
     <a class="drawer-tel" href="{TEL_HREF}">{icon('phone')}<span><small>お電話でのご予約</small><b>{TEL_DISP}</b><small>{HOURS_DISP}／定休 {CLOSED_DISP}</small></span></a>
     <a class="lang drawer-lang" href="en.html" lang="en">English page</a>
   </div>
@@ -174,7 +176,7 @@ def footer():
     </nav>
     <div class="ft-cta">
       <p class="ft-cta-lead">週末は混みあいます。<br>お席のご予約はお気軽に。</p>
-      <a class="btn btn-light" href="reserve.html">{icon('calendar-days')}<span>席のご予約・お取り置き</span></a>
+      <a class="btn btn-light" href="reserve.html">{icon('calendar-days')}<span>席の予約・お取り置きをする</span></a>
     </div>
   </div>
   <p class="ft-note">{FICTION_NOTE}</p>
@@ -244,6 +246,8 @@ def news(count):
         else:
             rows.append(f'<li class="news-item"><a href="news.html#news-{n["date"]}-{i}"><span class="news-meta">{date}{tag}</span>'
                         f'<span class="news-title">{n["title"]}</span>{icon("arrow-right")}</a></li>')
+    if not rows:  # 0件でもまっ白にしない
+        return '<p class="news-none">いまお知らせはありません。営業日と時間は、下の「営業時間・アクセス」をご覧ください。</p>'
     return f'<ul class="news-list{" news-full" if full else ""}">' + "".join(rows) + "</ul>"
 
 
@@ -292,7 +296,7 @@ def main():
         (ROOT / name).write_text(html, encoding="utf-8")
     # 検索エンジン向けのページ一覧。公開の日に INDEXABLE = True にすると robots.txt から案内される。
     # 制作中も巡回は止めない（止めると各ページの noindex が読まれない）
-    urls = "".join(f"  <url><loc>{SITE}/{'' if n == 'index.html' else n}</loc></url>\n" for n in PAGES)
+    urls = "".join(f"  <url><loc>{SITE}/{'' if n == 'index.html' else n}</loc></url>\n" for n, p in PAGES.items() if not p.get("noindex"))
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
                                       f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n', encoding="utf-8")
     (ROOT / "robots.txt").write_text("User-agent: *\nAllow: /\n" + (f"Sitemap: {SITE}/sitemap.xml\n" if INDEXABLE else ""), encoding="utf-8")

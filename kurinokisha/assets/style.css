@@ -27,7 +27,7 @@ html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--hd) + 16px
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 body {
   margin: 0; background: var(--kinari); color: var(--sumi);
-  font-family: var(--f-sans); font-weight: 400; font-size: 1rem; line-height: 1.95;
+  font-family: var(--f-sans); font-weight: 400; font-size: 1rem; line-height: 1.85;
   letter-spacing: .04em; font-feature-settings: "palt" 0;
   padding-bottom: 64px;
 }
@@ -85,12 +85,15 @@ small { font-size: .8125rem; }
 .btn-line:hover { background: var(--sumi); color: var(--kinari); }
 .btn-light { background: var(--kinari); color: var(--sumi); }
 .btn-light:hover { background: #FFF; }
+/* 色だけでなく形も変える（色の見え方がちがう人にも、押せることが伝わるように） */
+.btn:hover { box-shadow: 0 0 0 2px var(--kinari), 0 0 0 3px var(--sumi); }
+.btn-light:hover { box-shadow: 0 0 0 2px var(--sumi), 0 0 0 3px var(--kinari); }
 .more {
   display: inline-flex; align-items: center; gap: .5em; margin-top: 28px;
   text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--sumi); padding-bottom: 4px;
 }
 .more .ic { transition: transform .3s var(--ease); }
-.more:hover .ic:last-child { transform: translateX(4px); }
+.more:hover svg:last-of-type { transform: translateX(4px); }
 
 /* ---------- ヘッダー ---------- */
 .site-header { position: sticky; top: 0; z-index: 40; background: rgba(243, 238, 228, .94); border-bottom: 1px solid var(--line); }
@@ -321,7 +324,7 @@ small { font-size: .8125rem; }
 /* ---------- 予約のさそい ---------- */
 .cta { background: var(--kuri); color: var(--kinari); text-align: center; padding: 80px var(--gut); }
 .cta-title { font-family: var(--f-mincho); font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.2rem); letter-spacing: .12em; line-height: 1.7; margin-bottom: 20px; }
-.cta p { line-height: 1.9; }
+.cta p { line-height: 1.8; }
 .cta-btns { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 32px; }
 
 /* ---------- フッター ---------- */
@@ -331,7 +334,7 @@ small { font-size: .8125rem; }
 .logo-ft .logo-mark { color: var(--kinari); }
 .logo-ft .logo-mark path:nth-child(2) { stroke: var(--sumi); }
 .logo-ft .logo-en { color: rgba(243, 238, 228, .75); }
-.site-footer p { font-size: .9rem; line-height: 1.9; }
+.site-footer p { font-size: .9rem; line-height: 1.8; }
 .ft-tel a { display: inline-flex; align-items: center; gap: 8px; font-size: 1.15rem; letter-spacing: .06em; text-decoration: none; min-height: 44px; }
 /* 狭いスマホ（320px）では1列にして、長いメニュー名がはみ出さないようにする */
 .ft-nav ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(10.5em, 1fr)); gap: 0 24px; }
@@ -356,7 +359,8 @@ small { font-size: .8125rem; }
 
 /* ふわっと出る（JSが動くときだけ。動きを減らす設定の人には出さない） */
 @media (prefers-reduced-motion: no-preference) {
-  .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  /* 動きは短く（0.5秒）。長くゆっくり出すと待たされている感じになる */
+  .js .reveal { opacity: 0; transform: translateY(12px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
   .js .reveal.is-in { opacity: 1; transform: none; }
 }
 
@@ -470,7 +474,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--kuri); outl
 .agree { display: flex; gap: 12px; align-items: flex-start; padding: 14px 4px; cursor: pointer; line-height: 1.7; min-height: 48px; }
 .agree input { width: 22px; height: 22px; margin-top: 3px; accent-color: var(--kuri); flex: none; }
 .err { display: none; color: var(--kaki-d); font-size: .875rem; font-weight: 500; line-height: 1.5; }
-.err::before { content: "！ "; }
+.err::before { content: ""; display: inline-block; width: 1.1em; height: 1.1em; margin-right: .35em; vertical-align: -.2em; background: currentColor; -webkit-mask: url(icons/circle-alert.svg) center / contain no-repeat; mask: url(icons/circle-alert.svg) center / contain no-repeat; }
 .is-invalid .err { display: block; }
 .is-invalid input, .is-invalid select, .is-invalid textarea, .is-invalid .choice span { border-color: var(--kaki); }
 .form-summary { display: none; padding: 16px 18px; border: 2px solid var(--kaki); border-radius: 8px; background: #FFF; color: var(--kaki-d); font-weight: 500; }
@@ -478,7 +482,17 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--kuri); outl
 .form .btn-accent { min-height: 56px; font-size: 1rem; justify-self: start; padding-inline: 40px; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .form-done { padding: 40px 28px; background: var(--paper); border-radius: 12px; }
-.form-done h2 { font-family: var(--f-mincho); font-size: 1.5rem; letter-spacing: .1em; margin-bottom: 16px; }
+.form-done h2 { font-family: var(--f-mincho); font-size: clamp(1.25rem, 5vw, 1.5rem); letter-spacing: .06em; line-height: 1.6; margin-bottom: 16px; display: flex; align-items: flex-start; gap: .5em; }
+.form-done h2 .ic { width: 1.3em; height: 1.3em; margin-top: .15em; color: var(--moss); flex: none; }
+.done-links { display: flex; flex-wrap: wrap; gap: 0 28px; }
+/* ご予約が決まるまで（1→2→3） */
+.steps { display: grid; gap: 10px; margin: 0 0 36px; padding: 0; list-style: none; counter-reset: none; }
+.steps li { display: flex; align-items: center; gap: 12px; font-size: .95rem; }
+.steps b { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--sumi); color: var(--kinari); font-family: var(--f-en); font-size: 1.05rem; }
+@media (min-width: 768px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 16px; } .steps li { align-items: flex-start; } }
+.submit-row { display: grid; gap: 10px; justify-items: start; }
+.news-none { padding: 24px 4px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: var(--sumi-2); }
+.nf-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 .aside-card { background: var(--paper); border-radius: 12px; padding: 28px; display: grid; gap: 14px; }
 .aside-card h2 { font-family: var(--f-mincho); font-size: 1.15rem; letter-spacing: .1em; }
 .aside-tel { display: inline-flex; align-items: center; gap: 10px; font-size: 1.4rem; font-weight: 700; letter-spacing: .06em; text-decoration: none; min-height: 48px; }
@@ -503,3 +517,8 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--kuri); outl
 }
 .h-gap { margin-top: 48px; }
 .btn-gap { margin-top: 32px; }
+
+/* 画面には出さず、読み上げだけで伝える文字 */
+/* 意味の切れ目でだけ改行させる */
+.phrase { display: inline-block; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
