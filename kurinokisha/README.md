@@ -37,7 +37,7 @@
 | よくある質問（開いて読む） | トップ |
 | 英語ページ（多言語） | en.html、ヘッダーの「English」 |
 | ふわっと出る動き | 全ページ。「動きを減らす」設定の人には動かさない |
-| 検索・SNS向けの設定 | タイトル・説明文・SNSで貼ったときの画像（og.jpg）・ファビコン・お店の情報（構造化データ） |
+| 検索・SNS向けの設定 | 各ページのタイトルに「小布施＋古民家喫茶＋店名」、ページごとの説明文、SNSで貼ったときの画像（og.jpg）、ファビコン、お店の情報（構造化データ）、sitemap.xml・robots.txt |
 
 > 架空のお店なので、全ページに「検索に出さない」設定（noindex）を入れています。`build.py` の `INDEXABLE = True` で外せます。
 
@@ -57,6 +57,7 @@ python3 build.py          # HTML を書き出す。リンク切れがあると�
 ```bash
 node tests/shots.js   # パソコン(1440px)とスマホ(iPhone 13)で全ページを撮影。横はみ出し・画像切れ・JSのエラーを確認
 node tests/func.js    # ドロワー・タブ・絞りこみ・フォーム・地図ボタン・JSなしでも読めるか（16項目）
+node tests/a11y.js    # 320px・375px・1440pxで、はみ出し・13px未満の文字・44px未満のボタン・薄い文字色がないか
 ```
 
 （Playwright が必要。クラウドの環境では `PW=/opt/node22/lib/node_modules/playwright` を前につける）

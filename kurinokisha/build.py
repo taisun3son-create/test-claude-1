@@ -23,6 +23,7 @@ TEL_HREF = "tel:0260000000"
 HOURS_DISP = "10:00〜17:00（L.O. 16:30）"
 CLOSED_DISP = "火曜・水曜"
 AREA_DISP = "長野県上高井郡小布施町"
+AREA_SHORT = "小布施"  # ページの題名に入れる地域名
 ACCESS_DISP = "長野電鉄 小布施駅から徒歩8分"
 FICTION_NOTE = "架空のお店のサイトです（制作見本）。住所は町まで、電話番号は実在しない番号にしています。"
 INDEXABLE = False  # 架空の店が検索に出ないよう、全ページ noindex
@@ -38,17 +39,17 @@ NAV = [
 PAGES = {
     "index.html": dict(src="page-index.html", title=f"{SHOP}｜小布施の古民家喫茶・自家焙煎珈琲と栗の焼き菓子",
                        desc=f"長野県小布施町、築90年の蔵を直した喫茶「{SHOP}」。自家焙煎の珈琲と、地元の栗を使った焼き菓子のお店です。{ACCESS_DISP}。", body="home"),
-    "about.html": dict(src="page-about.html", title=f"お店について｜{SHOP}",
+    "about.html": dict(src="page-about.html", title=f"お店について｜{SHOP}（{AREA_SHORT}の古民家喫茶）",
                        desc=f"{SHOP}の店主のこと、蔵の歴史、珈琲と焼き菓子へのこだわり。", body="sub"),
-    "menu.html": dict(src="page-menu.html", title=f"メニュー｜{SHOP}",
+    "menu.html": dict(src="page-menu.html", title=f"メニュー｜{SHOP}（{AREA_SHORT}の古民家喫茶）",
                       desc=f"{SHOP}のメニュー。自家焙煎の珈琲、栗の焼き菓子、季節のもの、珈琲豆とギフト。すべて税込です。", body="sub"),
-    "news.html": dict(src="page-news.html", title=f"お知らせ｜{SHOP}",
+    "news.html": dict(src="page-news.html", title=f"お知らせ｜{SHOP}（{AREA_SHORT}の古民家喫茶）",
                       desc=f"{SHOP}からのお知らせ。季節のメニュー、臨時のお休み、イベントのご案内。", body="sub"),
-    "reserve.html": dict(src="page-reserve.html", title=f"ご予約・お問い合わせ｜{SHOP}",
+    "reserve.html": dict(src="page-reserve.html", title=f"ご予約・お問い合わせ｜{SHOP}（{AREA_SHORT}の古民家喫茶）",
                          desc=f"{SHOP}の席のご予約、焼き菓子のお取り置き、ギフトのご注文はこちらから。", body="sub"),
     "en.html": dict(src="page-en.html", title=f"{SHOP_EN} | Old storehouse café in Obuse, Nagano",
                     desc="A small café in a 90-year-old storehouse in Obuse, Nagano. House-roasted coffee and chestnut sweets.", body="sub", lang="en"),
-    "privacy.html": dict(src="page-privacy.html", title=f"プライバシーポリシー｜{SHOP}",
+    "privacy.html": dict(src="page-privacy.html", title=f"プライバシーポリシー｜{SHOP}（{AREA_SHORT}の古民家喫茶）",
                          desc=f"{SHOP}の個人情報の取り扱いについて。", body="sub"),
 }
 
@@ -91,7 +92,7 @@ def head(name, p):
         ld = json.dumps({
             "@context": "https://schema.org", "@type": "CafeOrCoffeeShop",
             "name": SHOP, "alternateName": SHOP_EN, "url": f"{SITE}/",
-            "image": f"{SITE}/assets/og.jpg", "servesCuisine": ["コーヒー", "焼き菓子"],
+            "image": f"{SITE}/assets/og.jpg", "telephone": TEL_HREF[4:], "servesCuisine": ["コーヒー", "焼き菓子"],
             "address": {"@type": "PostalAddress", "addressRegion": "長野県", "addressLocality": "上高井郡小布施町", "addressCountry": "JP"},
             "openingHoursSpecification": [{"@type": "OpeningHoursSpecification",
                                            "dayOfWeek": ["Monday", "Thursday", "Friday", "Saturday", "Sunday"],
@@ -289,6 +290,12 @@ def main():
     check_links(out)
     for name, html in out.items():
         (ROOT / name).write_text(html, encoding="utf-8")
+    # 検索エンジン向けのページ一覧。公開の日に INDEXABLE = True にすると robots.txt から案内される。
+    # 制作中も巡回は止めない（止めると各ページの noindex が読まれない）
+    urls = "".join(f"  <url><loc>{SITE}/{'' if n == 'index.html' else n}</loc></url>\n" for n in PAGES)
+    (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
+                                      f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n', encoding="utf-8")
+    (ROOT / "robots.txt").write_text("User-agent: *\nAllow: /\n" + (f"Sitemap: {SITE}/sitemap.xml\n" if INDEXABLE else ""), encoding="utf-8")
     print(f"{len(out)}ページを書き出しました")
 
 
