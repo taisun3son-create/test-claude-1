@@ -120,6 +120,7 @@ def head(name, p):
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F3EEE4">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
@@ -164,14 +165,15 @@ def footer():
       <p class="ft-tel"><a href="{TEL_HREF}">{icon('phone')}{TEL_DISP}</a></p>
     </div>
     <nav class="ft-nav" aria-label="フッターメニュー">
-      <ul>
-        <li><a href="index.html">トップ</a></li>
-        <li><a href="about.html">お店について</a></li>
-        <li><a href="menu.html">メニュー</a></li>
-        <li><a href="news.html">お知らせ</a></li>
-        <li><a href="reserve.html">ご予約・お問い合わせ</a></li>
-        <li><a href="privacy.html">プライバシーポリシー</a></li>
-        <li><a href="en.html" lang="en">English</a></li>
+      <ul class="ft-cols">
+        <li><a href="index.html">トップ</a>
+          <ul><li><a href="index.html#access">営業時間・アクセス</a></li><li><a href="index.html#faq">よくあるご質問</a></li></ul></li>
+        <li><a href="about.html">お店について</a>
+          <ul><li><a href="about.html#greeting">ごあいさつ</a></li><li><a href="about.html#coffee">珈琲のこと</a></li><li><a href="about.html#history">蔵のあゆみ</a></li><li><a href="about.html#overview">お店の概要</a></li></ul></li>
+        <li><a href="menu.html">メニュー</a>
+          <ul><li><a href="menu.html#coffee">珈琲</a></li><li><a href="menu.html#sweets">栗の焼き菓子</a></li><li><a href="menu.html#season">季節のもの</a></li><li><a href="menu.html#beans">豆と贈りもの</a></li></ul></li>
+        <li class="ft-flat">
+          <ul><li><a href="news.html">お知らせ</a></li><li><a href="reserve.html">ご予約・お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li><li><a href="en.html" lang="en">English</a></li></ul></li>
       </ul>
     </nav>
     <div class="ft-cta">
@@ -256,7 +258,7 @@ def render(text):
     text = re.sub(r"\{\{news:(all|\d+)\}\}", lambda m: news(m.group(1)), text)
     text = re.sub(r"\{\{icon:([a-z-]+)\}\}", lambda m: icon(m.group(1)), text)
     text = re.sub(r"\{\{img:([a-z0-9-]+)\|([^|}]*)\|?([^}]*)\}\}", lambda m: picture(*m.groups()), text)
-    for k in ("SHOP", "SHOP_EN", "TEL_DISP", "TEL_HREF", "HOURS_DISP", "CLOSED_DISP", "AREA_DISP", "ACCESS_DISP", "CATCH", "FICTION_NOTE"):
+    for k in ("SHOP", "SHOP_EN", "TEL_DISP", "TEL_HREF", "HOURS_DISP", "CLOSED_DISP", "AREA_DISP", "ACCESS_DISP", "CATCH", "FICTION_NOTE", "SHOP_KANA"):
         text = text.replace("{{" + k + "}}", globals()[k])
     left = re.findall(r"\{\{[^}]*\}\}", text)
     if left:

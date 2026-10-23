@@ -35,6 +35,12 @@ PHOTOS = {
     "menu-sweets": ("_TS44395_TP_V.jpg", (4, 3), (0.55, 0.5)),
     "menu-chestnut": ("009fujiko1122_TP_V.jpg", (4, 3), (0.5, 0.5)),
     "menu-beans": ("ogasutaFJ03_TP_V.jpg", (4, 3), (0.5, 0.5)),
+    # 下層ページの頭の写真（横長 5:2。スマホでは真ん中を 3:2 ほどで見せる）
+    "ph-about": ("haro20211031-A7305044_TP_V.jpg", (5, 2), (0.42, 0.62)),
+    "ph-menu": ("kissaten-_92A6908-8905_TP_V.jpg", (5, 2), (0.5, 0.45)),
+    "ph-news": ("009fujiko1122_TP_V.jpg", (5, 2), (0.55, 0.45)),
+    "ph-reserve": ("031ameman54_TP_V.jpg", (5, 2), (0.5, 0.42)),
+    "ph-en": ("nerusan0614_1_TP_V.jpg", (5, 2), (0.42, 0.66)),
 }
 
 
@@ -68,6 +74,9 @@ def warm(im):
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     for name, (src, ratio, focus, *zoom) in PHOTOS.items():
+        if not (SRC / src).exists():  # 元写真が手元にないものは、今ある書き出しをそのまま使う
+            print("とばしました（元写真がない）:", name)
+            continue
         im = warm(crop(Image.open(SRC / src).convert("RGB"), ratio, focus, *zoom))
         widths = [w for w in WIDTHS if w < im.width] + [min(im.width, WIDTHS[-1])]
         for w in sorted(set(widths)):

@@ -1,6 +1,7 @@
-<div class="page-head">
-  <div class="wrap">
-    <ol class="crumb"><li><a href="index.html">トップ</a></li><li aria-current="page">ご予約・お問い合わせ</li></ol>
+<div class="page-head has-ph">
+  <ol class="crumb"><li><a href="index.html">トップ</a></li><li aria-current="page">ご予約・お問い合わせ</li></ol>
+  <figure class="ph-photo">{{img:ph-reserve|座敷の窓の向こうに、紅葉の庭|eager full}}</figure>
+  <div class="ph-title">
     <span class="eyebrow">Reservation</span>
     <h1>ご予約・お問い合わせ</h1>
     <p>お席のご予約、焼き菓子のお取り置き、贈りもののご注文を承ります。お店から確認のご連絡をして、ご予約が決まります。</p>
@@ -100,7 +101,16 @@
         <div class="hp" aria-hidden="true"><label>空けておいてください<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
 
         <div class="field">
-          <label class="agree"><input type="checkbox" name="agree" required><span><a href="privacy.html">プライバシーポリシー</a>に同意して送信します</span></label>
+          <div class="privacy-note">
+            <p class="privacy-note-title">お預かりする情報の取り扱い</p>
+            <ul>
+              <li>お名前・お電話番号・メールアドレスは、ご予約とご注文のご連絡にだけ使います。</li>
+              <li>ご本人の同意なく、ほかの会社や人に渡すことはありません。</li>
+              <li>消してほしいときは、お電話でお知らせください。</li>
+            </ul>
+            <p>くわしくは<a href="privacy.html" target="_blank" rel="noopener">プライバシーポリシー<span class="sr-only">（新しいタブで開きます）</span></a>をご覧ください。</p>
+          </div>
+          <label class="agree"><input type="checkbox" name="agree" required><span>上の内容に同意して送信します</span></label>
           <p class="err"></p>
         </div>
 

@@ -1,15 +1,25 @@
-<div class="page-head">
-  <div class="wrap">
-    <ol class="crumb"><li><a href="index.html">トップ</a></li><li aria-current="page">お店について</li></ol>
+<div class="page-head has-ph">
+  <ol class="crumb"><li><a href="index.html">トップ</a></li><li aria-current="page">お店について</li></ol>
+  <figure class="ph-photo">{{img:ph-about|蔵の中の和室。丸いちゃぶ台と座布団|eager full}}</figure>
+  <div class="ph-title">
     <span class="eyebrow">About</span>
     <h1>お店について</h1>
     <p>古い味噌蔵を直して始めた、十二席の喫茶です。</p>
   </div>
 </div>
 
+<nav class="page-nav" aria-label="このページの中の見出し">
+  <ul>
+    <li><a href="#greeting">ごあいさつ{{icon:chevron-down}}</a></li>
+    <li><a href="#coffee">珈琲のこと{{icon:chevron-down}}</a></li>
+    <li><a href="#history">蔵のあゆみ{{icon:chevron-down}}</a></li>
+    <li><a href="#overview">お店の概要{{icon:chevron-down}}</a></li>
+  </ul>
+</nav>
+
 <section class="sec">
   <div class="wrap">
-    <div class="story reveal">
+    <div class="story reveal" id="greeting">
       <figure class="story-ph shape-arch">{{img:about-hands|両手で白いカップを包むように持つ手}}</figure>
       <div class="story-txt">
         <h2>ごあいさつ</h2>
@@ -21,7 +31,7 @@
       </div>
     </div>
 
-    <div class="story story-rev reveal">
+    <div class="story story-rev reveal" id="coffee">
       <figure class="story-ph shape-arch">{{img:about-drip|窓辺の木のテーブルで、ガラスのドリッパーから珈琲が落ちるところ}}</figure>
       <div class="story-txt">
         <h2>珈琲のこと</h2>
@@ -34,8 +44,8 @@
 
 <figure class="wide-ph">{{img:about-garden|座敷の窓の向こうに広がる、夏の青もみじ|full}}</figure>
 
-<section class="sec">
-  <div class="wrap timeline-wrap">
+<section class="sec" id="history">
+  <div class="wrap side-wrap">
     <h2 class="h-label"><span class="en">History</span>蔵のあゆみ</h2>
     <ol class="timeline">
       <li class="reveal"><b>1934</b>味噌蔵として建てられる。厚さ三十センチの土壁と、太い松の梁。</li>
@@ -43,6 +53,26 @@
       <li class="reveal"><b>2022</b>店主が蔵を借りる。地元の大工さん・左官さんと、二年かけて直す。</li>
       <li class="reveal"><b>2024</b>「{{SHOP}}」として開店。奥に小さな焙煎室をつくる。</li>
     </ol>
+  </div>
+</section>
+
+<section class="sec overview-sec" id="overview" aria-labelledby="ov-h">
+  <div class="wrap side-wrap">
+    <h2 id="ov-h" class="h-label"><span class="en">Overview</span>お店の概要</h2>
+    <div>
+      <dl class="overview">
+        <div><dt>店名</dt><dd>{{SHOP}}（{{SHOP_KANA}}）</dd></div>
+        <div><dt>所在地</dt><dd>{{AREA_DISP}}<small>制作見本のため番地は載せていません</small></dd></div>
+        <div><dt>交通</dt><dd>{{ACCESS_DISP}}</dd></div>
+        <div><dt>営業時間</dt><dd>{{HOURS_DISP}}</dd></div>
+        <div><dt>定休日</dt><dd>{{CLOSED_DISP}}（祝日は営業します）</dd></div>
+        <div><dt>席数</dt><dd>12席（テーブル8席・奥の座敷4席）</dd></div>
+        <div><dt>駐車場</dt><dd>3台（満車のときは近くの町営駐車場へ）</dd></div>
+        <div><dt>お支払い</dt><dd>現金、クレジットカード、交通系ICカード、QRコード決済</dd></div>
+        <div><dt>お電話</dt><dd><a href="{{TEL_HREF}}">{{TEL_DISP}}</a>（営業時間内）</dd></div>
+      </dl>
+      <a class="more" href="index.html#access">地図と行き方を見る{{icon:arrow-right}}</a>
+    </div>
   </div>
 </section>
 
