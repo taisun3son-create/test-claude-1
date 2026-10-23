@@ -457,15 +457,15 @@ small { font-size: .8125rem; }
 @media (min-width: 1024px) { .page-head { padding: 88px 0 64px; } }
 
 /* 写真つきのページの頭（本「コーディング実践入門」6章の下層ページヘッダー）。
-   パソコン: 写真は右の端まで広げ、題名の板を左から写真に少し重ねる。スマホ: 写真の下の端に題名の板を重ねる */
+   パソコン: 題名は左、写真は右の端まで。スマホ: 写真の下に題名。
+   題名の板は写真に重ねない（重ねると写真の角が欠けて見える。たいさんの指摘 2026-10-23） */
 .page-head.has-ph { padding: 20px 0 0; border-bottom: 0; }
 .has-ph .crumb { padding-inline: var(--gut); margin-bottom: 16px; }
 .ph-photo img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
-.ph-title { position: relative; z-index: 1; background: var(--kinari); margin: -56px 12% 0 0; padding: 28px 24px 8px var(--gut); }
-.ph-title p { margin-top: 14px; max-width: 34em; color: var(--sumi-2); }
+.ph-title { padding: 28px var(--gut) 8px; }
+.ph-title p { margin-top: 14px; max-width: 34em; color: var(--sumi-2); word-break: auto-phrase; }
 @media (min-width: 768px) {
   .ph-photo img { aspect-ratio: 2 / 1; }
-  .ph-title { margin-right: 36%; padding-right: 40px; }
 }
 @media (min-width: 1024px) {
   .page-head.has-ph {
@@ -476,7 +476,7 @@ small { font-size: .8125rem; }
   .has-ph .crumb { grid-column: 2 / 4; padding: 0; margin-bottom: 24px; }
   .ph-photo { grid-column: 3 / 5; grid-row: 2; }
   .ph-photo img { aspect-ratio: auto; height: clamp(320px, 30vw, 440px); }
-  .ph-title { grid-column: 2; grid-row: 2; align-self: center; margin: 0 -96px 0 0; padding: 48px 48px 48px 0; }
+  .ph-title { grid-column: 2; grid-row: 2; align-self: center; padding: 48px 56px 48px 0; }
 }
 
 /* ページの中の見出しへ移るリンク（本の「ページ内リンク」。縦の線で区切って並べ、▼で下へ進むことを示す） */
