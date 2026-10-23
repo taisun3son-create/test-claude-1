@@ -27,15 +27,21 @@
     if (!btn || !drawer) return;
     var panel = $(".drawer-panel", drawer), last;
     function focusables() { return $$("a[href], button", panel); }
+    var calm = window.matchMedia("(prefers-reduced-motion: reduce)");
     function open() {
       last = document.activeElement;
+      drawer.classList.remove("is-closing");
       drawer.hidden = false; btn.setAttribute("aria-expanded", "true");
       document.body.style.overflow = "hidden";
       focusables()[0].focus();
     }
+    // 閉じるときは右へ戻る動き（0.3秒）を見せてから隠す。動きを減らす設定ならすぐ隠す
     function close() {
-      drawer.hidden = true; btn.setAttribute("aria-expanded", "false");
+      if (drawer.hidden || drawer.classList.contains("is-closing")) return;
+      btn.setAttribute("aria-expanded", "false");
       document.body.style.overflow = "";
+      var hide = function () { drawer.classList.remove("is-closing"); drawer.hidden = true; };
+      if (calm.matches) hide(); else { drawer.classList.add("is-closing"); setTimeout(hide, 300); }
       if (last) last.focus();
     }
     btn.addEventListener("click", open);
@@ -43,7 +49,7 @@
     drawer.addEventListener("click", function (e) { if (e.target === drawer) close(); });
     $$("a", panel).forEach(function (a) { a.addEventListener("click", close); });
     document.addEventListener("keydown", function (e) {
-      if (drawer.hidden) return;
+      if (drawer.hidden || drawer.classList.contains("is-closing")) return;
       if (e.key === "Escape") close();
       if (e.key === "Tab") {
         var f = focusables(), first = f[0], end = f[f.length - 1];
@@ -72,12 +78,17 @@
     el.setAttribute("data-state", state); label.textContent = l; text.textContent = t;
   });
 
-  /* スクロールでふわっと出す */
+  /* スクロールでじんわり出す。同じときに画面に入ったものは、0.15秒ずつずらして順番に出す */
   run("reveal", function () {
     var items = $$(".reveal");
     if (!("IntersectionObserver" in window)) { items.forEach(function (i) { i.classList.add("is-in"); }); return; }
     var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
+      var n = 0;
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.style.setProperty("--d", Math.min(n++, 3) * 0.15 + "s");
+        e.target.classList.add("is-in"); io.unobserve(e.target);
+      });
     }, { rootMargin: "0px 0px -10% 0px" });
     items.forEach(function (i) { io.observe(i); });
   });
