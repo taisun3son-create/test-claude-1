@@ -11,7 +11,7 @@ let fails = 0; const ok = (c, m) => { console.log(c ? 'ok ' : 'NG ', m); if (!c)
   const sp = await (await b.newContext({ ...devices['iPhone 13'], timezoneId: 'Asia/Tokyo' })).newPage();
   await sp.goto(U + 'index.html');
   await sp.click('.menu-btn'); ok(await sp.isVisible('#drawer'), 'ドロワーが開く');
-  await sp.keyboard.press('Escape'); ok(!(await sp.isVisible('#drawer')), 'Escapeで閉じる');
+  await sp.keyboard.press('Escape'); await sp.waitForSelector('#drawer', { state: 'hidden', timeout: 1500 }).catch(() => {}); ok(!(await sp.isVisible('#drawer')), 'Escapeで閉じる（右へ戻る動きのあと）');
   ok(await sp.isVisible('.sp-bar'), 'スマホ下の予約ボタンが出る');
   const st = await sp.getAttribute('[data-today]', 'data-state'); ok(st === 'open' || st === 'closed', '今日の営業表示: ' + await sp.textContent('.today-label'));
   await sp.click('[data-map-load]'); ok(await sp.locator('.guide-map iframe').count() === 1, '地図ボタンでGoogleマップに切りかわる');

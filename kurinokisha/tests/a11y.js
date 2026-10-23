@@ -21,6 +21,7 @@ const srv = http.createServer((q, r) => {
       await p.goto(`http://localhost:${port}/${name}.html`, { waitUntil: 'networkidle' }).catch(() => {});
       await p.evaluate(() => document.fonts.ready);
       await p.evaluate(() => document.querySelectorAll('.reveal').forEach(e => e.classList.add('is-in')));
+      await p.evaluate(() => document.getAnimations().forEach(a => a.finish())); // 開いたときの動きは終わらせてから測る
       const r = await p.evaluate(() => {
         const out = [];
         const vis = e => { const s = getComputedStyle(e); const b = e.getBoundingClientRect(); return s.visibility !== 'hidden' && s.display !== 'none' && b.width > 0 && b.height > 0 && !e.closest('[hidden],[aria-hidden=true],.skip,.sr-only,.hp'); };

@@ -75,7 +75,7 @@ small { font-size: .8125rem; }
   display: inline-flex; align-items: center; justify-content: center; gap: .6em;
   min-height: 48px; padding: 10px 26px; border-radius: 2px; border: 1px solid transparent;
   font-weight: 500; font-size: .95rem; letter-spacing: .08em; line-height: 1.4; text-decoration: none;
-  transition: background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+  transition: background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), transform .15s var(--ease);
 }
 .btn-sm { min-height: 44px; padding: 8px 18px; font-size: .875rem; }
 .btn-block { display: flex; width: 100%; }
@@ -109,9 +109,12 @@ small { font-size: .8125rem; }
 @media (max-width: 400px) { .logo-en { display: none; } }
 .gnav { display: none; margin-left: auto; }
 .gnav-list { display: flex; gap: 32px; }
-.gnav a { text-decoration: none; font-size: .9rem; font-weight: 500; letter-spacing: .1em; display: block; line-height: 1.4; padding-block: 6px; border-bottom: 1px solid transparent; }
+.gnav a { position: relative; text-decoration: none; font-size: .9rem; font-weight: 500; letter-spacing: .1em; display: block; line-height: 1.4; padding-block: 6px; }
 .gnav .en { font-size: .8125rem; margin-bottom: 0; }
-.gnav a:hover, .gnav a[aria-current="page"] { border-bottom-color: var(--sumi); }
+/* 下線は左からスルッと伸び、離すと右へ抜ける（0.4秒）。今いるページは線を出したまま */
+.gnav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--sumi); transform: scaleX(0); transform-origin: right; transition: transform .4s var(--ease); }
+.gnav a:hover::after { transform: scaleX(1); transform-origin: left; }
+.gnav a[aria-current="page"]::after { transform: scaleX(1); }
 .hd-actions { margin-left: auto; display: flex; align-items: center; gap: 12px; }
 .lang { display: none; font-family: var(--f-en); font-style: italic; font-size: 1rem; text-decoration: none; padding: 10px 4px; }
 .lang:hover { text-decoration: underline; }
@@ -361,11 +364,65 @@ small { font-size: .8125rem; }
 .ic-up { transform: rotate(-90deg); width: 20px; height: 20px; }
 @media (min-width: 768px) { .to-top { bottom: 24px; right: 24px; } }
 
-/* ふわっと出る（JSが動くときだけ。動きを減らす設定の人には出さない） */
+/* =========================================================
+   動き（本「動くUIアイデアレシピ」より。ナチュラル・和なので「じんわり・スルッ」だけ使い、弾む・回る・光るは使わない）
+   - JSが動くときだけ隠す（JSが止まっても文字や写真は消えない）
+   - 動きを減らす設定の人には、どれも出さない（中身はすべて見える）
+   - 動かすのは opacity・transform・filter だけ（重くしない）
+   ========================================================= */
+@keyframes jinwari { from { opacity: 0; filter: blur(8px); } to { opacity: 1; filter: none; } }
+@keyframes jinwari-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes hero-zoom { from { transform: scale(1.08); } to { transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes slide-in { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes slide-out { from { transform: none; } to { transform: translateX(100%); } }
+
+/* 押したら2pxだけ沈む（押した手ごたえ。予約ボタンに合う上品な動き） */
+.btn:active, .gl-btn:active, .sp-bar a:active { transform: translateY(2px); }
+
 @media (prefers-reduced-motion: no-preference) {
-  /* 動きは短く（0.5秒）。長くゆっくり出すと待たされている感じになる */
-  .js .reveal { opacity: 0; transform: translateY(12px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
-  .js .reveal.is-in { opacity: 1; transform: none; }
+  /* スクロールで、少しぼけた所からじんわり出る。同じときに入ったものは0.15秒ずつずらす（--d は main.js がつける） */
+  .js .reveal { opacity: 0; transform: translateY(16px); filter: blur(4px); transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); transition-delay: var(--d, 0s); }
+  .js .reveal.is-in { opacity: 1; transform: none; filter: none; }
+
+  /* トップの写真は、開いたときに1回だけゆっくり引いていく（くり返さない）。文字はそのあと順番にじんわり */
+  .js .hero-photo img { animation: hero-zoom 8s var(--ease) both; }
+  .js .hero-title span, .js .hero-foot { animation: jinwari 1.4s var(--ease) both; }
+  .js .hero-title span:nth-child(1) { animation-delay: .3s; }
+  .js .hero-title span:nth-child(2) { animation-delay: .6s; }
+  .js .hero-foot { animation-delay: 1s; }
+
+  /* ドロワー: 背景がうすく暗くなり、板が右からスルッと出て、項目が順番に並ぶ。閉じるときは来た方向（右）へ戻る */
+  .drawer:not([hidden]) { animation: fade-in .3s var(--ease) both; }
+  .drawer:not([hidden]) .drawer-panel { animation: slide-in .4s var(--ease) both; }
+  .drawer:not([hidden]) .drawer-list li { animation: jinwari-up .5s var(--ease) calc(.15s + var(--i, 0) * .05s) both; }
+  .drawer-list li:nth-child(2) { --i: 1; }
+  .drawer-list li:nth-child(3) { --i: 2; }
+  .drawer-list li:nth-child(4) { --i: 3; }
+  .drawer-list li:nth-child(5) { --i: 4; }
+  .drawer-list li:nth-child(6) { --i: 5; }
+  .drawer-list li:nth-child(7) { --i: 6; }
+  .drawer.is-closing { animation: fade-out .3s var(--ease) both; }
+  .drawer.is-closing .drawer-panel { animation: slide-out .3s var(--ease) both; }
+  .drawer.is-closing .drawer-list li { animation: none; }
+
+  /* メニューのタブを切りかえたとき、中身がじんわり変わる（どこが変わったか分かるように） */
+  .js .menu-panel:not([hidden]) { animation: fade-in .5s var(--ease) both; }
+  /* 送信が終わった画面も、じんわり出す */
+  .form-done:not([hidden]) { animation: jinwari-up .6s var(--ease) both; }
+}
+
+/* よくあるご質問・お知らせの開け閉めを、パッと切りかえずに0.4秒でなめらかに（対応していないブラウザは今までどおり） */
+@supports (interpolate-size: allow-keywords) {
+  @media (prefers-reduced-motion: no-preference) {
+    :root { interpolate-size: allow-keywords; }
+    .faq-list details::details-content, .news-full details::details-content {
+      block-size: 0; overflow: hidden;
+      transition: block-size .4s var(--ease), content-visibility .4s allow-discrete;
+    }
+    .faq-list details[open]::details-content, .news-full details[open]::details-content { block-size: auto; }
+  }
 }
 
 /* =========================================================
