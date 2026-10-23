@@ -83,7 +83,9 @@ small { font-size: .8125rem; }
 .btn-accent { background: var(--kaki); color: #FFF; box-shadow: inset 0 0 0 4px var(--kaki), inset 0 0 0 5px rgba(255, 255, 255, .5); }
 .btn-accent:hover { background: var(--kaki-d); box-shadow: inset 0 0 0 4px var(--kaki-d), inset 0 0 0 5px rgba(255, 255, 255, .7); }
 .btn-line { border-color: var(--sumi); color: var(--sumi); }
-.btn-line:hover { background: var(--sumi); color: var(--kinari); }
+/* 線のボタンは、墨色が左からスルッとのび、離すと右へ抜ける（本「コーディング実践入門」6章のボタン） */
+.btn-line { background: linear-gradient(var(--sumi), var(--sumi)) no-repeat right / 0 100%; transition: background-size .35s var(--ease), color .35s var(--ease), transform .15s var(--ease); }
+.btn-line:hover { background-position: left; background-size: 100% 100%; color: var(--kinari); }
 .btn-light { background: var(--kinari); color: var(--sumi); box-shadow: inset 0 0 0 4px var(--kinari), inset 0 0 0 5px rgba(43, 36, 32, .35); }
 .btn-light:hover { background: #FFF; box-shadow: inset 0 0 0 4px #FFF, inset 0 0 0 5px var(--sumi); }
 /* 色だけでなく形も変える（色の見え方がちがう人にも、押せることが伝わるように）: 矢印が少し動き、内側の線が濃くなる */
@@ -327,6 +329,8 @@ small { font-size: .8125rem; }
 .faq-list details[open] summary .ic { transform: rotate(45deg); }
 .faq-list .q { font-family: var(--f-en); font-style: italic; font-size: 1.5rem; line-height: 1; color: var(--kuri); }
 .faq-list details p { padding: 0 4px 24px 40px; color: var(--sumi); }
+/* 答えから、そのまま予約へ進めるように */
+.faq-list details p a { display: inline-block; margin-top: 6px; color: var(--kuri); text-underline-offset: 4px; font-weight: 500; }
 
 /* ---------- 予約のさそい ---------- */
 .cta { background: var(--kuri); color: var(--kinari); text-align: center; padding: 80px var(--gut); }
