@@ -1,0 +1,128 @@
+<div class="page-head">
+  <div class="page-head-inner">
+    <ol class="crumb"><li><a href="index.html">トップ</a></li><li aria-current="page">ご予約</li></ol>
+    <div class="page-title">
+      <p class="sec-en" lang="en">Reservation</p>
+      <h1>ご予約</h1>
+      <p>完全予約制です。WEB・お電話・LINEの、いちばん楽な方法でどうぞ。はじめての方は90分ほどお時間をみてください。</p>
+    </div>
+  </div>
+</div>
+
+<div class="page-body">
+  <div class="wrap">
+    <ul class="ways">
+      <li class="way way-main">
+        <h2>{{icon:calendar-event}}WEBで予約する</h2>
+        <p>24時間受け付けています。希望の日時を3つまで送ってください。院から折り返しのご連絡をして、予約が決まります。</p>
+        <a class="btn btn-accent btn-sm" href="#form">予約フォームへ進む</a>
+      </li>
+      <li class="way">
+        <h2>{{icon:phone}}電話で予約する</h2>
+        <p>当日のご予約はお電話がいちばん早いです。施術中は出られないことがあります。留守番電話に入れていただければ折り返します。</p>
+        <a class="way-tel" href="{{TEL_HREF}}">{{TEL_DISP}}</a>
+      </li>
+      <li class="way" id="line">
+        <h2>{{icon:message-circle}}LINEで予約する</h2>
+        <p>友だち追加をして、「予約希望」と日時を送ってください。ご予約の確認や、前日のお知らせもLINEでお送りします。</p>
+        <p class="line-note">制作見本のため、ここではLINEにはつながりません。実際のサイトでは、ここに友だち追加のボタンとQRコードを置きます。</p>
+      </li>
+    </ul>
+
+    <section class="block" id="calendar" aria-labelledby="cal-h">
+      <h2 id="cal-h">受付カレンダー</h2>
+      <p class="prose">色のついた日が受付日です。臨時のお休みも、ここに出ます。くわしい空き時間は、予約フォームで希望を送っていただくか、お電話でおたずねください。</p>
+      <div class="cal-wrap" data-calendar hidden></div>
+      <ul class="cal-legend">
+        <li><i aria-hidden="true"></i>受付日（平日 {{HOURS_WEEK}}、土・日・祝 {{HOURS_WEEKEND}}）</li>
+        <li><i class="c" aria-hidden="true"></i>お休み（毎週{{CLOSED_DISP}}と臨時休）</li>
+        <li><i class="t" aria-hidden="true"></i>今日</li>
+      </ul>
+      <noscript><p class="note">カレンダーを表示できませんでした。定休日は毎週{{CLOSED_DISP}}です。臨時のお休みは<a href="index.html#news-h">お知らせ</a>をご覧ください。</p></noscript>
+    </section>
+
+    <section class="block" id="form" aria-labelledby="form-h">
+      <h2 id="form-h">予約フォーム</h2>
+      <form class="form" id="rsv-form" action="#" method="post" novalidate data-endpoint="">
+        <p class="form-intro">このフォームを送っただけでは、まだ予約は決まりません。院から24時間以内（定休日をのぞく）にお電話かメールでご連絡して、日時が決まります。</p>
+        <p class="form-summary" tabindex="-1" role="alert"></p>
+
+        <fieldset class="field">
+          <legend>メニュー <span class="req">必須</span></legend>
+          <div class="choice choice-2">
+            <label><input type="radio" name="menu" value="first" data-label="はじめての方（90分・7,700円）" required><span>はじめての方<small>お話を聞く時間＋整体60分（90分・7,700円）</small></span></label>
+            <label><input type="radio" name="menu" value="seitai60" data-label="整体 60分（6,600円）"><span>整体 60分<small>2回目から（6,600円）</small></span></label>
+            <label><input type="radio" name="menu" value="seitai30" data-label="整体 30分（3,850円）"><span>整体 30分<small>首・肩だけ、など（3,850円）</small></span></label>
+            <label><input type="radio" name="menu" value="sango" data-label="産後ケア 60分（6,600円）"><span>産後ケア 60分<small>お子さま同室OK（6,600円）</small></span></label>
+            <label><input type="radio" name="menu" value="consult" data-label="相談してから決めたい"><span>相談してから決めたい<small>当日、お話を聞いてから決めます</small></span></label>
+          </div>
+          <p class="err" id="e-menu"></p>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>ご希望の日時 <span class="req">第1希望は必須</span></legend>
+          <p class="hint">水曜は定休日です。第2・第3希望もあると、ご案内しやすくなります。</p>
+          <div class="wish"><span>第1希望</span><input type="date" id="f-date1" name="date1" required data-msg="第1希望の日付をえらんでください" aria-describedby="e-date1"><select id="f-time1" name="time1" aria-label="第1希望の時間"><option value="">時間</option></select></div>
+          <p class="err" id="e-date1"></p>
+        </fieldset>
+        <div class="field">
+          <div class="wish"><span>第2希望</span><input type="date" id="f-date2" name="date2" aria-label="第2希望の日付"><select id="f-time2" name="time2" aria-label="第2希望の時間"><option value="">時間</option></select></div>
+          <p class="err"></p>
+        </div>
+        <div class="field">
+          <div class="wish"><span>第3希望</span><input type="date" id="f-date3" name="date3" aria-label="第3希望の日付"><select id="f-time3" name="time3" aria-label="第3希望の時間"><option value="">時間</option></select></div>
+          <p class="err"></p>
+        </div>
+
+        <div class="field">
+          <label for="f-name">お名前 <span class="req">必須</span></label>
+          <input type="text" id="f-name" name="name" autocomplete="name" required placeholder="例：辻堂 花子" data-msg="お名前を入力してください">
+          <p class="err"></p>
+        </div>
+        <div class="field">
+          <label for="f-tel">電話番号 <span class="req">必須</span></label>
+          <p class="hint" id="h-tel">日時が決まったら、この番号にご連絡します。</p>
+          <input type="tel" id="f-tel" name="tel" autocomplete="tel" inputmode="tel" required placeholder="例：090-1234-5678" aria-describedby="h-tel" data-msg="電話番号を入力してください">
+          <p class="err"></p>
+        </div>
+        <div class="field">
+          <label for="f-mail">メールアドレス <span class="opt">任意</span></label>
+          <p class="hint" id="h-mail">メールでの連絡がよい方だけ。</p>
+          <input type="email" id="f-mail" name="email" autocomplete="email" placeholder="例：hodoku@example.com" aria-describedby="h-mail">
+          <p class="err"></p>
+        </div>
+        <div class="field">
+          <label for="f-note">気になるところ・ご相談 <span class="opt">任意</span></label>
+          <p class="hint" id="h-note">「右の肩が上がらない」「ベビーカーで行きたい」「車で行きます」など、ひとことで大丈夫です。</p>
+          <textarea id="f-note" name="note" aria-describedby="h-note"></textarea>
+        </div>
+        <div class="hp" aria-hidden="true"><label>この欄は空のままにしてください<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+        <div class="confirm" aria-live="polite">
+          <h3>送る内容の確認</h3>
+          <dl>
+            <dt>メニュー</dt><dd data-c="menu"></dd>
+            <dt>第1希望</dt><dd data-c="w1"></dd>
+            <dt>第2希望</dt><dd data-c="w2"></dd>
+            <dt>第3希望</dt><dd data-c="w3"></dd>
+          </dl>
+        </div>
+
+        <p class="privacy-sum">お名前・電話番号などは、ご予約の連絡と施術の記録のためだけに使い、ほかの目的には使いません。くわしくは<a href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
+        <div class="field agree">
+          <label><input type="checkbox" name="agree" required>プライバシーポリシーに同意して送る</label>
+          <p class="err"></p>
+        </div>
+        <div><button class="btn btn-accent" type="submit">{{icon:calendar-event}}<span>予約の希望を送る</span></button></div>
+      </form>
+
+      <div class="form-done" tabindex="-1" hidden>
+        <h2>{{icon:circle-check}}予約の希望を受け付けました</h2>
+        <p>第1希望：<b class="done-wish"></b></p>
+        <p>まだ予約は決まっていません。院から24時間以内（定休日をのぞく）にご連絡して、日時が決まります。連絡がないときは、お手数ですがお電話（<a href="{{TEL_HREF}}">{{TEL_DISP}}</a>）ください。</p>
+        <p class="note">制作見本のため、実際にはどこにも送られていません。</p>
+        <a class="link-arrow" href="first.html#flow">当日の流れを見ておく{{icon:arrow-right}}</a>
+      </div>
+    </section>
+  </div>
+</div>
