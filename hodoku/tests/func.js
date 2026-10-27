@@ -38,6 +38,6 @@ const nextDay = (wd) => { const d = new Date(Date.now() + 9 * 3600e3); d.setUTCD
   await pc.goto(U + 'reserve.html?menu=sango'); ok(await pc.isChecked('input[value=sango]'), 'フォーム：?menu=sango で産後ケアがえらばれる');
 
   const nojs = await (await b.newContext({ javaScriptEnabled: false })).newPage();
-  await nojs.goto(U + 'index.html'); ok(await nojs.isVisible('.point'), 'JSなし：ふわっと出る部分も見える');
+  await nojs.goto(U + 'index.html'); ok(await nojs.isVisible('.letter'), 'JSなし：ふわっと出る部分も見える');
   await b.close(); srv.close(); process.exit(fails ? 1 : 0);
 })();

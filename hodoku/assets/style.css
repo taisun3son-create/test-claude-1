@@ -97,7 +97,7 @@ p { margin: 0 0 1em; }
 .logo-en { font-family: var(--f-en); font-size: 13px; letter-spacing: .14em; color: var(--text-tertiary); }
 .gnav { margin-left: auto; }
 .gnav-list { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
-.gnav-list a { position: relative; display: flex; flex-direction: column; align-items: center; color: var(--text-primary); text-decoration: none; font-weight: 700; font-size: 15px; line-height: 1.4; padding: 6px 4px; min-width: 48px; }
+.gnav-list a { position: relative; display: flex; align-items: center; min-height: 44px; color: var(--text-primary); text-decoration: none; font-weight: 700; font-size: 15px; line-height: 1.4; padding: 6px 4px; min-width: 48px; }
 .gnav-list .en { font-family: var(--f-en); font-weight: 400; font-size: 13px; letter-spacing: .14em; color: var(--text-tertiary); text-transform: uppercase; }
 .gnav-list a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); }
 .gnav-list a:hover::after, .gnav-list a[aria-current="page"]::after { transform: scaleX(1); }
@@ -142,38 +142,28 @@ p { margin: 0 0 1em; }
 .js .thread-hero path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.4s .4s var(--ease) forwards; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 
-/* ---- 最初の画面 ---- */
-.hero { position: relative; padding: 24px 0 0; }
-.hero-inner { display: grid; grid-template-columns: 1fr; gap: 32px; width: min(100% - 32px, 1280px); margin-inline: auto; }
-.hero-txt { order: 2; }
-.hero-ph { order: 1; margin: 0; }
-.hero-ph img { width: 100%; border-radius: var(--r-l); aspect-ratio: 3 / 2; object-fit: cover; }
-.hero-lead { display: flex; flex-direction: column; gap: 4px; font-weight: 700; color: var(--text-secondary); font-size: 15px; margin-bottom: 20px; }
-.hero-lead span { font-family: var(--f-en); font-weight: 400; font-size: 13px; letter-spacing: .2em; color: var(--accent); text-transform: uppercase; }
-.hero-h { font-size: clamp(30px, 7.6vw, 54px); line-height: 1.45; letter-spacing: .06em; margin-bottom: 20px; }
+/* ---- 最初の画面（院の部屋を大きく。文字は写真の右の、空いた壁の上） ---- */
+.hero { position: relative; }
+.hero-ph { margin: 0; }
+.hero-ph img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.hero-txt { width: min(100% - 32px, var(--wrap)); margin: 32px auto 0; }
+.hero-lead { font-weight: 700; color: var(--text-secondary); font-size: 15px; margin-bottom: 16px; line-height: 1.7; }
+.hero-h { font-size: clamp(30px, 7.6vw, 50px); line-height: 1.45; letter-spacing: .06em; margin-bottom: 20px; }
 .hero-sub { color: var(--text-secondary); margin-bottom: 28px; }
-.hero-facts { list-style: none; margin: 0 0 32px; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); border-block: 1px solid var(--line); }
-.hero-facts li { padding: 14px 8px; display: flex; flex-direction: column; gap: 2px; line-height: 1.4; }
-.hero-facts li + li { border-left: 1px solid var(--line); padding-left: 16px; }
-.hero-facts b { font-family: var(--f-head); font-size: 17px; }
-.hero-facts span { font-size: 13px; color: var(--text-secondary); }
 .hero-btns { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero-btns .btn-line { font-family: var(--f-en); letter-spacing: .04em; font-size: 18px; font-weight: 500; }
-.thread-hero { display: block; margin-top: 8px; height: 64px; }
+.hero-cap { width: min(100% - 32px, var(--wrap)); margin: 24px auto 32px; font-size: 13px; color: var(--text-secondary); }
 .js .hero-txt > * { opacity: 0; transform: translateY(12px); animation: up .9s var(--ease) forwards; }
 .js .hero-txt > :nth-child(2) { animation-delay: .15s; }
 .js .hero-txt > :nth-child(3) { animation-delay: .3s; }
 .js .hero-txt > :nth-child(4) { animation-delay: .45s; }
-.js .hero-txt > :nth-child(5) { animation-delay: .6s; }
 @keyframes up { to { opacity: 1; transform: none; } }
 @media (min-width: 1024px) {
-  .hero { padding-top: 56px; }
-  .hero-inner { grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: center; width: min(100% - 80px, 1280px); }
-  .hero-txt { order: 1; padding-bottom: 16px; }
-  .hero-ph { order: 2; }
-  .hero-ph img { aspect-ratio: 4 / 5; max-height: calc(100vh - var(--hd-h) - 120px); min-height: 520px; }
+  .hero-ph img { aspect-ratio: auto; height: clamp(600px, calc(100vh - var(--hd-h) - 52px), 860px); object-position: 30% 50%; }
+  .hero-txt { position: absolute; top: 50%; transform: translateY(-56%); right: max(40px, calc((100vw - 1280px) / 2 + 40px)); width: auto; margin: 0; }
+  .hero-h { font-size: clamp(38px, 3.3vw, 48px); white-space: nowrap; }
   .hero-sub { font-size: 17px; }
-  .thread-hero { margin-top: -24px; }
+  .hero-cap { position: absolute; left: max(40px, calc((100vw - 1280px) / 2 + 40px)); bottom: 16px; margin: 0; width: auto; color: var(--text-primary); }
 }
 
 /* 今日の受付の帯 */
@@ -199,49 +189,82 @@ p { margin: 0 0 1em; }
 .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .8s var(--ease) var(--d, 0s), transform .8s var(--ease) var(--d, 0s); }
 .js .reveal.is-in { opacity: 1; transform: none; }
 
-/* お悩みの入口（押せるのでカードにする） */
-.worry { background: var(--surface); }
-.worry-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 16px; }
-@media (min-width: 600px) { .worry-list { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .worry-list { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
-.worry-card { position: relative; height: 100%; display: grid; grid-template-columns: 64px 1fr; grid-template-rows: auto 1fr; column-gap: 16px; padding: 24px 48px 24px 20px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-l); color: var(--text-primary); text-decoration: none; transition: border-color .25s, background-color .25s; }
-.worry-card:hover { border-color: var(--main); background: var(--main-soft); color: var(--text-primary); }
-.worry-card > .ic { position: absolute; right: 16px; bottom: 24px; color: var(--main); transition: transform .25s var(--ease); }
-.worry-card:hover > .ic { transform: translateX(4px); }
-.body-fig { grid-row: 1 / 3; width: 64px; height: 80px; }
+/* からだの絵（お悩み別のページで使う） */
+.body-fig { width: 64px; height: 80px; }
 .body-fig circle:not(.spot), .body-fig path:not(.spot-line) { fill: none; stroke: var(--text-primary); stroke-width: 1.6; stroke-linecap: round; }
 .body-fig .spot { fill: rgb(168 78 42 / .16); stroke: var(--accent); stroke-width: 1.4; stroke-dasharray: 3 3; }
 .body-fig .spot-line { stroke: var(--accent); stroke-width: 1.6; fill: none; stroke-linecap: round; }
-.worry-t { font-family: var(--f-head); font-weight: 700; font-size: 18px; line-height: 1.4; margin-bottom: 8px; }
-.worry-d { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
-@media (min-width: 1024px) {
-  .worry-card { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; padding: 28px 24px 56px; }
-  .body-fig { grid-row: auto; margin-bottom: 16px; }
-}
-.worry-more { margin: 32px 0 0; }
 
-/* 大事にしていること（写真と文章を左右交互に） */
-.point { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center; margin-bottom: 64px; }
-.point:last-child { margin-bottom: 0; }
-.point-ph { margin: 0; }
-.point-ph img { border-radius: var(--r-l); aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
-.point-no { font-family: var(--f-en); font-weight: 300; font-size: 56px; line-height: 1; color: #9A8470; margin-bottom: 8px; letter-spacing: .02em; }
-.point-txt h3 { font-size: clamp(21px, 4vw, 26px); margin-bottom: 16px; }
-.point-txt p:last-child { color: var(--text-secondary); margin: 0; }
+/* 手書きの文字（問診票・声・院長の名前）。Klee One＝教科書体 */
+.hw { font-family: "Klee One", var(--f-body); font-style: normal; font-weight: 600; letter-spacing: .04em; }
+
+/* 問診票（お悩みの入口。紙に赤ペンで丸をつけた形） */
+.sheet-sec { background: var(--clay); }
+.sheet-wrap { display: grid; gap: 40px; }
+.sheet-intro h2 { font-size: clamp(26px, 5.4vw, 36px); margin-bottom: 20px; }
+.sheet-intro p { color: var(--text-secondary); max-width: 26em; }
+.sheet-tip { font-size: 14px; }
+.sheet { background: var(--surface); padding: 24px 20px 20px; box-shadow: var(--shadow-1); border-top: 6px solid var(--main); transform: rotate(-.4deg); min-width: 0; }
+.sheet-title { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid var(--text-primary); padding-bottom: 8px; margin-bottom: 4px; }
+.sheet-title b { font-family: var(--f-head); font-size: 22px; letter-spacing: .3em; }
+.sheet-title span { font-size: 13px; color: var(--text-secondary); }
+.sheet-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 0; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--text-secondary); }
+.sheet-line .hw { flex: 1 1 8em; color: var(--text-primary); font-size: 17px; }
+.sheet-line-last { border-bottom: 0; border-top: 1px solid var(--line); }
+.sheet-body { display: grid; gap: 16px; padding: 16px 0; }
+.sheet-fig { margin: 0; }
+.sheet-fig svg { width: 100%; max-width: 420px; margin-inline: auto; }
+.fig circle, .fig path { fill: none; stroke: var(--text-secondary); stroke-width: 1.4; stroke-linejoin: round; }
+.fig .fig-spine { stroke-dasharray: 3 4; }
+.fig-t { fill: var(--text-secondary); font: 400 13px var(--f-body); }
+.mark path { fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.mark-n { fill: var(--accent); font: 600 20px "Klee One", var(--f-body); }
+.js .sheet .mark path { stroke-dasharray: 400; stroke-dashoffset: 400; }
+.js .sheet.is-in .mark path { animation: draw-mark 1.2s var(--ease) forwards; }
+.js .sheet.is-in .mark path:nth-of-type(2) { animation-delay: .3s; }
+.js .sheet.is-in .mark path:nth-of-type(3) { animation-delay: .6s; }
+.js .sheet.is-in .mark path:nth-of-type(4) { animation-delay: .9s; }
+@keyframes draw-mark { to { stroke-dashoffset: 0; } }
+.sheet-marks { list-style: none; margin: 0; padding: 0; display: grid; }
+.sheet-marks a { display: grid; grid-template-columns: 36px 1fr; column-gap: 12px; padding: 12px 4px; border-bottom: 1px dashed var(--line-strong); color: var(--text-primary); text-decoration: none; }
+.sheet-marks li:last-child a { border-bottom: 0; }
+.sheet-marks a:hover { background: var(--main-soft); }
+.sheet-marks a:hover .mk-t { text-decoration: underline; text-underline-offset: .2em; }
+.mk { grid-row: span 2; width: 32px; height: 32px; display: grid; place-items: center; border: 2px solid var(--accent); border-radius: 50%; color: var(--accent); font: 600 17px "Klee One", var(--f-body); }
+.mk-t { font-weight: 700; }
+.sheet-marks .hw { font-size: 15px; color: #8F3F20; line-height: 1.7; }
+.sheet-more { margin: 0; }
 @media (min-width: 900px) {
-  .point { grid-template-columns: 7fr 5fr; gap: 64px; margin-bottom: 96px; }
-  .point-rev { grid-template-columns: 5fr 7fr; }
-  .point-rev .point-ph { order: 2; }
-  .point-txt { max-width: 26em; }
+  .sheet-wrap { grid-template-columns: 4fr 7fr; column-gap: 64px; align-items: center; }
+  .sheet { padding: 32px 40px 24px; }
+  .sheet-body { grid-template-columns: 1fr 1fr; align-items: center; gap: 24px; }
+  .sheet-more { grid-column: 2; }
+}
+
+/* 院長の手紙（大事にしていること3つを、院長の言葉で） */
+.letter-wrap { display: grid; gap: 40px; }
+.letter-ph { margin: 0; }
+.letter-ph img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-s); }
+.letter-ph figcaption { font-size: 13px; color: var(--text-secondary); margin-top: 8px; }
+.letter { max-width: 34em; }
+.letter h2 { font-size: clamp(24px, 5vw, 32px); margin-bottom: 28px; }
+.letter p { color: var(--text-secondary); line-height: 2.1; }
+.letter em { font-style: normal; font-weight: 700; color: var(--text-primary); background: linear-gradient(transparent 62%, rgb(168 78 42 / .18) 62%); }
+.letter-sign { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; margin: 32px 0 24px; color: var(--text-primary) !important; line-height: 1.6 !important; }
+.letter-sign span { font-size: 14px; color: var(--text-secondary); }
+.letter-sign b { font-size: 30px; letter-spacing: .2em; }
+.letter-sign small { font-size: 13px; color: var(--text-secondary); }
+@media (min-width: 900px) {
+  .letter-wrap { grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
+  .letter-ph { position: sticky; top: calc(var(--hd-h) + 32px); }
 }
 
 /* 料金 */
 .price { background: var(--clay); }
 .price-wrap { display: grid; gap: 8px; }
 @media (min-width: 900px) { .price-wrap { grid-template-columns: 1fr 1.4fr; column-gap: 64px; align-items: start; } .price-more { grid-column: 2; } }
-.price-list { margin: 0; background: var(--surface); border-radius: var(--r-l); padding: 8px 24px; }
-.price-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--line); }
-.price-row:last-child { border-bottom: 0; }
+.price-list { margin: 0; border-top: 2px solid var(--text-primary); }
+.price-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--clay-deep); }
 .price-row dt { font-weight: 700; display: flex; flex-direction: column; line-height: 1.5; }
 .price-row dt small { font-weight: 400; font-size: 13px; color: var(--text-secondary); }
 .price-row dd { margin: 0; white-space: nowrap; font-size: 14px; }
@@ -250,43 +273,54 @@ p { margin: 0 0 1em; }
 .price-first dd b { color: var(--accent); }
 .price-more { margin: 16px 0 0; }
 
-/* はじめての日の流れ（糸でつながった5つ） */
-.flow-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: f; }
-.flow-list li { position: relative; padding: 0 0 32px 64px; }
-.flow-list li::before { content: ""; position: absolute; left: 21px; top: 44px; bottom: 0; border-left: 1.6px dashed var(--line-strong); }
-.flow-list li:last-child::before { display: none; }
-.flow-no { position: absolute; left: 0; top: 0; width: 44px; height: 44px; display: grid; place-items: center; border: 1.6px solid var(--main); border-radius: 50%; font-family: var(--f-en); font-size: 18px; color: var(--main); background: var(--bg); }
-.flow-list h3 { font-size: 19px; margin: 6px 0 6px; }
-.flow-list p { color: var(--text-secondary); font-size: 15px; margin: 0 0 4px; }
-.flow-time { font-family: var(--f-en); font-size: 13px; color: var(--accent); letter-spacing: .06em; }
+/* はじめての日の90分（時間の長さどおりの物差し） */
+.ruler { display: none; }
+.flow-list { list-style: none; margin: 0; padding: 0; display: grid; border-left: 2px solid var(--line-strong); }
+.flow-list li { position: relative; padding: 0 0 28px 24px; }
+.flow-list li::before { content: ""; position: absolute; left: -7px; top: .55em; width: 12px; height: 12px; background: var(--bg); border: 2px solid var(--accent); border-radius: 50%; }
+.flow-list h3 { font-size: 19px; margin: 2px 0 6px; }
+.flow-list p { color: var(--text-secondary); font-size: 15px; margin: 0; }
+.flow-time { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-en); font-size: 15px; color: #8F3F20; letter-spacing: .04em; }
+.flow-time::before { content: ""; width: 14px; height: 8px; background: var(--c, var(--main)); }
+.flow-list li:nth-child(1) { --c: #7E95A3; } .flow-list li:nth-child(2) { --c: #5E7888; } .flow-list li:nth-child(4) { --c: #8F3F20; }
 @media (min-width: 1024px) {
-  .flow-list { grid-template-columns: repeat(5, 1fr); gap: 24px; }
-  .flow-list li { padding: 64px 0 0; }
-  .flow-list li::before { left: 52px; right: -24px; top: 21px; bottom: auto; border-left: 0; border-top: 1.6px dashed var(--line-strong); }
-  .flow-list li:last-child::before { display: none; }
+  .ruler { display: grid; grid-template-columns: 15fr 10fr 60fr 5fr; position: relative; height: 18px; margin: 40px 0 56px; }
+  .ruler span { border-right: 2px solid var(--bg); background: var(--main); }
+  .ruler span:nth-child(1) { background: #7E95A3; }
+  .ruler span:nth-child(2) { background: #5E7888; }
+  .ruler span:nth-child(4) { background: #8F3F20; }
+  .ruler i { position: absolute; top: 26px; left: calc(var(--at) / 90 * 100%); transform: translateX(-50%); font: normal 400 13px var(--f-en); color: var(--text-secondary); white-space: nowrap; }
+  .ruler i:first-of-type { transform: none; }
+  .ruler i:last-of-type { transform: translateX(-100%); }
+  .flow-list { grid-template-columns: repeat(4, 1fr); border-left: 0; gap: 32px; }
+  .flow-list li { padding: 0; }
+  .flow-list li::before { display: none; }
 }
 .flow-more { margin: 24px 0 0; }
 
-/* お客様の声 */
+/* 通っている方の声（2回目の問診票の欄） */
 .voice { background: var(--surface); }
+.voice .sec-head h2 { font-family: "Klee One", var(--f-head); font-weight: 600; }
 .voice-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
 @media (min-width: 900px) { .voice-list { grid-template-columns: repeat(3, 1fr); gap: 32px; } }
-.voice-item { border-top: 2px solid var(--text-primary); padding-top: 24px; display: flex; flex-direction: column; }
-.voice-q { font-size: 16px; line-height: 2; flex: 1; }
+.voice-item { display: flex; flex-direction: column; }
+.voice-q { font-size: 17px; line-height: 2.2; flex: 1; padding: 0 4px; margin-bottom: 16px; background: repeating-linear-gradient(transparent 0 calc(2.2em - 1px), var(--line) calc(2.2em - 1px) 2.2em); }
 .voice-who { font-weight: 700; font-size: 14px; margin: 0; display: flex; flex-direction: column; }
 .voice-who span { font-weight: 400; color: var(--text-secondary); font-size: 13px; }
 
-/* 院長 */
-.director-wrap { display: grid; gap: 32px; align-items: center; }
-.director-ph { margin: 0; }
-.director-ph img { border-radius: var(--r-l); aspect-ratio: 4 / 5; object-fit: cover; width: 100%; }
-.director-ph figcaption { font-size: 13px; color: var(--text-secondary); margin-top: 8px; }
-.director-txt h2 { font-size: clamp(22px, 4.6vw, 30px); margin-bottom: 24px; }
-.director-txt p { color: var(--text-secondary); }
-.director-name { color: var(--text-primary) !important; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 24px 0; }
-.director-name b { font-family: var(--f-head); font-size: 22px; }
-.director-name span { font-size: 13px; color: var(--text-secondary); }
-@media (min-width: 900px) { .director-wrap { grid-template-columns: 5fr 7fr; gap: 80px; } .director-ph { max-width: 440px; } }
+/* 帰り道の海 */
+.sea-sec { display: grid; background: var(--main); color: #fff; }
+.sea-ph { margin: 0; }
+.sea-ph img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.sea-txt { width: min(100% - 32px, 34em); margin: 0 auto; padding: 48px 0 64px; }
+.sea-txt h2 { font-size: clamp(26px, 5.4vw, 38px); margin-bottom: 24px; }
+.sea-txt p { color: #E6ECEF; }
+.sea-note { font-size: 13px; margin: 24px 0 0; }
+@media (min-width: 900px) {
+  .sea-sec { grid-template-columns: 1fr 1fr; align-items: center; }
+  .sea-ph img { aspect-ratio: 4 / 5; max-height: 820px; }
+  .sea-txt { padding: 64px 40px; width: min(100%, 30em); }
+}
 
 /* 受付時間・アクセス */
 .access { background: var(--surface); }
@@ -585,5 +619,4 @@ html[lang="en"] .page-body h2 { font-family: var(--f-en); font-weight: 500; lett
 }
 .after-cta { margin-top: 40px; }
 .ft-copy small { font-size: 13px; }
-.price .sec-en, .ft-cta-en { color: #8F3F20; }
 @media (max-width: 374px) { .hours th, .hours td { padding: 10px 2px; font-size: 14px; } }

@@ -89,7 +89,7 @@ def nav_html(cur, cls):
     items = []
     for href, ja, en in NAV:
         here = ' aria-current="page"' if href == cur else ""
-        items.append(f'<li><a href="{href}"{here}>{ja}<span class="en" lang="en">{en}</span></a></li>')
+        items.append(f'<li><a href="{href}"{here}>{ja}</a></li>')
     return f'<ul class="{cls}">' + "".join(items) + "</ul>"
 
 
@@ -133,7 +133,7 @@ def head(name, p):
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Outfit:wght@300;400;500&family=Zen+Maru+Gothic:wght@500;700&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Klee+One:wght@400;600&family=Outfit:wght@300;400;500&family=Zen+Maru+Gothic:wght@500;700&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="assets/style.css">
 <script src="assets/main.js" defer></script>
 {ld}
@@ -170,7 +170,6 @@ def footer(lang):
     en = lang == "en"
     return f"""<section class="ft-cta" aria-labelledby="ft-cta-h">
   <div class="ft-cta-inner">
-    <p class="ft-cta-en" lang="en">Book a session</p>
     <h2 id="ft-cta-h">{'Take a slow breath, and come as you are.' if en else 'がまんする前に、<br class="sp">一度ご相談ください。'}</h2>
     <p>{'Comfortable clothes are provided. Online booking is open 24 hours.' if en else '着替えは院にあります。WEB予約は24時間受け付けています。'}</p>
     <div class="ft-cta-btns">
