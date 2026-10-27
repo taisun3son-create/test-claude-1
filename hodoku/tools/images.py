@@ -15,10 +15,11 @@ WIDTHS = (640, 1000, 1400)
 
 # 名前: (元ファイル, 横:縦, 切り抜く中心の位置 x, y（0〜1）[, 寄る割合])
 PHOTOS = {
-    # 最初の画面＝院の部屋（ぱくたその AI素材。人は写っていない部屋だけ）。
-    # 主役（ベッドと壁の光）は左寄り → 文字は右の空いた壁に置く。右端の暖房器は切り落とす
-    "hero": ("AIT854d335_TP_V.jpg", (3, 2), (0.44, 0.5)),
-    "hero-sp": ("AIT854d335_TP_V.jpg", (4, 3), (0.3, 0.55)),
+    # 最初の画面＝院の部屋（Pexels の本物の写真。窓から入る午後の光）。
+    # 写真は右半分に置き、文字は左の生成りの地に置く
+    "hero": ("pexels-14126667.jpg", (4, 5), (0.36, 0.55), 0.72),
+    # 右の壁の「階の案内板」は切り落とす
+    "hero-sp": ("pexels-14126667.jpg", (4, 3), (0.36, 0.4), 0.7),
     # 帰り道の海（江ノ島の海岸から富士山。辻堂の浜と同じ黒い砂）
     "fuji": ("N811_enoshimakaranofuji_TP_V.jpg", (4, 5), (0.5, 0.6)),
     "fuji-sp": ("N811_enoshimakaranofuji_TP_V.jpg", (4, 3), (0.5, 0.6)),
@@ -57,11 +58,17 @@ def crop(im, ratio, focus, zoom=1.0):
 
 
 # 白い部屋の写真は青白いので、サイトの生成り色になじむよう、ほかより強くあたためる
-WARM = {"hero", "hero-sp"}
+WARM = set()
 
 
-def tone(im, warm=False):
+# 暗い写真は先に明るくする（部屋の写真は日かげが暗すぎるので）
+BRIGHT = {"hero": 1.45, "hero-sp": 1.45}
+
+
+def tone(im, warm=False, bright=1.0):
     """色味をそろえる：彩度を少し落とし、ほんの少しだけあたたかく（撮影日のちがう写真をなじませる）。"""
+    if bright != 1.0:
+        im = im.point(lambda v: min(255, int(255 * (v / 255) ** (1 / bright))))
     im = ImageEnhance.Color(im).enhance(0.88)
     r, g, b = im.split()
     r = r.point(lambda v: min(255, int(v * 1.02 + 1)))
@@ -79,7 +86,7 @@ def main():
         if not (SRC / src).exists():  # 元写真が手元にないものは、今ある書き出しをそのまま使う
             print("とばしました（元写真がない）:", name)
             continue
-        im = tone(crop(Image.open(SRC / src).convert("RGB"), ratio, focus, *zoom), name in WARM)
+        im = tone(crop(Image.open(SRC / src).convert("RGB"), ratio, focus, *zoom), name in WARM, BRIGHT.get(name, 1.0))
         widths = [w for w in WIDTHS if w < im.width] + [min(im.width, WIDTHS[-1])]
         for w in sorted(set(widths)):
             h = round(im.height * w / im.width)
@@ -89,7 +96,7 @@ def main():
     # SNS用（1200×630）
     src = SRC / PHOTOS["hero"][0]
     if src.exists():
-        og = tone(crop(Image.open(src).convert("RGB"), (40, 21), (0.45, 0.55)), True).resize((1200, 630), Image.LANCZOS)
+        og = tone(crop(Image.open(src).convert("RGB"), (40, 21), (0.45, 0.45)), False, 1.45).resize((1200, 630), Image.LANCZOS)
         og.save(ROOT / "assets" / "og.jpg", quality=82, optimize=True)
     print("書き出しました:", len(PHOTOS), "枚")
 
