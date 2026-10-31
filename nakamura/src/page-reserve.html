@@ -1,0 +1,155 @@
+<div class="pg-hd">
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">トップ</a> ／ 予約・アクセス</p>
+    <h1>予約・アクセス</h1>
+    <p class="lead">WEBの予約フォームか、お電話で受け付けています。フォームは、院から確認の連絡をしたところで予約が決まります。</p>
+  </div>
+</div>
+
+<section class="sec" id="form" aria-labelledby="form-title">
+  <div class="wrap form-wrap">
+    <div>
+      <div class="sec-hd"><h2 id="form-title">WEBで予約する</h2><p>ご希望の日時を2つまで選べます。翌営業日までに、お電話かメールでご連絡します。</p></div>
+
+      <form class="form" id="rsv" novalidate>
+        <div class="field">
+          <label for="f-name">お名前<span class="req">必須</span></label>
+          <input type="text" id="f-name" name="name" autocomplete="name" required aria-describedby="e-name">
+          <p class="err" id="e-name">{{icon:circle-alert}}<span>お名前を入れてください。</span></p>
+        </div>
+        <div class="field">
+          <label for="f-kana">ふりがな<span class="req">必須</span></label>
+          <input type="text" id="f-kana" name="kana" required aria-describedby="e-kana">
+          <p class="err" id="e-kana">{{icon:circle-alert}}<span>ふりがなを、ひらがなで入れてください。</span></p>
+        </div>
+        <div class="field">
+          <label for="f-tel">電話番号<span class="req">必須</span></label>
+          <p class="hint" id="h-tel">予約の確認でお電話することがあります。</p>
+          <input type="tel" id="f-tel" name="tel" autocomplete="tel" inputmode="tel" placeholder="例）090-1234-5678" required aria-describedby="h-tel e-tel">
+          <p class="err" id="e-tel">{{icon:circle-alert}}<span>電話番号を数字で入れてください（ハイフンはなくても大丈夫です）。</span></p>
+        </div>
+        <div class="field">
+          <label for="f-mail">メールアドレス<span class="opt">任意</span></label>
+          <input type="email" id="f-mail" name="email" autocomplete="email" placeholder="例）nakamura@example.com" aria-describedby="e-mail">
+          <p class="err" id="e-mail">{{icon:circle-alert}}<span>メールアドレスの形が正しくありません。「@」が入っているか確かめてください。</span></p>
+        </div>
+
+        <fieldset class="field">
+          <legend>来られるのは<span class="req">必須</span></legend>
+          <div class="choices">
+            <label><input type="radio" name="visit" value="はじめて" checked>はじめて</label>
+            <label><input type="radio" name="visit" value="2回目から">2回目から</label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="f-menu">メニュー<span class="req">必須</span></label>
+          <select id="f-menu" name="menu" required>
+            <option value="はじめて（60分・{{PRICE_FIRST}}円）">はじめて（60分・{{PRICE_FIRST}}円）</option>
+            <option value="整体（40分・{{PRICE_REGULAR}}円）">整体（40分・{{PRICE_REGULAR}}円）</option>
+            <option value="産後の骨盤ケア（40分・4,950円）">産後の骨盤ケア（40分・4,950円）</option>
+            <option value="整体＋延長（60分・6,600円）">整体＋延長（60分・6,600円）</option>
+          </select>
+        </div>
+
+        <fieldset class="field">
+          <legend>担当<span class="req">必須</span></legend>
+          <div class="choices">
+            <label><input type="radio" name="staff" value="どちらでも" checked>どちらでも</label>
+            <label><input type="radio" name="staff" value="院長 中村">院長 中村</label>
+            <label><input type="radio" name="staff" value="森">森（月・火・木・土）</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>第1希望<span class="req">必須</span></legend>
+          <p class="hint" id="h-d1">日曜・祝日はお休みです。土曜は17時までです。</p>
+          <div class="wish">
+            <label class="vh" for="f-d1">第1希望の日</label>
+            <input type="date" id="f-d1" name="date1" required aria-describedby="h-d1 e-d1">
+            <label class="vh" for="f-t1">第1希望の時間</label>
+            <select id="f-t1" name="time1" required aria-describedby="e-d1"><option value="">時間を選ぶ</option></select>
+          </div>
+          <p class="err" id="e-d1">{{icon:circle-alert}}<span></span></p>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>第2希望<span class="opt">任意</span></legend>
+          <div class="wish">
+            <label class="vh" for="f-d2">第2希望の日</label>
+            <input type="date" id="f-d2" name="date2" aria-describedby="e-d2">
+            <label class="vh" for="f-t2">第2希望の時間</label>
+            <select id="f-t2" name="time2" aria-describedby="e-d2"><option value="">時間を選ぶ</option></select>
+          </div>
+          <p class="err" id="e-d2">{{icon:circle-alert}}<span></span></p>
+        </fieldset>
+
+        <div class="field">
+          <label for="f-msg">つらい所・伝えておきたいこと<span class="opt">任意</span></label>
+          <textarea id="f-msg" name="message" maxlength="800" placeholder="例）1か月前から右の腰が痛い。朝がいちばんつらい。"></textarea>
+        </div>
+
+        <div class="hp" aria-hidden="true"><label for="f-web">ホームページ</label><input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off"></div>
+
+        <div class="field">
+          <div class="choices"><label><input type="checkbox" id="f-agree" name="agree" required aria-describedby="e-agree"><span><a href="privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>に同意する</span></label></div>
+          <p class="err" id="e-agree">{{icon:circle-alert}}<span>プライバシーポリシーをお読みのうえ、チェックを入れてください。</span></p>
+        </div>
+
+        <div class="form-acts">
+          <button class="btn btn-main" type="submit">入力内容を確認する{{icon:arrow-right}}</button>
+          <p class="hint">次の画面で、送る前に内容を確かめられます。</p>
+        </div>
+      </form>
+
+      <div class="confirm" id="rsv-confirm" hidden tabindex="-1" aria-labelledby="confirm-title">
+        <h2 id="confirm-title" class="vh">入力内容の確認</h2>
+        <p><b>この内容で送ります。よろしいですか？</b></p>
+        <dl id="confirm-list"></dl>
+        <div class="row-acts">
+          <button class="btn btn-main" type="button" id="rsv-send">この内容で送る{{icon:arrow-right}}</button>
+          <button class="btn btn-line" type="button" id="rsv-back">入力にもどる</button>
+        </div>
+      </div>
+
+      <div class="done" id="rsv-done" hidden tabindex="-1">
+        <h2>{{icon:circle-check}}予約のお申し込みを受け付けました</h2>
+        <p>まだ予約は決まっていません。翌営業日までに、院からお電話かメールで日時をご連絡します。</p>
+        <p>2日たっても連絡がないときは、お手数ですが <a href="{{TEL_HREF}}">{{TEL}}</a> にお電話ください。</p>
+        <p class="hint">（見本のサイトなので、実際には送られていません）</p>
+      </div>
+    </div>
+
+    <aside class="side-box" aria-label="お電話での予約">
+      <div class="box">
+        <h3>お電話での予約</h3>
+        <a class="tel-big" href="{{TEL_HREF}}">{{icon:phone}}{{TEL}}</a>
+        <p class="hint">受付 平日 {{HOURS_WEEK}}／土曜 {{HOURS_SAT}}<br>施術中は出られないことがあります。折り返しお電話します。</p>
+      </div>
+      <div class="box">
+        <h3>当日・翌日のご予約</h3>
+        <p class="hint">フォームだと間に合わないことがあるので、お電話がおすすめです。</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="sec" id="access" aria-labelledby="access-title">
+  <div class="wrap">
+    <div class="sec-hd"><h2 id="access-title">行き方</h2></div>
+    <div class="access">
+      <dl class="access-info">
+        <div><dt>{{icon:map-pin}}住所</dt><dd>{{AREA}}<br><small>（見本のため、町の名前までにしています）</small></dd></div>
+        <div><dt>{{icon:train-front}}電車</dt><dd>{{ACCESS}}。<br>東口を出て、商店街をまっすぐ2分。薬局の2つ先、1階のガラス戸です。</dd></div>
+        <div><dt>{{icon:car}}車</dt><dd>{{PARKING}}（院の前、「なかむら整体院」の札がある所）。<br>いっぱいのときは、となりのコインパーキング（歩いて1分）をご利用ください。</dd></div>
+        <div><dt>{{icon:clock}}受付</dt><dd>平日 {{HOURS_WEEK}}／土曜 {{HOURS_SAT}}<br>休み {{CLOSED}}</dd></div>
+      </dl>
+      <div class="box">
+        <h3>地図</h3>
+        <p>地図アプリで「岡町駅」を開き、東口から商店街へ向かってください。</p>
+        <p><a class="link-arrow" href="https://www.google.com/maps/search/?api=1&amp;query=%E5%B2%A1%E7%94%BA%E9%A7%85" target="_blank" rel="noopener">Googleマップで岡町駅を開く{{icon:arrow-right}}</a></p>
+        <p class="hint">本当のお店のサイトでは、ここに院の場所の地図を入れます。</p>
+      </div>
+    </div>
+  </div>
+</section>
